@@ -38,19 +38,25 @@
                     android:backgroundTint="#731717"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ingresar_producto"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp" />
                 <ImageButton
                     android:id="@+id/imageButton5"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
                     android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
                 <ImageButton
                     android:id="@+id/imageButton6"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
                     android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
 
 
@@ -73,25 +79,31 @@
                     android:text="Contenido de la segunda columna"
                     android:textSize="18sp" />
                 <ImageButton
-                    android:id="@+id/imageButton1"
+                    android:id="@+id/imbtnoperacionrealizada"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
                     android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
                     android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageButton
                     android:id="@+id/imageButton3"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
                     android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"/>
+                    android:background="@drawable/esquinas_curvas"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
 
                 <!-- Otros elementos de la segunda columna aquí -->

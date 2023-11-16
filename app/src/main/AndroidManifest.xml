@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".operacion_realizada"
+            android:exported="false" />
+        <activity
+            android:name=".agregar_operacion"
+            android:exported="false" />
+        <activity
+            android:name=".mostrar_agregar_subparte"
+            android:exported="false" />
+        <activity
             android:name=".agregarProducto"
             android:exported="false" />
         <activity

@@ -5,33 +5,25 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextTextagregarproducto"
+        android:id="@+id/mosagre_escribirsubpart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="nombre del producto"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"/>
-    <EditText
-        android:id="@+id/editTextprecio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:hint="digite el precio "
-        android:layout_below="@id/editTextTextagregarproducto"
+        android:hint="Subparte"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"/>
 
+
+
     <Button
-        android:id="@+id/registrarproductos"
+        android:id="@+id/ma_subparte_agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextprecio"
+        android:layout_below="@id/mosagre_escribirsubpart"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:text="Registrar producto"
+        android:text="Agregar subparte"
         android:layout_alignParentEnd="true"
         android:textColor="#FFCE17"
         android:textSize="20dp"
@@ -41,7 +33,7 @@
         android:id="@+id/recyclerViewProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/registrarproductos"
+        android:layout_below="@id/ma_subparte_agregar"
         android:layout_marginTop="16dp"
         android:visibility="visible"/>
 
