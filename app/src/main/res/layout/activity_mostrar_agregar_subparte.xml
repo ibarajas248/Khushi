@@ -30,7 +30,7 @@
         android:backgroundTint="#011336"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProductos"
+        android:id="@+id/recyclerViewSubParte"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ma_subparte_agregar"

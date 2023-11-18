@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.AdaptadoresRecycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.khushi.R;
+import com.example.khushi.clasesinfo.nuevoProducto;
+
 import java.util.ArrayList;
 
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos>implements View.OnClickListener {
 
-    ArrayList<String> listDatos;
+    ArrayList<nuevoProducto> listDatos;
     private View.OnClickListener listener;
 
-    public AdapterDatos(ArrayList<String> listDatos) {
+    public AdapterDatos(ArrayList<nuevoProducto> listDatos) {
         this.listDatos = listDatos;
     }
 
@@ -32,7 +35,11 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
 
-        holder.asignarDatos(listDatos.get(position));
+
+        holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
+        holder.producto.setText(listDatos.get(position).getProducto());
+        holder.precio.setText(String.valueOf(listDatos.get(position).getPrecio()));
+
 
     }
 
@@ -47,6 +54,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
     }
 
+
     @Override
     public void onClick(View view) {
         if (listener!=null){
@@ -57,15 +65,16 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
 
-        TextView dato;
+        TextView id_producto,producto,precio;
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
             //hago referencia a los datos que le llegan
-            dato= itemView.findViewById(R.id.idDato);
+            id_producto= itemView.findViewById(R.id.idproducto);
+            producto=itemView.findViewById(R.id.producto);
+            precio=itemView.findViewById(R.id.precioProducto);
+
         }
 
-        public void asignarDatos(String datos) {
-            dato.setText(datos);
-        }
+
     }
 }

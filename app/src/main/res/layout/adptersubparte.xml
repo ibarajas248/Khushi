@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/idproducto"
+        android:id="@+id/idsubparte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID:"
@@ -20,25 +20,25 @@
         android:layout_alignParentTop="true"/>
 
     <TextView
-        android:id="@+id/producto"
+        android:id="@+id/subparte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre del Producto"
+        android:text="Subparte"
         android:textColor="#333"
         android:textSize="16sp"
-        android:layout_toEndOf="@id/idproducto"
+        android:layout_toEndOf="@id/idsubparte"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"/>
 
     <TextView
-        android:id="@+id/precioProducto"
+        android:id="@+id/idproducto_subparte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Precio"
+        android:text="ID Producto"
         android:textColor="#666"
         android:textSize="14sp"
-        android:layout_below="@id/producto"
-        android:layout_toEndOf="@id/idproducto"
+        android:layout_below="@id/subparte"
+        android:layout_toEndOf="@id/subparte"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"/>
 
