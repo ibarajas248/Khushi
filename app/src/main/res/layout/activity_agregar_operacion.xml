@@ -1,98 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    tools:context=".Home">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/idproducto_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID:"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#1976D2" />
-
-            <!-- Agregar más TextViews para los nuevos campos -->
-            <TextView
-                android:id="@+id/id_operacion_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID Operación"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#2196F3" />
-
-            <TextView
-                android:id="@+id/nombre_operacion_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre Operación"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#1E88E5" />
-
-            <TextView
-                android:id="@+id/id_subparte_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID Subparte"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#1976D2" />
-
-            <TextView
-                android:id="@+id/id_producto_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID Producto"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#2196F3" />
-
-            <TextView
-                android:id="@+id/cantidad_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cantidad"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#1E88E5" />
-
-            <TextView
-                android:id="@+id/maquina_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Máquina"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:background="#1976D2" />
-
-            <!-- Agregar más TextViews para los nuevos campos -->
-
-        </TableRow>
-    </TableLayout>
-</HorizontalScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
