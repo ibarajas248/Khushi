@@ -34,6 +34,7 @@ public class AdapterSubParte extends RecyclerView.Adapter<AdapterSubParte.ViewHo
     @Override
     public AdapterSubParte.ViewHoldersubparte onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adptersubparte,null,false);
+
         view.setOnClickListener(this);
 
         return new ViewHoldersubparte(view);

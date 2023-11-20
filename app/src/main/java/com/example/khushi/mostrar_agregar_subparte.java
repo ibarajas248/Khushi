@@ -117,6 +117,12 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                        //acciones para el click
+
+                        Intent intent= new Intent(mostrar_agregar_subparte.this, agregar_operacion.class);
+                        intent.putExtra("id_producto",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_producto()));
+                        intent.putExtra("id_subparte",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_subparte()));
+
+                        startActivity(intent);
                     }
                 });
 
