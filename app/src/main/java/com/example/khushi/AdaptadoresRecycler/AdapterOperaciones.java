@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevaOperacion;
-import com.example.khushi.clasesinfo.nuevoProducto;
 
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class AdapterOperaciones extends RecyclerView.Adapter<AdapterOperaciones.
     @NonNull
     @Override
     public AdapterOperaciones.ViewHolderOperaciones onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_operaciones,null,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_operaciones,null,false);
         view.setOnClickListener(this);
         return new ViewHolderOperaciones(view);
     }

@@ -1,10 +1,13 @@
 package com.example.khushi.clasesinfo;
 
+import android.widget.Button;
+
 public class nuevaOperacion extends nuevaSubParte {
 
     private int id_operacion;
     private float cantidad;
     private String nombreOperacion, maquina;
+
 
 
     public nuevaOperacion(int id_subparte, int id_producto, int id_operacion, float cantidad, String nombreOperacion, String maquina) {

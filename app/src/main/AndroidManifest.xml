@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ordenDeCompra"
+            android:exported="false" />
+        <activity
             android:name=".operacion_realizada"
             android:exported="false" />
         <activity
@@ -36,10 +39,10 @@
             android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".validacionContrasenaAvtivity"
+            android:name=".login.validacionContrasenaAvtivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".login.RegistroActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

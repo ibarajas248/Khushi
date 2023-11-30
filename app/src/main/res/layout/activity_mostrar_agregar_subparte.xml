@@ -32,9 +32,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSubParte"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="211dp"
         android:layout_below="@id/ma_subparte_agregar"
         android:layout_marginTop="16dp"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        />
+
+    <Button
+        android:id="@+id/boton_modificar_subparte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewSubParte"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:text="Modificar subparte"
+        android:layout_alignParentEnd="true"
+        android:textColor="#FFCE17"
+        android:textSize="20dp"
+        android:backgroundTint="#011336"
+        android:visibility="gone"/>
+
 
 </RelativeLayout>

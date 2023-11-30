@@ -3,6 +3,10 @@ plugins {
 }
 
 android {
+
+
+
+
     namespace = "com.example.khushi"
     compileSdk = 34
 

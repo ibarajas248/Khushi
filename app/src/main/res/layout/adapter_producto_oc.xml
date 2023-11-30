@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/id_producto_oc"
+        android:layout_width="53dp"
+        android:layout_height="40dp"
+        android:background="#1976D2"
+        android:padding="8dp"
+        android:text="ID:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Agregar más TextViews para los nuevos campos -->
+    <TextView
+        android:id="@+id/id_oc_producto_oc"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#2196F3" />
+
+    <TextView
+        android:id="@+id/id_producto_producto_oc"
+        android:layout_width="500dp"
+        android:layout_height="40dp"
+        android:text="Nombre Operación"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1E88E5" />
+
+    <TextView
+        android:id="@+id/ordenCompra_p_oc"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:text="ID Subparte"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2" />
+
+
+    <TextView
+        android:id="@+id/producto_p_oc"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:text="Cantidad"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1E88E5" />
+
+    <TextView
+        android:id="@+id/lotes_producto_oc"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:text="Máquina"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2" />
+    <TextView
+        android:id="@+id/cantidadProductos"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:text="cantidad productos"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2" />
+
+    <!-- Agregar más TextViews para los nuevos campos -->
+
+</LinearLayout>

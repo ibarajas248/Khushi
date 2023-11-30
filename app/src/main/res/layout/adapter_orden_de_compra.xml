@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-
-    >
-
-
+    android:background="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/idsubparte"
+        android:id="@+id/idOC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID:"
@@ -26,27 +21,15 @@
         android:layout_alignParentTop="true"/>
 
     <TextView
-        android:id="@+id/subparte"
+        android:id="@+id/orden_de_compra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subparte"
+        android:text="Nombre del Producto"
         android:textColor="#333"
         android:textSize="16sp"
-        android:layout_toEndOf="@id/idsubparte"
+        android:layout_toEndOf="@id/idOC"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/idproducto_subparte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID Producto"
-        android:textColor="#666"
-        android:textSize="14sp"
-        android:layout_below="@id/subparte"
-        android:layout_toEndOf="@id/subparte"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"/>
 
 </RelativeLayout>
-

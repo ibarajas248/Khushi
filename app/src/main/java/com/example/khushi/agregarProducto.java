@@ -36,16 +36,19 @@ import java.util.Map;
 public class agregarProducto extends AppCompatActivity {
 
     private boolean isMethodRunning = true;
+
+    private boolean visibilidadModificar= false;
     ArrayList<nuevoProducto> listDatos;
     RecyclerView recycler;
     RequestQueue queue;
     EditText producto;
-    Button registrarProducto;
+    Button registrarProducto, modificarProducto;
     EditText precio;
     private Handler handler = new Handler();
     private Runnable runnable;
 
     boolean validacion = false;
+    int idProducto;
 
 
     @Override
@@ -55,12 +58,23 @@ public class agregarProducto extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerViewProductos);
         producto=(EditText)findViewById(R.id.editTextTextagregarproducto);
         registrarProducto=(Button)findViewById(R.id.registrarproductos);
+        modificarProducto=(Button)findViewById(R.id.boton_modificarproducto);
+
         precio=(EditText)findViewById(R.id.editTextprecio);
 
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listDatos = new ArrayList<nuevoProducto>();
         queue = Volley.newRequestQueue(this);
         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
+
+        modificarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agregarproducto("http://khushiconfecciones.com//app_khushi/editar_producto.php");
+
+
+            }
+        });
 
         registrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +130,20 @@ public class agregarProducto extends AppCompatActivity {
                             intent.putExtra("id_producto",String.valueOf(listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto()));
                             startActivity(intent);
                         }
-
                 });
+                adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {
+                    @Override
+                    public void onItemLongClick(nuevoProducto p) {
+
+                        precio.setText(String.valueOf(p.getPrecio()));
+                        producto.setText(p.getProducto());
+                        idProducto=p.getId_producto();
+                        modificarProducto.setVisibility(View.VISIBLE);
+                        visibilidadModificar=true;
+
+                    }
+                });
+
 
                 recycler.setAdapter(adapter123);
             }
@@ -166,26 +192,16 @@ public class agregarProducto extends AppCompatActivity {
 
 
 
-/*
-                Intent intent = getIntent();
-                idpersona = intent.getStringExtra("idpersona");
-                nombre = intent.getStringExtra("nombre");
-                apellidos = intent.getStringExtra("apellidos");
-                correo = intent.getStringExtra("correo");
-                telefono = intent.getStringExtra("telefono");
-                celular = intent.getStringExtra("celular");
-                EPS = intent.getStringExtra("EPS");
-                anio_vinculacion = intent.getStringExtra("anio_vinculacion");
-                Rol=intent.getStringExtra("Rol");*/
+
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
                 parametros.put("id_producto", String.valueOf(generarid()));
                 parametros.put("producto",producto.getText().toString());
                 parametros.put("precio",precio.getText().toString());
-
-
-
+                if (visibilidadModificar=true){
+                    parametros.put("id_producto",String.valueOf(idProducto));
+                }
 
 
                 return parametros;
@@ -248,16 +264,7 @@ public class agregarProducto extends AppCompatActivity {
 
 
 
-    public static String padRight(String s, int n) {
-        String palabra = s;
-        // Crear una variable String inicializada con s
-        for (int i = 0; i < n; i++) {
-            if (i >= s.length()) {
-                palabra = palabra + " ";
-            }
-        }
-        return palabra;
-    }
+
 
 
 }

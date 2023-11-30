@@ -34,14 +34,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class mostrar_agregar_subparte extends AppCompatActivity {
+
+    private boolean visibilidadModificar= false;
     private String idproducto;
     ArrayList<nuevaSubParte> listsubparte;
     private EditText subparte;
-    private Button registrarSubproducto;
+    private Button registrarSubproducto, btnModificarSubparte;
     RecyclerView recycler;
     RequestQueue queue;
     boolean validacion = false;
     private Handler handler = new Handler();
+    private int id_subparte;
 
 
 
@@ -53,6 +56,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
         subparte=(EditText)findViewById(R.id.mosagre_escribirsubpart);
         registrarSubproducto=(Button)findViewById(R.id.ma_subparte_agregar);
+        btnModificarSubparte=(Button)findViewById(R.id.boton_modificar_subparte);
 
         recycler = findViewById(R.id.recyclerViewSubParte);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -63,6 +67,13 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         listsubparte= new ArrayList<nuevaSubParte>();
         queue = Volley.newRequestQueue(this);
         agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
+
+        btnModificarSubparte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            agregarSubparte("http://khushiconfecciones.com//app_khushi/editar_subparte.php");
+            }
+        });
 
         registrarSubproducto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,10 +130,27 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                        //acciones para el click
 
                         Intent intent= new Intent(mostrar_agregar_subparte.this, agregar_operacion.class);
-                        intent.putExtra("id_producto",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_producto()));
+                        intent.putExtra("id_producto",idproducto);
                         intent.putExtra("id_subparte",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_subparte()));
-
                         startActivity(intent);
+                    }
+                });
+
+                adapter123.setOnItemLongClickListener(new AdapterSubParte.OnItemLongClickListener() {
+                    @Override
+                    public void onItemLongClick(nuevaSubParte s) {
+
+                        subparte.setText(s.getSubparte());
+                        idproducto=String.valueOf(s.getId_producto());
+                        id_subparte=s.getId_subparte();
+
+                        btnModificarSubparte.setVisibility(View.VISIBLE);
+                        visibilidadModificar=true;
+                        registrarSubproducto.setVisibility(View.GONE);
+
+                        //Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+" "+String.valueOf(id_subparte)+" "+idproducto, Toast.LENGTH_SHORT).show();
+
+
                     }
                 });
 
@@ -173,7 +201,15 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 Map<String, String> parametros= new HashMap<String, String>();
                 parametros.put("id_producto", idproducto);
                 parametros.put("subparte", subparte.getText().toString());
-                parametros.put("id_subparte",String.valueOf(generarid()));
+
+
+                if (visibilidadModificar=true){
+                    parametros.put("id_subparte",String.valueOf(id_subparte));
+                }else{
+                    parametros.put("id_subparte",String.valueOf(generarid()));
+                }
+
+
 
 
 

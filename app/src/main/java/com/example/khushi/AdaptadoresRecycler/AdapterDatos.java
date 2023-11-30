@@ -17,7 +17,16 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
     ArrayList<nuevoProducto> listDatos;
     private View.OnClickListener listener;
+    private OnItemLongClickListener itemLongClickListener;
 
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(nuevoProducto producto);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.itemLongClickListener = listener;
+    }
     public AdapterDatos(ArrayList<nuevoProducto> listDatos) {
         this.listDatos = listDatos;
     }
@@ -25,7 +34,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     @NonNull
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,null,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto,null,false);
         // escucha el evento de seleccion
         view.setOnClickListener(this);
         return new ViewHolderDatos(view);
@@ -39,6 +48,16 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
         holder.producto.setText(listDatos.get(position).getProducto());
         holder.precio.setText(String.valueOf(listDatos.get(position).getPrecio()));
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (itemLongClickListener != null) {
+                    itemLongClickListener.onItemLongClick(listDatos.get(position));
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
     }
@@ -53,7 +72,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
 
     }
-
 
     @Override
     public void onClick(View view) {
@@ -72,6 +90,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             id_producto= itemView.findViewById(R.id.idproducto);
             producto=itemView.findViewById(R.id.producto);
             precio=itemView.findViewById(R.id.precioProducto);
+
 
         }
 

@@ -1,8 +1,7 @@
-package com.example.khushi;
+package com.example.khushi.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +18,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.khushi.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.HashMap;
@@ -93,7 +98,12 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
                 edtcontrasena1= (EditText) findViewById(R.id.contrasena1validacion);
                 edtcontrasena2= (EditText) findViewById(R.id.contrasena2validacion);
                 if (edtcontrasena1.getText().toString().equals(edtcontrasena2.getText().toString())){
-                    contrasenia=encryptPassword(edtcontrasena1.getText().toString());
+                    try {
+                        contrasenia= URLEncoder.encode(encryptPassword(edtcontrasena1.getText().toString()),"UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
 
                 buscaruservalidacion("http://khushiconfecciones.com//app_khushi/buscar_usuario.php"+(user));
@@ -219,21 +229,24 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
     }
     private String encryptPassword(String password) {
         try {
-            byte[] salt = getSalt();
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            byte[] hash = factory.generateSecret(spec).getEncoded();
-            SecretKeySpec secretKey = new SecretKeySpec(hash, "AES");
-            return Base64.getEncoder().encodeToString(secretKey.getEncoded());
-        } catch (Exception e) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return bytesToHex(hash);
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
         }
     }
-    private byte[] getSalt() {
-        return new byte[16];
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte aByte : bytes) {
+            result.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+        }
+        return result.toString();
     }
 
-
-
 }
+
+
+
