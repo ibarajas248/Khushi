@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,8 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.AdapterSubParte;
+import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevaSubParte;
 
 import org.json.JSONArray;
@@ -129,7 +129,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                     public void onClick(View v) {
                        //acciones para el click
 
-                        Intent intent= new Intent(mostrar_agregar_subparte.this, agregar_operacion.class);
+                        Intent intent= new Intent(mostrar_agregar_subparte.this, Agregar_operaciones_a_producto.class);
                         intent.putExtra("id_producto",idproducto);
                         intent.putExtra("id_subparte",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_subparte()));
                         startActivity(intent);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,8 +52,8 @@
             android:layout_width="218dp"
             android:layout_height="51dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="#011336"
             android:text="Registrarme"
+            android:backgroundTint="#011336"
             android:textColor="#FFCE17"
             android:textSize="20sp" />
 

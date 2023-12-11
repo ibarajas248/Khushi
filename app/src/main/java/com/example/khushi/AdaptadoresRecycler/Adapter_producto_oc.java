@@ -37,8 +37,8 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
         holder.id_producto.setText(String.valueOf(listoperaciones_oc.get(position).getIdProducto()));
         holder.ordenCompra.setText(listoperaciones_oc.get(position).getOrdendeCompra());
         holder.producto.setText(listoperaciones_oc.get(position).getProducto());
-        holder.lotes.setText(listoperaciones_oc.get(position).getLotes());
-        holder.cantidadDeProductos.setText(listoperaciones_oc.get(position).getCantidad_de_productos());
+        holder.lotes.setText(String.valueOf(listoperaciones_oc.get(position).getLotes()));
+        holder.cantidadDeProductos.setText(String.valueOf(listoperaciones_oc.get(position).getCantidad_de_productos()));
 
     }
     @Override
@@ -47,7 +47,9 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
     }
 
 
-
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
     @Override
     public void onClick(View v) {
         if (listener!=null){

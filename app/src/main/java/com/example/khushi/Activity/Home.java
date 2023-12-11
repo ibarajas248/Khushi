@@ -1,12 +1,13 @@
-package com.example.khushi;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.khushi.R;
 
 public class Home extends AppCompatActivity {
     ImageButton btnagregarproducto,btnagregaroperacionempleado,agregaroc;
@@ -25,6 +26,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent= new Intent(Home.this, agregarProducto.class);
                 startActivity(intent);
+
+
             }
         });
         btnagregaroperacionempleado.setOnClickListener(new View.OnClickListener() {

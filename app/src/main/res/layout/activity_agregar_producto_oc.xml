@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ordenDeCompra">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+
+        <Spinner
+            android:id="@+id/spinnerselecproducto"
+            android:layout_width="wrap_content"
+            android:padding="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+        <EditText
+            android:id="@+id/editTextnumero_lotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="escriba cantidad de lotes"
+            android:layout_marginBottom="16dp"
+            android:background="#EFE1AD"
+            android:ems="10"
+            android:padding="12dp"
+            android:inputType="number" />
+        <EditText
+            android:id="@+id/editTextnumero_productos"
+            android:background="#EFE1AD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="escriba cantidad de productos"
+            android:ems="10"
+            android:inputType="number"
+            android:padding="12dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="25dp">
+
+            <Button
+                android:id="@+id/btnasignar_boton_a_oc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#011336"
+                android:text="Agregar asignar producto a oc "
+                android:textColor="#FFCE17"
+                android:textSize="16sp"
+
+                />
+        </LinearLayout>
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="446dp"
+            android:background="#D8CDA8">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerproducto_ordedecompra"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/btneditar_OC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Editar OC"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

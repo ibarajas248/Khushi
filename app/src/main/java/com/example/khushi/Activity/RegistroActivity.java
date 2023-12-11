@@ -1,4 +1,4 @@
-package com.example.khushi.login;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

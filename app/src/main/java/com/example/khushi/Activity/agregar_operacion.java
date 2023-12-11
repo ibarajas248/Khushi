@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,12 +24,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.AdapterOperaciones;
-import com.example.khushi.AdaptadoresRecycler.AdapterSubParte;
+import com.example.khushi.R;
+import com.example.khushi.clasesinfo.Usuario;
 import com.example.khushi.clasesinfo.nuevaOperacion;
-import com.example.khushi.clasesinfo.nuevaSubParte;
-import com.example.khushi.clasesinfo.nuevoProducto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -237,6 +235,7 @@ public class agregar_operacion extends AppCompatActivity {
                 parametros.put("operaciones",nombreOperacion.getText().toString());
                 parametros.put("maquina", maquina.getSelectedItem().toString());
                 parametros.put("cantidad", cantidad.getText().toString());
+
                 if (visibilidadModificar=true){
                     parametros.put("id_operaciones",String.valueOf(idoperacionGlobal));
                 }

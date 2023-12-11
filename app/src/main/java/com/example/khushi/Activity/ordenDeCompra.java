@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.AdapterOC;
 import com.example.khushi.R;
-import com.example.khushi.clasesinfo.nuevoProducto;
 import com.example.khushi.clasesinfo.ordenDeCompraclase;
 
 import org.json.JSONArray;
@@ -134,7 +132,13 @@ public class ordenDeCompra extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(ordenDeCompra.this, String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getIdOrdenCompra()), Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(ordenDeCompra.this, agregar_producto_oc.class);
+
+                        intent.putExtra("id_oc",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getIdOrdenCompra()));
+                        intent.putExtra("orden_de_compra",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getOrdendeCompra()));
+                        startActivity(intent);
+
+
 
                     }
                 });
@@ -149,6 +153,7 @@ public class ordenDeCompra extends AppCompatActivity {
                         nuevaOC= new ordenDeCompraclase(OC.getIdOrdenCompra(),OC.getOrdendeCompra());
                         botonEditarOc.setVisibility(View.VISIBLE);
                         visibilidadModificar=true;
+                        botonagregaroc.setVisibility(View.GONE);
                         //Toast.makeText(ordenDeCompra.this, nuevaOC.getIdOrdenCompra()+nuevaOC.getOrdendeCompra(), Toast.LENGTH_SHORT).show();
 
 
@@ -221,7 +226,7 @@ public class ordenDeCompra extends AppCompatActivity {
 
 
 
-                if (visibilidadModificar=true){
+                if (visibilidadModificar==true){
                     parametros.put("idOrdenCompra",String.valueOf(nuevaOC.getIdOrdenCompra()));
                 }
 

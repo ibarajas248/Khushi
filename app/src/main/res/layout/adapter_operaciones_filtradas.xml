@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <LinearLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="53dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="#2196F3" />
+
     <TextView
-        android:id="@+id/id_producto_oc"
+        android:id="@+id/id_producto_filtro"
         android:layout_width="53dp"
         android:layout_height="40dp"
         android:background="#1976D2"
         android:padding="8dp"
-        android:text="ID:"
+        android:text="id_producto"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <!-- Agregar más TextViews para los nuevos campos -->
     <TextView
-        android:id="@+id/id_oc_producto_oc"
+        android:id="@+id/producto_filtrado"
         android:layout_width="53dp"
         android:layout_height="40dp"
-        android:text=""
+        android:text="producto"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -30,7 +38,7 @@
         android:background="#2196F3" />
 
     <TextView
-        android:id="@+id/id_producto_producto_oc"
+        android:id="@+id/id_subparte_filtrado"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:text="Nombre Operación"
@@ -41,7 +49,7 @@
         android:background="#1E88E5" />
 
     <TextView
-        android:id="@+id/ordenCompra_p_oc"
+        android:id="@+id/subparte_filtrado"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="orden de compra"
@@ -53,7 +61,7 @@
 
 
     <TextView
-        android:id="@+id/producto_p_oc"
+        android:id="@+id/id_operaciones_filtrado"
         android:layout_width="400dp"
         android:layout_height="40dp"
         android:text="producto"
@@ -64,7 +72,7 @@
         android:background="#1E88E5" />
 
     <TextView
-        android:id="@+id/lotes_producto_oc"
+        android:id="@+id/operaciones_filtrado"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:text="Máquina"
@@ -74,7 +82,7 @@
         android:padding="8dp"
         android:background="#1976D2" />
     <TextView
-        android:id="@+id/cantidadProductos"
+        android:id="@+id/cantidadoperacion_filtrado"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:text="cantidad productos"
@@ -84,6 +92,29 @@
         android:padding="8dp"
         android:background="#1976D2" />
 
+    <TextView
+        android:id="@+id/maquina_filtrado"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="#1976D2"
+        android:padding="8dp"
+        android:text="cantidad productos"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/precio_filtrado"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="#1976D2"
+        android:padding="8dp"
+        android:text="cantidad productos"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 
     <!-- Agregar más TextViews para los nuevos campos -->

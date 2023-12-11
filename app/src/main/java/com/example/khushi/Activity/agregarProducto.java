@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
+import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevoProducto;
 
 import org.json.JSONArray;
@@ -199,7 +199,7 @@ public class agregarProducto extends AppCompatActivity {
                 parametros.put("id_producto", String.valueOf(generarid()));
                 parametros.put("producto",producto.getText().toString());
                 parametros.put("precio",precio.getText().toString());
-                if (visibilidadModificar=true){
+                if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
                 }
 

@@ -1,58 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ordenDeCompra">
+    android:background="#FFFFFF"
+    tools:context=".Activity.ordenDeCompra">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
 
         <EditText
             android:id="@+id/edt_orden_de_compra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="#EFE1AD"
             android:ems="10"
             android:hint="Orden de compra"
             android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#000000" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerordedecompra"
+            android:layout_width="match_parent"
+            android:layout_height="314dp"
+            android:background="#FFFFFF"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
-        <Button
-            android:id="@+id/buttonagregaroc"
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar OC"
-            />
+            android:gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="446dp"
-            android:background="#D8CDA8">
-
-            <LinearLayout
+            <Button
+                android:id="@+id/btneditar_OC"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:text="Editar OC"
+                android:backgroundTint="#011336"
+                android:textColor="#FFCE17"
+                android:textSize="17sp"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp" />
 
+            <Button
+                android:id="@+id/buttonagregaroc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar OC"
+                android:backgroundTint="#011336"
+                android:textColor="#FFCE17"
+                android:textSize="17sp"
+                style="?android:attr/buttonBarButtonStyle" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerordedecompra"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/btneditar_OC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar OC"
-            android:visibility="gone"/>
-
-
+        </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

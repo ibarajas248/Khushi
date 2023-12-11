@@ -47,6 +47,17 @@ public class AdapterOC extends RecyclerView.Adapter<AdapterOC.ViewHolderDatos> i
     public void onBindViewHolder(@NonNull AdapterOC.ViewHolderDatos holder, int position) {
         holder.idOC.setText(String.valueOf(listOC.get(position).getIdOrdenCompra()));
         holder.ordenCompra.setText(String.valueOf(listOC.get(position).getOrdendeCompra()));
+        if (position % 2 == 0) {
+            // Para posiciones pares, cambia el color de fondo o el color del texto
+            holder.itemView.setBackgroundColor(0xFFCCCCCC);
+
+                    holder.ordenCompra.setTextColor(0xFF000000);
+        } else {
+            // Para posiciones impares, otro color diferente
+            holder.itemView.setBackgroundColor(0xFFFFFFFF);
+                    // o
+                    holder.ordenCompra.setTextColor(0xFF000000);
+        };
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

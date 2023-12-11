@@ -1,4 +1,4 @@
-package com.example.khushi;
+package com.example.khushi.clasesinfo;
 
 public class Usuario {
     private int id_empleado,fijo, celular,anioVinculacion;
