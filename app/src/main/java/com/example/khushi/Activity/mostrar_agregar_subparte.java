@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.AdapterSubParte;
@@ -44,7 +45,9 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     RequestQueue queue;
     boolean validacion = false;
     private Handler handler = new Handler();
-    private int id_subparte;
+    private int id_subparte,id_subparte_para_comparar;
+    Object lock = new Object();
+
 
 
 
@@ -72,6 +75,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             agregarSubparte("http://khushiconfecciones.com//app_khushi/editar_subparte.php");
+
             }
         });
 
@@ -79,12 +83,26 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 agregarSubparte("http://khushiconfecciones.com//app_khushi/agregar_subparte.php");
+                obtenerUltimaSubparte();
+
+
+                id_subparte_para_comparar=id_subparte;
+
+                while (id_subparte_para_comparar==id_subparte) {
+                    obtenerUltimaSubparte();
+                    }
+
+
+
                 listsubparte.clear(); // Limpiar la lista existente
+
+
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         listsubparte.clear(); // Limpiar la lista existente
-                        agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
+
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
             }
@@ -178,6 +196,12 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 Log.d("Response", response);
                 Toast.makeText(mostrar_agregar_subparte.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
 
+
+
+
+
+
+
             }
         }, new Response.ErrorListener() {
 
@@ -199,21 +223,15 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("id_producto", idproducto);
+                //parametros.put("id", idproducto);
                 parametros.put("subparte", subparte.getText().toString());
 
-
+                /*
                 if (visibilidadModificar=true){
                     parametros.put("id_subparte",String.valueOf(id_subparte));
                 }else{
                     parametros.put("id_subparte",String.valueOf(generarid()));
-                }
-
-
-
-
-
-
+                }*/
 
 
                 return parametros;
@@ -274,5 +292,100 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    private void obtenerUltimaSubparte() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://khushiconfecciones.com//app_khushi/ultimo_id_subparte.php"; // Reemplaza con tu URL
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Busca el último registro y asigna el id
+                            id_subparte = Integer.parseInt(response.getString("id"));
+                            //Toast.makeText(mostrar_agregar_subparte.this, "hola"+id_subparte, Toast.LENGTH_SHORT).show();
+
+
+                            //asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud
+                    }
+                });
+
+
+        queue.add(jsonObjectRequest);
+
+
+
+    }
+    private void  asociarProductoSubparte (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", response);
+                Toast.makeText(mostrar_agregar_subparte.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(mostrar_agregar_subparte.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error en la solicitud: " + error.toString());
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                //parametros.put("id", idproducto);
+                parametros.put("subparte", subparte.getText().toString());
+                parametros.put("id_producto", idproducto);
+                parametros.put("id_subparte", String.valueOf(id_subparte));
+
+                /*
+                if (visibilidadModificar=true){
+                    parametros.put("id_subparte",String.valueOf(id_subparte));
+                }else{
+                    parametros.put("id_subparte",String.valueOf(generarid()));
+                }*/
+
+                Toast.makeText(mostrar_agregar_subparte.this, "heli"+subparte.getText().toString()+" /"+idproducto+" /"+String.valueOf(id_subparte), Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+
 
 }
