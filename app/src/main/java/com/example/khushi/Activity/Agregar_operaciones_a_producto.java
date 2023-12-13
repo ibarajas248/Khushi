@@ -46,52 +46,52 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
     RequestQueue queue;
-    private int idproducto,idsubparte;
-    ArrayList<operacionesFiltradas> listOperaciones,listOperacionesDeProducto;
+    private int idproducto, idsubparte;
+    ArrayList<operacionesFiltradas> listOperaciones, listOperacionesDeProducto;
     EditText nombreOperacion, cantidadOperaciones, maquina, precio;
     Button agregarOperacion;
     private boolean switchActivado = false;
     private int idProductoAgregado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_operaciones_aproducto);
-        recycler=(RecyclerView) findViewById(R.id.recyclerviewoperaciones);
+        recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        recycler_operaciones_de_producto=(RecyclerView) findViewById(R.id.recycleroperacionesproducto);
-        recycler_operaciones_de_producto.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recycler_operaciones_de_producto = (RecyclerView) findViewById(R.id.recycleroperacionesproducto);
+        recycler_operaciones_de_producto.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         queue = Volley.newRequestQueue(this);
-        nombreOperacion=(EditText)findViewById(R.id.edtnombre_operacion_operacion);
-        cantidadOperaciones=(EditText)findViewById(R.id.edtcantidad_operaciones);
-        maquina=(EditText)findViewById(R.id.edtmaquina);
-        agregarOperacion=(Button)findViewById(R.id.boton_agregar_operacion);
-        precio=(EditText)findViewById(R.id.edtprecio_operaciones);
-        switch_aparecer=(Switch)findViewById(R.id.switch1);
-
+        nombreOperacion = (EditText) findViewById(R.id.edtnombre_operacion_operacion);
+        cantidadOperaciones = (EditText) findViewById(R.id.edtcantidad_operaciones);
+        maquina = (EditText) findViewById(R.id.edtmaquina);
+        agregarOperacion = (Button) findViewById(R.id.boton_agregar_operacion);
+        precio = (EditText) findViewById(R.id.edtprecio_operaciones);
+        switch_aparecer = (Switch) findViewById(R.id.switch1);
 
 
         Intent intent = getIntent();
         idproducto = Integer.parseInt(intent.getStringExtra("id_producto"));
         idsubparte = Integer.parseInt(intent.getStringExtra("id_subparte"));
 
-        listOperaciones= new ArrayList<operacionesFiltradas>();
-        listOperacionesDeProducto= new ArrayList<operacionesFiltradas>();
+        listOperaciones = new ArrayList<operacionesFiltradas>();
+        listOperacionesDeProducto = new ArrayList<operacionesFiltradas>();
 
-        agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
+      agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
         listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
-                +String.valueOf(idproducto)+"&id_subparte="+String.valueOf(idsubparte));
+                + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
 
         switch_aparecer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // Acción si el Switch está activado
-                    switchActivado=true;
+                    switchActivado = true;
                 } else {
                     // Acción si el Switch está desactivado
-                    switchActivado=false;
+                    switchActivado = false;
 
                 }
 
@@ -102,21 +102,17 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         agregarOperacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (switchActivado==true){
-
-
+                if (switchActivado == true) {
                     boolean insercionRealizada = false;
-
 
                     for (operacionesFiltradas operacion : listOperaciones) {
                         if (operacion.isChecked()) {
                             // Inserta el elemento en el RecyclerView de abajo
                             // Asumiendo que tienes un método para agregar elementos a la lista en Adapter_operaciones_filtrado
+                            // Insertar en la lista del RecyclerView de abajo
 
-                            // Insertar en la lista del RecyclerView de abaj
 
-
-                            agregarOperacionDeDB("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php",operacion);
+                            agregarOperacionDeDB("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php", operacion);
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -127,14 +123,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                                 }
                             }, 6000); // 6000 milisegundos = 6 segundos
 
+
+
                         }
                     }
 
                     //aaa
-                }
-
-
-                    else {
+                } else {
                     agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
                     //listOperaciones.clear(); // Limpiar la lista existente
 
@@ -142,6 +137,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
                             obtenerUltimaOperacion();
                             Toast.makeText(Agregar_operaciones_a_producto.this, String.valueOf(idProductoAgregado) +
                                     "hla", Toast.LENGTH_SHORT).show();
@@ -150,9 +146,16 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
 
                 }
 
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
+
+                    }
+                }, 6000); // 6000 milisegundos = 6 segundos
+
 
             }
-
 
 
         });
@@ -178,6 +181,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
             Toast.makeText(Agregar_operaciones_a_producto.this, "Todas las inserciones han sido completadas", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
+
     private void agregarListaOperacion_producto(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -192,25 +199,22 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        int id_producto=Integer.parseInt(jsonObject.getString("id_producto"));
-                        String producto= jsonObject.getString("producto");
+                        int id_producto = Integer.parseInt(jsonObject.getString("id_producto"));
+                        String producto = jsonObject.getString("producto");
                         int id_subparte = Integer.parseInt(jsonObject.getString("id_subparte"));
-                        String subparte= jsonObject.getString("subparte");
+                        String subparte = jsonObject.getString("subparte");
                         int id_operaciones = Integer.parseInt(jsonObject.getString("id_operaciones"));
-                        String operaciones= jsonObject.getString("operaciones");
+                        String operaciones = jsonObject.getString("operaciones");
                         float cantidad = Float.parseFloat(jsonObject.getString("cantidad"));
-                        String maquina =jsonObject.getString("maquina");
-                        float precio=Float.parseFloat(jsonObject.getString("precio"));
-
-
+                        String maquina = jsonObject.getString("maquina");
+                        float precio = Float.parseFloat(jsonObject.getString("precio"));
 
 
                         // String data4 = (data1+ data2+data3);
 
 
-                        listOperaciones.add(new operacionesFiltradas(id_producto,id_subparte,id_operaciones,
-                                producto,subparte,operaciones,maquina,cantidad,precio));
-
+                        listOperaciones.add(new operacionesFiltradas(id_producto, id_subparte, id_operaciones,
+                                producto, subparte, operaciones, maquina, cantidad, precio));
 
 
                     } catch (JSONException e) {
@@ -246,7 +250,6 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 });
 
 
-
                 recycler.setAdapter(adapter123);
             }
         }, new Response.ErrorListener() {
@@ -259,6 +262,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
 
         queue.add(jsonArrayRequest);
     }
+
     private void listaDosOperacionProducto(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -273,25 +277,22 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        int id_producto=Integer.parseInt(jsonObject.getString("id_producto"));
-                        String producto= jsonObject.getString("producto");
+                        int id_producto = Integer.parseInt(jsonObject.getString("id_producto"));
+                        String producto = jsonObject.getString("producto");
                         int id_subparte = Integer.parseInt(jsonObject.getString("id_subparte"));
-                        String subparte= jsonObject.getString("subparte");
+                        String subparte = jsonObject.getString("subparte");
                         int id_operaciones = Integer.parseInt(jsonObject.getString("id_operaciones"));
-                        String operaciones= jsonObject.getString("operaciones");
+                        String operaciones = jsonObject.getString("operaciones");
                         float cantidad = Float.parseFloat(jsonObject.getString("cantidad"));
-                        String maquina =jsonObject.getString("maquina");
-                        float precio=Float.parseFloat(jsonObject.getString("precio"));
-
-
+                        String maquina = jsonObject.getString("maquina");
+                        float precio = Float.parseFloat(jsonObject.getString("precio"));
 
 
                         // String data4 = (data1+ data2+data3);
 
 
-                        listOperacionesDeProducto.add(new operacionesFiltradas(id_producto,id_subparte,id_operaciones,
-                                producto,subparte,operaciones,maquina,cantidad,precio));
-
+                        listOperacionesDeProducto.add(new operacionesFiltradas(id_producto, id_subparte, id_operaciones,
+                                producto, subparte, operaciones, maquina, cantidad, precio));
 
 
                     } catch (JSONException e) {
@@ -327,7 +328,6 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 });
 
 
-
                 recycler_operaciones_de_producto.setAdapter(adapter123);
             }
         }, new Response.ErrorListener() {
@@ -341,9 +341,9 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         queue.add(jsonArrayRequest);
     }
 
-    private void  agregarOperacion (String URL){
+    private void agregarOperacion(String URL) {
         // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Este método se llama cuando la solicitud es exitosa
@@ -365,7 +365,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -373,17 +373,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
 
 
-
-
-
-
-
-                Map<String, String> parametros= new HashMap<String, String>();
-               // parametros.put("id_producto", String.valueOf(idproducto));
+                Map<String, String> parametros = new HashMap<String, String>();
+                // parametros.put("id_producto", String.valueOf(idproducto));
                 //parametros.put("id_subparte",String.valueOf(idsubparte));
-                parametros.put("operaciones",nombreOperacion.getText().toString());
-                parametros.put("cantidad",cantidadOperaciones.getText().toString());
-                parametros.put("maquina",maquina.getText().toString());
+                parametros.put("operaciones", nombreOperacion.getText().toString());
+                parametros.put("cantidad", cantidadOperaciones.getText().toString());
+                parametros.put("maquina", maquina.getText().toString());
 
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
@@ -399,9 +394,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-    private void  agregarPrecio (String URL){
+
+    private void agregarPrecio(String URL) {
         // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Este método se llama cuando la solicitud es exitosa
@@ -423,7 +419,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -431,12 +427,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
 
 
-
-
-
-
-
-                Map<String, String> parametros= new HashMap<String, String>();
+                Map<String, String> parametros = new HashMap<String, String>();
                 // parametros.put("id_producto", String.valueOf(idproducto));
                 //parametros.put("id_subparte",String.valueOf(idsubparte));
                 parametros.put("id_operacion", String.valueOf(idProductoAgregado));
@@ -460,9 +451,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-    private void  agregarOperacion_Producto (String URL){
+
+    private void agregarOperacion_Producto(String URL) {
         // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Este método se llama cuando la solicitud es exitosa
@@ -484,19 +476,19 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
                 // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
 
-                Map<String, String> parametros= new HashMap<String, String>();
+                Map<String, String> parametros = new HashMap<String, String>();
                 // parametros.put("id_producto", String.valueOf(idproducto));
                 //parametros.put("id_subparte",String.valueOf(idsubparte));
-                parametros.put("id_operaciones",String.valueOf(idProductoAgregado));
-                parametros.put("id_subparte",String.valueOf(idsubparte));
-                parametros.put("id_producto",String.valueOf(idproducto));
+                parametros.put("id_operaciones", String.valueOf(idProductoAgregado));
+                parametros.put("id_subparte", String.valueOf(idsubparte));
+                parametros.put("id_producto", String.valueOf(idproducto));
 
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
@@ -512,11 +504,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-    private void  agregarOperacionDeDB (String URL,operacionesFiltradas operacion ){
+
+    private void agregarOperacionDeDB(String URL, operacionesFiltradas operacion) {
 
         operacionesFiltradas operacion1 = operacion;
         // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Este método se llama cuando la solicitud es exitosa
@@ -538,7 +531,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -546,17 +539,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
 
 
-
-
-
-
-
-                Map<String, String> parametros= new HashMap<String, String>();
+                Map<String, String> parametros = new HashMap<String, String>();
                 //parametros.put("id_producto", String.valueOf(idproducto));
                 //parametros.put("id_subparte",String.valueOf(idsubparte));
-                parametros.put("operaciones",operacion1.getOperaciones());
-                parametros.put("cantidad",String.valueOf(operacion1.getCantidad()));
-                parametros.put("maquina",operacion1.getMaquina());
+                parametros.put("operaciones", operacion1.getOperaciones());
+                parametros.put("cantidad", String.valueOf(operacion1.getCantidad()));
+                parametros.put("maquina", operacion1.getMaquina());
 
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
@@ -574,14 +562,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
     }
 
 
-
-
-
-    private void  agregarPrecioSwitchOn (String URL,operacionesFiltradas operacion){
+    private void agregarPrecioSwitchOn(String URL, operacionesFiltradas operacion) {
 
         operacionesFiltradas operacion1 = operacion;
         // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Este método se llama cuando la solicitud es exitosa
@@ -603,7 +588,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -611,18 +596,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                 // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
 
 
-
-
-
-
-
-                Map<String, String> parametros= new HashMap<String, String>();
+                Map<String, String> parametros = new HashMap<String, String>();
                 // parametros.put("id_producto", String.valueOf(idproducto));
                 //parametros.put("id_subparte",String.valueOf(idsubparte));
-                parametros.put("id_operacion",String.valueOf(operacion1.getIdOperaciones()));
-                parametros.put("id_subparte",String.valueOf(operacion1.getIdSubparte()));
-                parametros.put("id_producto",String.valueOf(operacion1.getIdProducto()));
-                parametros.put("precio",String.valueOf(operacion1.getPrecio()));
+                parametros.put("id_operacion", String.valueOf(operacion1.getIdOperaciones()));
+                parametros.put("id_subparte", String.valueOf(operacion1.getIdSubparte()));
+                parametros.put("id_producto", String.valueOf(operacion1.getIdProducto()));
+                parametros.put("precio", String.valueOf(operacion1.getPrecio()));
 
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
@@ -638,6 +618,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
 
     private void obtenerUltimaOperacion() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -648,14 +629,14 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            //busca el ultimo registro y asigna el id
-                            idProductoAgregado= Integer.parseInt(response.getString("id_operaciones"));
+                            // Busca el último registro y asigna el id
+                            idProductoAgregado = Integer.parseInt(response.getString("id_operaciones"));
                             Toast.makeText(Agregar_operaciones_a_producto.this, response.getString("id_operaciones"), Toast.LENGTH_SHORT).show();
 
-                            if (switchActivado==false) {
+                            if (switchActivado == false) {
                                 agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
                                 agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
-
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -669,16 +650,6 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
 
         queue.add(jsonObjectRequest);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

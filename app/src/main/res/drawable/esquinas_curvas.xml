@@ -1,4 +1,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="20dp" /> <!-- Ajusta el valor de radius según lo redondeadas que quieras las esquinas -->
-    <solid android:color="#3F51B5" /> <!-- Color de fondo del botón -->
+    <solid android:color="#EFE1AD" /> <!-- Color de fondo del botón -->
 </shape>

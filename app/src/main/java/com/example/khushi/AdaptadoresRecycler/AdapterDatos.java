@@ -48,6 +48,19 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
         holder.producto.setText(listDatos.get(position).getProducto());
         holder.precio.setText(String.valueOf(listDatos.get(position).getPrecio()));
+        // Verificar si la posición es par o impar
+        if (position % 2 == 0) {
+            // Para posiciones pares, cambia el color de fondo o el color del texto
+            holder.itemView.setBackgroundColor(0xFFACA89C);
+
+            holder.producto.setTextColor(0xFF000000);
+        } else {
+            // Para posiciones impares, otro color diferente
+            holder.itemView.setBackgroundColor(0xFFEFE1AD);
+            // o
+            holder.producto.setTextColor(0xFF000000);
+        };
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

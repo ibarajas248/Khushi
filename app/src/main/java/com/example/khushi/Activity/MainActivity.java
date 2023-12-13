@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
+
     RequestQueue requestQueue;
     boolean validacion=false;
     Button btnregistro;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         btnregistro=(Button) findViewById(R.id.btnregistro);
         btniniciosesion=(Button)findViewById(R.id.btniniciarsesion) ;
@@ -69,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 //validarUsuario("http://khushiconfecciones.com//app_khushi/validar_inicio_sesion.php");
                // Intent intent= new Intent(MainActivity.this, Home.class);
                 //startActivity(intent);
-
-
             }
         });
         btnregistro.setOnClickListener(new View.OnClickListener() {
@@ -100,32 +102,23 @@ public class MainActivity extends AppCompatActivity {
                     try{
                         jsonObject=response.getJSONObject(i);
                         // Extraer datos del objeto JSON y mostrarlos en los campos de texto
-
                         int idusuario= Integer.parseInt(jsonObject.getString("id"));
                         String ROL= jsonObject.getString("Rol");
                         String usuario=jsonObject.getString("usuario");
                         contrasenia.setText(jsonObject.getString("contrasenia"));
-
                         usuarioValidado=new Usuario(idusuario,ROL,usuario);
-
 
                     }catch (JSONException e){
                         // Capturar y mostrar cualquier error JSON que ocurra
                         Toast.makeText(getApplicationContext(),e.getMessage() , Toast.LENGTH_SHORT).show();
-
                     }
-
-
                 }
             }
-
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                 //Toast.makeText(MainActivity.this, error.toString(),Toast.LENGTH_SHORT).show();
-
-
             }
         }
         );

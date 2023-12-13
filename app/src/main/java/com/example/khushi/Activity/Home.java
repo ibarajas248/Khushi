@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import android.widget.ImageButton;
 import com.example.khushi.R;
 
 public class Home extends AppCompatActivity {
+
+    private Toolbar toolbar1;
     ImageButton btnagregarproducto,btnagregaroperacionempleado,agregaroc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
 
         btnagregarproducto= (ImageButton) findViewById(R.id.imgbtningresarproducto);
         btnagregaroperacionempleado=(ImageButton)findViewById(R.id.imbtnoperacionrealizada);

@@ -54,7 +54,7 @@ public class AdapterOC extends RecyclerView.Adapter<AdapterOC.ViewHolderDatos> i
                     holder.ordenCompra.setTextColor(0xFF000000);
         } else {
             // Para posiciones impares, otro color diferente
-            holder.itemView.setBackgroundColor(0xFFFFFFFF);
+            holder.itemView.setBackgroundColor(0xFFEFE1AD);
                     // o
                     holder.ordenCompra.setTextColor(0xFF000000);
         };
