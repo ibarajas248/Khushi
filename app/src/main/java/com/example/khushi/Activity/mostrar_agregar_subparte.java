@@ -88,9 +88,9 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
                 id_subparte_para_comparar=id_subparte;
 
-                while (id_subparte_para_comparar==id_subparte) {
+               /* while (id_subparte_para_comparar==id_subparte) {
                     obtenerUltimaSubparte();
-                    }
+                    }*/
 
 
 
@@ -99,12 +99,26 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
 
                 new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        listsubparte.clear(); // Limpiar la lista existente
+                @Override
+                public void run() {
+                    obtenerUltimaSubparte();
+                    Toast.makeText(mostrar_agregar_subparte.this, "id_subparte: "+id_subparte+"id_producto: "+idproducto, Toast.LENGTH_SHORT).show();
+                    asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
+                    listsubparte.clear();
 
-                    }
-                }, 3000); // 3000 milisegundos = 3 segundos
+
+                }
+            }, 3000); // 3000 milisegundos = 3 segundos
+
+
+
+
+
+
+
+
+
+
             }
         });
 
@@ -166,7 +180,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         visibilidadModificar=true;
                         registrarSubproducto.setVisibility(View.GONE);
 
-                        //Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+" "+String.valueOf(id_subparte)+" "+idproducto, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+" "+String.valueOf(id_subparte)+" "+idproducto, Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -335,7 +349,8 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(mostrar_agregar_subparte.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+
 
             }
         }, new Response.ErrorListener() {
@@ -370,7 +385,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                     parametros.put("id_subparte",String.valueOf(generarid()));
                 }*/
 
-                Toast.makeText(mostrar_agregar_subparte.this, "heli"+subparte.getText().toString()+" /"+idproducto+" /"+String.valueOf(id_subparte), Toast.LENGTH_SHORT).show();
+
 
 
 
