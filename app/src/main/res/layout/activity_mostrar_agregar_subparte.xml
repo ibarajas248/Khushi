@@ -4,53 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/mosagre_escribirsubpart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Subparte"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"/>
 
+        <EditText
+            android:id="@+id/mosagre_escribirsubpart"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/esquinas_curvas"
+            android:ems="10"
+            android:hint="Subparte"
+            android:layout_marginStart="20dp"
+            android:inputType="text" />
 
-    <Button
-        android:id="@+id/ma_subparte_agregar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mosagre_escribirsubpart"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:text="Agregar subparte"
-        android:layout_alignParentEnd="true"
-        android:textColor="#FFCE17"
-        android:textSize="20dp"
-        android:backgroundTint="#011336"/>
+        <Button
+            android:id="@+id/ma_subparte_agregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#011336"
+            android:layout_gravity="end"
+            android:text="Agregar subparte"
+            android:textColor="#FFCE17"
+            android:textSize="20dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewSubParte"
-        android:layout_width="match_parent"
-        android:layout_height="211dp"
-        android:layout_below="@id/ma_subparte_agregar"
-        android:layout_marginTop="16dp"
-        android:visibility="visible"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSubParte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/esquinas_curvas"
+            android:visibility="visible" />
 
-    <Button
-        android:id="@+id/boton_modificar_subparte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerViewSubParte"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:text="Modificar subparte"
-        android:layout_alignParentEnd="true"
-        android:textColor="#FFCE17"
-        android:textSize="20dp"
-        android:backgroundTint="#011336"
-        android:visibility="gone"/>
+        <Button
+            android:id="@+id/boton_modificar_subparte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#011336"
+            android:text="Modificar subparte"
+            android:textColor="#FFCE17"
+            android:textSize="20dp"
+            android:visibility="gone" />
+    </LinearLayout>
 
 
 </RelativeLayout>

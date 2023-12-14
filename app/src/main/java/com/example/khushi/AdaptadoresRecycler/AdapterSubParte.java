@@ -59,6 +59,19 @@ public class AdapterSubParte extends RecyclerView.Adapter<AdapterSubParte.ViewHo
         holder.id_subparte.setText(String.valueOf(listSubParte.get(position).getId_subparte()));
         holder.subparte.setText(listSubParte.get(position).getSubparte());
 
+        // Verificar si la posición es par o impar
+        if (position % 2 == 0) {
+            // Para posiciones pares, cambia el color de fondo o el color del texto
+            holder.itemView.setBackgroundColor(0xFFACA89C);
+
+            holder.subparte.setTextColor(0xFF000000);
+        } else {
+            // Para posiciones impares, otro color diferente
+            holder.itemView.setBackgroundColor(0xFFEFE1AD);
+            // o
+            holder.subparte.setTextColor(0xFF000000);
+        };
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

@@ -72,6 +72,14 @@ public class agregarProducto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 agregarproducto("http://khushiconfecciones.com//app_khushi/editar_producto.php");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listDatos.clear();
+                        agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
+
+                    }
+                }, 3000); // 3000 milisegundos = 3 segundos
 
 
             }

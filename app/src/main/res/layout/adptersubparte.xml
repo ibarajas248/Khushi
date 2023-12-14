@@ -11,42 +11,42 @@
     >
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/idsubparte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID:"
-        android:textColor="#000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        <TextView
+            android:id="@+id/idsubparte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="ID:"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/subparte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Subparte"
-        android:textColor="#333"
-        android:textSize="16sp"
-        android:layout_toEndOf="@id/idsubparte"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/subparte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Subparte"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/idproducto_subparte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID Producto"
-        android:textColor="#666"
-        android:textSize="14sp"
-        android:layout_below="@id/subparte"
-        android:layout_toEndOf="@id/subparte"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/idproducto_subparte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="ID Producto"
+            android:textColor="#666"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </RelativeLayout>
 

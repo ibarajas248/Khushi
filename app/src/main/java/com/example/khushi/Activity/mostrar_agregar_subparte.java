@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,9 +25,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.AdapterSubParte;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevaSubParte;
+import com.example.khushi.clasesinfo.nuevoProducto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +52,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     private Handler handler = new Handler();
     private int id_subparte,id_subparte_para_comparar;
     Object lock = new Object();
+    private Spinner spinnersubparte;
 
 
 
@@ -56,6 +62,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_agregar_subparte);
+        spinnersubparte=(Spinner) findViewById(R.id.spinner);
 
         subparte=(EditText)findViewById(R.id.mosagre_escribirsubpart);
         registrarSubproducto=(Button)findViewById(R.id.ma_subparte_agregar);
@@ -97,18 +104,27 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 listsubparte.clear(); // Limpiar la lista existente
 
 
-
+                //que pasaria si si el insert no se hace pero  obtenerUltimaSubparte(); si se ejecuta....arreglar esa excepcion...
                 new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run() {
-                    obtenerUltimaSubparte();
-                    Toast.makeText(mostrar_agregar_subparte.this, "id_subparte: "+id_subparte+"id_producto: "+idproducto, Toast.LENGTH_SHORT).show();
-                    asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
-                    listsubparte.clear();
+                    public void run() {
+                        obtenerUltimaSubparte();
+                        Toast.makeText(mostrar_agregar_subparte.this, "id_subparte: "+id_subparte+"id_producto: "+idproducto, Toast.LENGTH_SHORT).show();
+                        asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
+                        listsubparte.clear();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
+
+                        }
+                    }, 3000); // 3000 milisegundos = 3 segundos
+
+                    }
+                }, 3000); // 3000 milisegundos = 3 segundos
 
 
-                }
-            }, 3000); // 3000 milisegundos = 3 segundos
+
 
 
 
@@ -399,6 +415,77 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
+    }
+
+    private void Spinnersubparte (String URL) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                listsubparte.clear(); // Limpiar la lista existente
+
+                ArrayList<String> nombresSubpartes = new ArrayList<>(); // ArrayList para almacenar nombres de productos
+                ArrayList<Integer> idSubpartes = new ArrayList<>();//Arraylist para almacenar nombres de subpartes
+
+
+                for (int i = 0; i < response.length(); i++) {
+
+
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        String producto= jsonObject.getString("producto");
+                        Float precio = Float.parseFloat(jsonObject.getString("precio"));
+                        int id_producto = Integer.parseInt(jsonObject.getString("id_producto"));
+
+                        nombresProductos.add(producto);
+
+                        listDatos.add(new nuevoProducto(producto,id_producto,precio));
+                        // Agregar el ID del producto al ArrayList de IDs
+                        idsProductos.add(id_producto);
+
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                AdapterDatos adapter123 = new AdapterDatos(listDatos);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(agregar_producto_oc.this, android.R.layout.simple_list_item_1, nombresProductos);
+                spinnerproducto.setAdapter(adapter); // Establecer el adaptador en el Spinner
+
+
+                spinnerproducto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        // Obtener el ID seleccionado usando la posición en el ArrayList de IDs
+                        idproductoSeleccionado = idsProductos.get(position);
+                        producto=nombresProductos.get(position);
+                        Toast.makeText(agregar_producto_oc.this,producto, Toast.LENGTH_SHORT).show();
+                        // Guardar el ID en una variable o realizar alguna acción con él
+                        // Ejemplo: guardar el ID en una variable global
+                        // idSeleccionadoGlobal = idSeleccionado;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        // Método requerido pero no se utiliza en este caso
+                    }
+                });
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        requestQueue.add(jsonArrayRequest);
+
+
 
     }
 
