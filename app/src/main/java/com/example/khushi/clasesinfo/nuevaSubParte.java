@@ -17,7 +17,12 @@ public class nuevaSubParte extends nuevoProducto {
 
     }
 
+    public nuevaSubParte(int id_subparte, String subparte) {
+        super();
+        this.id_subparte = id_subparte;
+        this.subparte = (subparte);
 
+    }
 
     public int getId_subparte() {
         return id_subparte;

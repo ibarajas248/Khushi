@@ -17,15 +17,22 @@ import com.example.khushi.clasesinfo.nuevoproducto_en_oc;
 import com.example.khushi.clasesinfo.operacionesFiltradas;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_operaciones_filtrado.ViewHolderoperaciones> implements View.OnClickListener {
     ArrayList<operacionesFiltradas> listOperacionesFiltradas;
 
+    ArrayList<operacionesFiltradas> buscador; //Array para el searchView
+
     private View.OnClickListener listener;
 
     public Adapter_operaciones_filtrado(ArrayList<operacionesFiltradas>listOperacionesFiltradas){
         this.listOperacionesFiltradas= listOperacionesFiltradas;
+        //inicializo el buscador
+        buscador=new ArrayList<>();
+        buscador.addAll(listOperacionesFiltradas);
     }
     @NonNull
     @Override
@@ -62,6 +69,23 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
 
     }
 
+
+    //metodo que hace el filtrado
+
+    public void filtrado(String txtBuscar){
+        int longitud =txtBuscar.length();
+        if(longitud==0){
+            listOperacionesFiltradas.clear();
+            listOperacionesFiltradas.addAll(buscador);
+        }else{
+            List<operacionesFiltradas> colleccion =listOperacionesFiltradas.stream().filter
+                    (i ->i.getOperaciones().toLowerCase().contains(txtBuscar.toLowerCase()))
+                    .collect(Collectors.toList());
+            listOperacionesFiltradas.clear();
+            listOperacionesFiltradas.add((operacionesFiltradas) colleccion);
+        }
+
+    }
     @Override
     public int getItemCount() {
         return listOperacionesFiltradas.size();

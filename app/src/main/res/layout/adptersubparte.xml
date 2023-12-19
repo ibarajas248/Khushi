@@ -25,7 +25,8 @@
             android:text="ID:"
             android:textColor="#000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/subparte"
@@ -45,7 +46,8 @@
             android:layout_marginTop="4dp"
             android:text="ID Producto"
             android:textColor="#666"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </RelativeLayout>

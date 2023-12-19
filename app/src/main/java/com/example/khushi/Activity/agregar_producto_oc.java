@@ -94,10 +94,10 @@ public class agregar_producto_oc extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //listDatos.clear(); // Limpiar la lista existente
-                        //agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
+                        listDatos.clear(); // Limpiar la lista existente
+                        agregarlistaProductoOc("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
                     }
-                }, 3000); // 3000 milisegundos = 3 segundos
+                }, 5000); // 3000 milisegundos = 3 segundos
             }
         });
         //agregarlistaProductoOc("dskjk");

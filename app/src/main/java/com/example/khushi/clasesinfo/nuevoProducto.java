@@ -15,6 +15,10 @@ public class nuevoProducto {
         this.id_producto = id_producto;
     }
 
+    public nuevoProducto() {
+
+    }
+
 
     public String getProducto() {
         return producto;

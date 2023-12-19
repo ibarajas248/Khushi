@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -40,11 +41,14 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-public class Agregar_operaciones_a_producto extends AppCompatActivity {
+public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     Switch switch_aparecer;
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
+    Adapter_operaciones_filtrado adapter123;
+
+    SearchView buscarOperacionesDB;
     RequestQueue queue;
     private int idproducto, idsubparte;
     ArrayList<operacionesFiltradas> listOperaciones, listOperacionesDeProducto;
@@ -59,6 +63,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_operaciones_aproducto);
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
 
         recycler_operaciones_de_producto = (RecyclerView) findViewById(R.id.recycleroperacionesproducto);
         recycler_operaciones_de_producto.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -82,6 +87,9 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
       agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
         listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
                 + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
+
+
+        buscarOperacionesDB.setOnQueryTextListener(this);
 
         switch_aparecer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -221,7 +229,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                Adapter_operaciones_filtrado adapter123 = new Adapter_operaciones_filtrado(listOperaciones);
+                 adapter123 = new Adapter_operaciones_filtrado(listOperaciones);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -652,6 +660,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
-
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 }

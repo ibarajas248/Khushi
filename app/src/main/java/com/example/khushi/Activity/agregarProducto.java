@@ -43,7 +43,7 @@ public class agregarProducto extends AppCompatActivity {
     RecyclerView recycler;
     RequestQueue queue;
     EditText producto;
-    Button registrarProducto, modificarProducto;
+    Button registrarProducto, modificarProducto, eliminarProducto;
     EditText precio;
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -60,6 +60,7 @@ public class agregarProducto extends AppCompatActivity {
         producto=(EditText)findViewById(R.id.editTextTextagregarproducto);
         registrarProducto=(Button)findViewById(R.id.registrarproductos);
         modificarProducto=(Button)findViewById(R.id.boton_modificarproducto);
+        eliminarProducto=(Button)findViewById(R.id.button_eliminar_producto);
 
         precio=(EditText)findViewById(R.id.editTextprecio);
 
@@ -77,6 +78,7 @@ public class agregarProducto extends AppCompatActivity {
                     public void run() {
                         listDatos.clear();
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
+                        recycler.setVisibility(View.VISIBLE);
 
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
@@ -95,6 +97,21 @@ public class agregarProducto extends AppCompatActivity {
                     public void run() {
                         listDatos.clear(); // Limpiar la lista existente
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
+                    }
+                }, 3000); // 3000 milisegundos = 3 segundos
+            }
+        });
+        eliminarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminarProducto("http://khushiconfecciones.com//app_khushi/eliminar_producto.php");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listDatos.clear();
+                        agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
+                        recycler.setVisibility(View.VISIBLE);
+
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
             }
@@ -148,7 +165,10 @@ public class agregarProducto extends AppCompatActivity {
                         producto.setText(p.getProducto());
                         idProducto=p.getId_producto();
                         modificarProducto.setVisibility(View.VISIBLE);
+                        eliminarProducto.setVisibility(View.VISIBLE);
                         visibilidadModificar=true;
+                        recycler.setVisibility(View.GONE);
+                        registrarProducto.setVisibility(View.GONE);
 
                     }
                 });
@@ -205,7 +225,7 @@ public class agregarProducto extends AppCompatActivity {
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("id_producto", String.valueOf(generarid()));
+                //parametros.put("id_producto", String.valueOf(generarid()));
                 parametros.put("producto",producto.getText().toString());
                 parametros.put("precio",precio.getText().toString());
                 if (visibilidadModificar==true){
@@ -269,6 +289,60 @@ public class agregarProducto extends AppCompatActivity {
         );
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+
+    private void eliminarProducto (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                limpiarFormulario();
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(agregarProducto.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("id_producto", String.valueOf(idProducto));
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
+    }
+    private void limpiarFormulario() {
+        producto.setText("");
+        precio.setText("");
+    }
+
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish(); // Finaliza la actividad actual
     }
 
 

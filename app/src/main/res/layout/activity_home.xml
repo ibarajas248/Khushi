@@ -10,7 +10,7 @@
 
 
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -22,7 +22,10 @@
             android:orientation="horizontal">
 
 
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -43,30 +46,30 @@
                     android:id="@+id/imgbtningresarproducto"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/esquinas_curvas"
                     android:backgroundTint="#979591"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ingresar_producto"
-                    android:background="@drawable/esquinas_curvas"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:src="@drawable/ingresar_producto" />
+
                 <ImageButton
                     android:id="@+id/imageButton5"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
-                    android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/esquinas_curvas"
+                    android:src="@android:drawable/btn_star" />
+
                 <ImageButton
                     android:id="@+id/imageButton6"
                     android:layout_width="171dp"
                     android:layout_height="130dp"
-                    android:src="@android:drawable/btn_star"
-                    android:background="@drawable/esquinas_curvas"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
-
-
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/esquinas_curvas"
+                    android:src="@android:drawable/btn_star" />
 
 
                 <!-- Otros elementos de la primera columna aquí -->
@@ -114,12 +117,15 @@
                     android:layout_marginBottom="10dp"/>
 
 
+
+
                 <!-- Otros elementos de la segunda columna aquí -->
 
             </LinearLayout>
 
+
         </LinearLayout>
-    </ScrollView>
+    </HorizontalScrollView>
 
 
 

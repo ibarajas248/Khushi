@@ -16,7 +16,8 @@
         android:text="ID:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/id_oc_producto_oc"
@@ -27,7 +28,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#2196F3" />
+        android:background="#2196F3"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/id_producto_producto_oc"
@@ -38,7 +40,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#1E88E5" />
+        android:background="#1E88E5"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/ordenCompra_p_oc"
@@ -49,7 +52,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#1976D2" />
+        android:background="#1976D2"
+        />
 
 
     <TextView
@@ -65,7 +69,7 @@
 
     <TextView
         android:id="@+id/lotes_producto_oc"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="Máquina"
         android:textColor="#FFFFFF"
@@ -75,7 +79,7 @@
         android:background="#1976D2" />
     <TextView
         android:id="@+id/cantidadProductos"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="cantidad productos"
         android:textColor="#FFFFFF"
