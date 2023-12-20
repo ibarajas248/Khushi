@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -55,7 +57,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     EditText nombreOperacion, cantidadOperaciones, maquina, precio;
     Button agregarOperacion;
     private boolean switchActivado = false;
-    private int idProductoAgregado;
+    private int idProductoAgregado,precioGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
+
 
         recycler_operaciones_de_producto = (RecyclerView) findViewById(R.id.recycleroperacionesproducto);
         recycler_operaciones_de_producto.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -111,21 +114,33 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 if (switchActivado == true) {
+
+                    agregarOperacionesRecursivamente(listOperaciones, 0);
                     boolean insercionRealizada = false;
 
-                    for (operacionesFiltradas operacion : listOperaciones) {
+                    /*for (operacionesFiltradas operacion : listOperaciones) {
                         if (operacion.isChecked()) {
+
                             // Inserta el elemento en el RecyclerView de abajo
                             // Asumiendo que tienes un método para agregar elementos a la lista en Adapter_operaciones_filtrado
                             // Insertar en la lista del RecyclerView de abajo
 
 
-                            agregarOperacionDeDB("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php", operacion);
+                            //agregarOperacionDeDB("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php", operacion);
+                            //en este caso no debheria agregarce un nuevo producto. mas bien se agrega precio
+                            idProductoAgregado=operacion.getIdOperaciones();
+                            precioGlobal= (int) operacion.getPrecio();
+
+                            agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    obtenerUltimaOperacion();
+
+                                    //crear metodo para vincular las operaciones de la iteracion
+
+
+                                    agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
                                     Toast.makeText(Agregar_operaciones_a_producto.this, String.valueOf(idProductoAgregado) +
                                             "hla", Toast.LENGTH_SHORT).show();
                                 }
@@ -134,7 +149,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
                         }
-                    }
+                    }*/
 
                     //aaa
                 } else {
@@ -441,7 +456,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 parametros.put("id_operacion", String.valueOf(idProductoAgregado));
                 parametros.put("id_subparte", String.valueOf(idsubparte));
                 parametros.put("id_producto", String.valueOf(idproducto));
-                parametros.put("precio", precio.getText().toString());
+                if (switchActivado==false){
+                    parametros.put("precio", precio.getText().toString());
+                } else if (switchActivado == true) {
+                    parametros.put("precio", String.valueOf(precioGlobal));
+                }
+
+
 
 
 
@@ -612,6 +633,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 parametros.put("id_producto", String.valueOf(operacion1.getIdProducto()));
                 parametros.put("precio", String.valueOf(operacion1.getPrecio()));
 
+
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
                 }*/
@@ -660,13 +682,47 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     }
 
 
+    private void agregarOperacionesRecursivamente(final List<operacionesFiltradas> operaciones, final int index) {
+        if (index >= operaciones.size()) {
+            // Cuando se procesen todas las operaciones, detén la recursión
+            return;
+
+
+        }
+
+        operacionesFiltradas operacion = operaciones.get(index);
+        if (operacion.isChecked()) {
+
+            idProductoAgregado = operacion.getIdOperaciones();
+            precioGlobal = (int) operacion.getPrecio();
+            agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
+            agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
+            // Inserta la operación actual
+            // ...
+
+            // Espera un tiempo antes de continuar con la siguiente operación
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    agregarOperacionesRecursivamente(operaciones, index + 1); // Llama a la función recursivamente para la siguiente operación
+                }
+            }, 5000); // Tiempo de espera antes de la siguiente inserción (ajusta según necesites)
+        } else {
+            // Si la operación actual no está marcada, pasa a la siguiente
+            agregarOperacionesRecursivamente(operaciones, index + 1);
+        }
+    }
+
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
+    public boolean onQueryTextChange(String s) {
+        adapter123.filtrado(s);
+
         return false;
     }
 }
