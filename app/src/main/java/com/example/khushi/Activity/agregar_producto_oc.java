@@ -41,7 +41,7 @@ import java.util.Map;
 public class agregar_producto_oc extends AppCompatActivity {
 
     RecyclerView recycler;
-    private int idproductoSeleccionado, idoc;
+    private int idproductoSeleccionado, idoc, idPtoductoOC;
     String ordenDeCompra, producto;
     private Spinner spinnerproducto;
     ArrayList<nuevoProducto> listDatos;
@@ -254,6 +254,8 @@ public class agregar_producto_oc extends AppCompatActivity {
 
 
                         int id =Integer.parseInt(jsonObject.getString("id"));
+                        idPtoductoOC=id;
+
                         int id_oc =Integer.parseInt(jsonObject.getString("id_oc"));
                         int id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
                         String ordenCompra=jsonObject.getString("ordenCompra");
@@ -276,10 +278,10 @@ public class agregar_producto_oc extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // Toast.makeText(getApplicationContext(),"seleccion "+listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto(),Toast.LENGTH_SHORT).show();
-                       /* Intent intent= new Intent(agregar_producto_oc.this, mostrar_agregar_subparte.class);
+                       Intent intent= new Intent(agregar_producto_oc.this, operaciones_lotes.class);
 
-                        intent.putExtra("id_producto",String.valueOf(listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto()));
-                        startActivity(intent);*/
+                        intent.putExtra("id",String.valueOf(idPtoductoOC));
+                        startActivity(intent);
                     }
                 });
                /* adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {

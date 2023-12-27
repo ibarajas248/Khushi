@@ -90,7 +90,7 @@ public class agregarProducto extends AppCompatActivity {
         registrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
+                    agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
                 listDatos.clear(); // Limpiar la lista existente
                 new Handler().postDelayed(new Runnable() {
                     @Override
