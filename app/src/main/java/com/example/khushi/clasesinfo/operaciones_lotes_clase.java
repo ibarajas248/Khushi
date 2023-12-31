@@ -2,10 +2,10 @@ package com.example.khushi.clasesinfo;
 
 public class operaciones_lotes_clase {
 
-    private String producto, subparte, operaciones;
-    int id_lotes_operaciones, cantidad, empleado, id_operacione_subparte_producto;
+    private String producto, subparte, operaciones,empleado;
+    int id_lotes_operaciones, cantidad, id_operacione_subparte_producto;
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, int empleado, int id_operacione_subparte_producto) {
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
@@ -55,11 +55,11 @@ public class operaciones_lotes_clase {
         this.cantidad = cantidad;
     }
 
-    public int getEmpleado() {
+    public String getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(int empleado) {
+    public void setEmpleado(String empleado) {
         this.empleado = empleado;
     }
 
