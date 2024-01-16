@@ -1,5 +1,6 @@
 package com.example.khushi.AdaptadoresRecycler;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,24 +9,38 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.khushi.Activity.agregar_producto_oc;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Adapter_operaciones_lotes extends RecyclerView.Adapter<Adapter_operaciones_lotes.ViewHolderOperacionesLotes> implements View.OnClickListener{
+public class Adapter_operaciones_lotes extends RecyclerView
+        .Adapter<Adapter_operaciones_lotes.ViewHolderOperacionesLotes> implements View.OnClickListener{
 
-
+    private Context context;
     ArrayList<operaciones_lotes_clase> listOperaciones;
 
 
     private View.OnClickListener listener;
+
+
 
     // Agregar una lista para los datos del Spinner
     List<String> spinnerDataList;
@@ -75,13 +90,18 @@ public class Adapter_operaciones_lotes extends RecyclerView.Adapter<Adapter_oper
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner.setAdapter(spinnerAdapter);
 
+
+        // Obtener la posición correcta del elemento en el ArrayList de operaciones
+        int operacionPosition = holder.getAdapterPosition();
+
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if (pos >= 0 && pos < spinnerIdsList.size() && pos < listaEmpleados.size()) {
+                if (pos > 0 ) {
                     //int selectedId = spinnerIdsList.get(pos-1);
-                    String selectid = (listaEmpleados.get(pos).getId());
-                    String selectnombre= listaEmpleados.get(pos).getNombre();
+                    String selectid = (listaEmpleados.get(pos-1).getId());
+                    String selectnombre= listaEmpleados.get(pos-1).getNombre();
+                    int id_operacione= listOperaciones.get(pos).getId_lotes_operaciones();
 
                     Log.d("seleccion",selectid+" "+selectnombre);
 
@@ -89,6 +109,7 @@ public class Adapter_operaciones_lotes extends RecyclerView.Adapter<Adapter_oper
                     //Log.d("Longitud ID", String.valueOf(spinnerIdsList.size()));
                     //Log.d("Longitud Nombres", String.valueOf(spinnerDataList.size()));
                     //Log.d("Lista del Spinner", String.valueOf(spinnerDataList));
+
                 } else {
                     Log.d("Error", "Índice de Spinner fuera de rango");
                 }
@@ -140,4 +161,8 @@ public class Adapter_operaciones_lotes extends RecyclerView.Adapter<Adapter_oper
             spinner = itemView.findViewById(R.id.spinner2);
         }
     }
+
+
+
+
 }

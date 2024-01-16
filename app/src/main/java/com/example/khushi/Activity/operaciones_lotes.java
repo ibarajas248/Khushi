@@ -10,6 +10,7 @@ import android.view.View;
 import android.os.Handler;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -161,6 +162,8 @@ public class operaciones_lotes extends AppCompatActivity {
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+
                         //acciones para el click
                         /*visibilidadModificar=true;
                         botonModificar.setVisibility(View.VISIBLE);
@@ -229,6 +232,7 @@ public class operaciones_lotes extends AppCompatActivity {
 
 
 
+
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -236,6 +240,8 @@ public class operaciones_lotes extends AppCompatActivity {
                 //AdapterDatos adapter123 = new AdapterDatos(listEmpleados);
 
                 adapter = new ArrayAdapter<>(operaciones_lotes.this, android.R.layout.simple_list_item_1, nombres);
+
+
                 //spinnerproducto.setAdapter(adapter); // Establecer el adaptador en el Spinner
 
 
@@ -271,6 +277,8 @@ public class operaciones_lotes extends AppCompatActivity {
 
 
     }
+
+
 }
 
 
