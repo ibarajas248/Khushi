@@ -22,12 +22,13 @@
         android:textStyle="bold"
         android:padding="8dp"
         android:background="#1976D2"
+        android:visibility="gone"
         />
 
 
     <TextView
         android:id="@+id/subparte"
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="producto"
         android:textColor="#FFFFFF"
@@ -55,7 +56,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#1976D2" />
+        android:background="#1976D2"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/cantidad"
         android:layout_width="150dp"
@@ -75,7 +77,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#1976D2" />
+        android:background="#1976D2"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/id_operaciones_subparte_producto"
         android:layout_width="300dp"
@@ -85,13 +88,17 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="8dp"
-        android:background="#1976D2" />
+        android:background="#1976D2"
+        android:visibility="gone"/>
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#1976D2"
+
+        />
 
 
     <!-- Agregar más TextViews para los nuevos campos -->

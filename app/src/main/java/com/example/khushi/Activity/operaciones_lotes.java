@@ -6,27 +6,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.os.Handler;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
-import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_filtrado;
 import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
-import com.example.khushi.clasesinfo.nuevoProducto;
-import com.example.khushi.clasesinfo.nuevoproducto_en_oc;
-import com.example.khushi.clasesinfo.operacionesFiltradas;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import org.json.JSONArray;
@@ -34,6 +31,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class operaciones_lotes extends AppCompatActivity {
@@ -51,18 +50,22 @@ public class operaciones_lotes extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
     Adapter_operaciones_lotes adapter123;
+    public String finalVariableRecibida_idproducto_oc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaciones_lotes);
         queue = Volley.newRequestQueue(this);
-        listOperaciones=new ArrayList<operaciones_lotes_clase>();
+        listOperaciones = new ArrayList<operaciones_lotes_clase>();
 
 
         listaEmpleados = new ArrayList<>();
         nombres = new ArrayList<>();
         idsEmpleados = new ArrayList<>();
         listEmpleados = new ArrayList<>();
+
+
 
         Intent intent = getIntent();
 
@@ -86,25 +89,20 @@ public class operaciones_lotes extends AppCompatActivity {
 
 // En tu método donde deseas llamar a los métodos después de un retraso de 5 segundos
         Handler handler = new Handler();
-        String finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+        finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // Llama al primer método aquí
-                agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra=" + finalVariableRecibida_idproducto_oc);
+                agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+                Log.d("holia que ndknek", "rfefrewfrewfrewfr");
 
             }
         }, 5000); // Retraso de 5000 milisegundos (5 segundos)
 
-
-
-
-
-
-
     }
 
-    private void agregarListaOperacion_Lote(String URL) {
+    public void agregarListaOperacion_Lote(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -158,7 +156,7 @@ public class operaciones_lotes extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                adapter123 = new Adapter_operaciones_lotes(listOperaciones,nombres,idsEmpleados,listaEmpleados);
+                adapter123 = new Adapter_operaciones_lotes(operaciones_lotes.this,listOperaciones,nombres,idsEmpleados,listaEmpleados);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -277,6 +275,70 @@ public class operaciones_lotes extends AppCompatActivity {
 
 
     }
+
+
+    public void  agregarEmpleado (String URL, int idEmpleado, String Empleado, String id_operacion){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", URL+ " "+Empleado+id_operacion);
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(agregarProducto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error en la solicitud: " + error.toString());
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+
+                parametros.put("empleado", String.valueOf(idEmpleado));
+                parametros.put("id_lotes_operaciones", String.valueOf(id_operacion));
+
+
+
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+
+        requestQueue.add(stringRequest);
+
+    }
+
+
+
+
+
 
 
 }

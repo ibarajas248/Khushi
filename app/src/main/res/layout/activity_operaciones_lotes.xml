@@ -37,7 +37,8 @@
                     android:textSize="23dp"
                     android:hint="Nombre de la operación"
                     android:inputType="text"
-                    android:paddingLeft="5dp" />
+                    android:paddingLeft="5dp"
+                    />
 
                 <EditText
                     android:id="@+id/edtcantidad_operaciones"
