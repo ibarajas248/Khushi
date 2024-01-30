@@ -53,6 +53,9 @@ public class Home extends AppCompatActivity {
                 }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Orden de compra"){
                     Intent intent= new Intent(Home.this, ordenDeCompra.class);
                     startActivity(intent);
+                }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Operaciones asignadas"){
+                    Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
+                    startActivity(intent);
                 }
 
 
@@ -104,7 +107,7 @@ public class Home extends AppCompatActivity {
     private void llenarMenu() {
         listaMenu.add(new menuClase("Productos"));
         listaMenu.add(new menuClase("Orden de compra"));
-        listaMenu.add(new menuClase("tres"));
+        listaMenu.add(new menuClase("Operaciones asignadas"));
         listaMenu.add(new menuClase("cuatro"));
         listaMenu.add(new menuClase("cinco"));
     }

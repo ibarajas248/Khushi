@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
     Button btniniciosesion;
 
     private EditText contrasenia;
-    private EditText user;
+    public EditText user;
     //variable para hacer interfaz de acuerdo al Rol
     public static Usuario usuarioValidado;
+
+    String nombreUsuario;
 
 
     @Override
@@ -93,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 if (response.length()  > 0) {
 
                     Toast.makeText(MainActivity.this, "Usuario validado correctamente", Toast.LENGTH_SHORT).show();
+                    String nombreUsuario= String.valueOf(user.getText());
                     Intent intent= new Intent(MainActivity.this, Home.class);
+
                     startActivity(intent);
                 }
                 // Este método se llama cuando la solicitud es exitosa y recibe un JSONArray como respuesta

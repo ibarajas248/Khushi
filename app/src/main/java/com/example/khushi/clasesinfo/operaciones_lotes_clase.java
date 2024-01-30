@@ -3,6 +3,8 @@ package com.example.khushi.clasesinfo;
 public class operaciones_lotes_clase {
 
     private String producto, subparte, operaciones,empleado;
+    //para otro constructor
+    String nombre, apellido;
     int id_lotes_operaciones, cantidad, id_operacione_subparte_producto;
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto) {
@@ -13,6 +15,36 @@ public class operaciones_lotes_clase {
         this.cantidad = cantidad;
         this.empleado = empleado;
         this.id_operacione_subparte_producto = id_operacione_subparte_producto;
+    }
+
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto,String nombre,String apellido) {
+        this.producto = producto;
+        this.subparte = subparte;
+        this.operaciones = operaciones;
+        this.id_lotes_operaciones = id_lotes_operaciones;
+        this.cantidad = cantidad;
+        this.empleado = empleado;
+        this.id_operacione_subparte_producto = id_operacione_subparte_producto;
+        this.nombre=nombre;
+        this.apellido=apellido;
+    }
+
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getProducto() {

@@ -9,7 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.os.Handler;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -51,13 +58,52 @@ public class operaciones_lotes extends AppCompatActivity {
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
     Adapter_operaciones_lotes adapter123;
     public String finalVariableRecibida_idproducto_oc;
+    private Spinner spinnerFiltrar ;
+    private EditText cantidadSublotesEditText;
+    private LinearLayout contenedorEditTexts;
+    ScrollView scrollView;
+    //editText para modificar cantidad de nuevos lotes
+    private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaciones_lotes);
+
+        cantLote1=(EditText)findViewById(R.id.cantidadSublotes1);
+        cantLote2=(EditText)findViewById(R.id.cantidadSublotes2);
+        cantLote3=(EditText)findViewById(R.id.cantidadSublotes3);
+        cantLote4=(EditText)findViewById(R.id.cantidadSublotes4);
+        cantLote5=(EditText)findViewById(R.id.cantidadSublotes5);
+        cantLote6=(EditText)findViewById(R.id.cantidadSublotes6);
+        cantLote7=(EditText)findViewById(R.id.cantidadSublotes7);
+        cantLote8=(EditText)findViewById(R.id.cantidadSublotes8);
+        cantLote9=(EditText)findViewById(R.id.cantidadSublotes9);
+        cantLote10=(EditText)findViewById(R.id.cantidadSublotes10);
+
+        spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
+        cantidadSublotesEditText = findViewById(R.id.cantidadSublotes);
+        contenedorEditTexts = findViewById(R.id.linnear_operacion_lote);
+
+        scrollView = findViewById(R.id.scroll_operacion_lote);
+
+
+
+        // array para opciones del Spinner
+        String[]opcionesFiltrado={"seleccione", "Sin Asignar", "Tareas Asignadas"};
+
+        //Arrayadapter del Spinner
+
+        ArrayAdapter<String> adapterSpinner= new ArrayAdapter<String>(this,
+                R.layout.spinner_filtrar_en_lotes_operaciones, opcionesFiltrado);
+
+        spinnerFiltrar.setAdapter(adapterSpinner);
+
+
         queue = Volley.newRequestQueue(this);
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
+
 
 
         listaEmpleados = new ArrayList<>();
@@ -100,8 +146,93 @@ public class operaciones_lotes extends AppCompatActivity {
             }
         }, 5000); // Retraso de 5000 milisegundos (5 segundos)
 
+
+        //spinnersubparte.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+          spinnerFiltrar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+              @Override
+              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                  String opcionSeleccionada = parent.getItemAtPosition(position).toString();
+
+                  // Ejemplo de condición
+                  if ("Sin Asignar".equals(opcionSeleccionada)) {
+                      handler.postDelayed(new Runnable() {
+                          @Override
+                          public void run() {
+                              // Llama al primer método aquí
+                              agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote_filtro.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc+"&empleado=null");
+
+
+                          }
+                      }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+                  } else if ("Tareas Asignadas".equals(opcionSeleccionada)) {
+                      handler.postDelayed(new Runnable() {
+                          @Override
+                          public void run() {
+                              agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote_filtro.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc+"&empleado=no null");
+
+
+
+                          }
+                      }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+                  }
+
+              }
+
+              @Override
+              public void onNothingSelected(AdapterView<?> parent) {
+
+              }
+          });
+
+
+
     }
 
+
+
+   /* private void eliminarOperacion (String URL,){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(operaciones_lotes.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("id_producto", String.valueOf(idProducto));
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
+    }*/
     public void agregarListaOperacion_Lote(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -316,7 +447,9 @@ public class operaciones_lotes extends AppCompatActivity {
 
                 Map<String, String> parametros= new HashMap<String, String>();
 
+
                 parametros.put("empleado", String.valueOf(idEmpleado));
+
                 parametros.put("id_lotes_operaciones", String.valueOf(id_operacion));
 
 

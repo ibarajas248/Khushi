@@ -85,9 +85,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
 
     }
-
-
-
     @Override
     public void onClick(View view) {
         if (listener!=null){

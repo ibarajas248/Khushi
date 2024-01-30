@@ -70,7 +70,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
 
-    public Adapter_operaciones_lotes(Context context, ArrayList<operaciones_lotes_clase> listOperaciones, List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados){
+    public Adapter_operaciones_lotes(Context context, ArrayList<operaciones_lotes_clase> listOperaciones,
+                                     List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados){
         this.context= context;
         this.listOperaciones = listOperaciones;
         this.spinnerDataList = spinnerDataList; // Inicializar la lista para el Spinner
@@ -107,7 +108,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(holder.itemView.getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
                 R.layout.custom_spinner_item, spinnerDataList);
         //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -151,10 +152,12 @@ public class Adapter_operaciones_lotes extends RecyclerView
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if (pos > 0 ) {
+
+                    int selectedPosition = holder.getAdapterPosition();
                     //int selectedId = spinnerIdsList.get(pos-1);
                     String selectid = (listaEmpleados.get(pos-1).getId());
                     String selectnombre= listaEmpleados.get(pos-1).getNombre();
-                    int id_operacione= listOperaciones.get(pos).getId_lotes_operaciones();
+                    int id_operacione= listOperaciones.get(position).getId_lotes_operaciones();
 
 
                     Log.d("seleccion",selectid+" "+selectnombre);
@@ -165,17 +168,20 @@ public class Adapter_operaciones_lotes extends RecyclerView
                     //operaciones_lotes instancia = new operaciones_lotes();
                     operaciones_lotes instancia = (operaciones_lotes) context;
 
+                    Toast.makeText(instancia, parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(instancia, id_lotes_operacionesString, Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(instancia, id_lotes_operacionesString, Toast.LENGTH_SHORT).show();
+
                     String URL = "http://khushiconfecciones.com//app_khushi/consultas_lotes/asignar_empleado_lote.php?id_lotes_operaciones="+id_lotes_operacionesString;
 
 
                     instancia.agregarEmpleado(URL,Integer.parseInt(selectid),selectnombre, id_lotes_operacionesString);
                     holder.empleado.setText(String.valueOf(selectid));
 
+                }
 
 
-                } else {
+                else {
                     Log.d("Error", "Índice de Spinner fuera de rango");
                 }
 
@@ -204,13 +210,12 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE82900);
 
 
-
         } else {
             holder.producto.setBackgroundColor(0xFF1976D2);
             holder.subparte.setBackgroundColor(0xFF1E88E5);
             holder.operaciones.setBackgroundColor(0xFF1976D2);
             holder.idLotesOperaciones.setBackgroundColor(0xFF1976D2);
-            holder.cantidad.setBackgroundColor(0xFF1976D2);
+            holder.cantidad.setBackgroundColor(0xFF1E88E5);
             holder.empleado.setBackgroundColor(0xFF1976D2);
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFF1976D2);
 

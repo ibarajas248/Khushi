@@ -52,6 +52,8 @@ public class agregarProducto extends AppCompatActivity {
     int idProducto;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.AlertDialog"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.consultar_tareas_asignadas"
+            android:exported="false" />
+        <activity
             android:name=".Activity.operaciones_lotes"
             android:exported="false" />
         <activity
