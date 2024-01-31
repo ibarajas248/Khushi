@@ -5,7 +5,7 @@ public class operaciones_lotes_clase {
     private String producto, subparte, operaciones,empleado;
     //para otro constructor
     String nombre, apellido;
-    int id_lotes_operaciones, cantidad, id_operacione_subparte_producto;
+    int id_lotes_operaciones, cantidad, id_operacione_subparte_producto, lotes;
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto) {
         this.producto = producto;
@@ -29,7 +29,25 @@ public class operaciones_lotes_clase {
         this.apellido=apellido;
     }
 
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto, int lotes) {
+        this.producto = producto;
+        this.subparte = subparte;
+        this.operaciones = operaciones;
+        this.id_lotes_operaciones = id_lotes_operaciones;
+        this.cantidad = cantidad;
+        this.empleado = empleado;
+        this.id_operacione_subparte_producto = id_operacione_subparte_producto;
+        this.lotes= lotes;
+    }
 
+
+    public int getLotes() {
+        return lotes;
+    }
+
+    public void setLotes(int lotes) {
+        this.lotes = lotes;
+    }
 
     public String getNombre() {
         return nombre;

@@ -24,7 +24,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
     ArrayList<operaciones_lotes_clase> listOperaciones;
 
     private View.OnClickListener listener;
-    private Context context;
+
 
     private OnItemLongClickListener itemLongClickListener;
 

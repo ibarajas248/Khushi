@@ -34,6 +34,7 @@ import com.example.khushi.Activity.operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
+import com.google.android.material.transition.Hold;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,11 +46,14 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
     ArrayList<operaciones_lotes_clase> listOperaciones;
+    private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
 
 
     private View.OnClickListener listener;
 
     private int selectedPosition = RecyclerView.NO_POSITION; //variable para cambiar de color de la fila
+
+    private OnItemLongClickListener itemLongClickListener;
 
 
 
@@ -105,7 +109,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.cantidad.setText(String.valueOf(listOperaciones.get(position).getCantidad()));
         holder.empleado.setText(String.valueOf(listOperaciones.get(position).getEmpleado()));
         holder.id_operaciones_subparte_producto.setText(String.valueOf(listOperaciones.get(position).getId_operacione_subparte_producto()));
-
+        holder.lote.setText(String.valueOf(listOperaciones.get(position).getLotes()));
 
         //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
@@ -242,6 +246,23 @@ public class Adapter_operaciones_lotes extends RecyclerView
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (itemLongClickListener != null) {
+                    itemLongClickListener.onItemLongClick(listOperaciones.get(position));
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.itemLongClickListener = listener;
     }
 
     @Override
@@ -253,6 +274,15 @@ public class Adapter_operaciones_lotes extends RecyclerView
     public void onClick(View v) {
         if (listener!=null){
             listener.onClick(v);
+
+            // Obtén la posición del elemento clickeado
+            int position = ((RecyclerView) v.getParent()).getChildAdapterPosition(v);
+
+            // Actualiza la posición del elemento seleccionado
+            selectedItem = position;
+
+            // Notifica que los datos han cambiado para refrescar el RecyclerView
+            notifyDataSetChanged();
         }
 
     }
@@ -261,9 +291,11 @@ public class Adapter_operaciones_lotes extends RecyclerView
         this.listener=listener;
     }
 
+
+
     public class ViewHolderOperacionesLotes extends RecyclerView.ViewHolder {
 
-        TextView producto,subparte, operaciones,idLotesOperaciones,cantidad, empleado, id_operaciones_subparte_producto;
+        TextView producto,subparte, operaciones,idLotesOperaciones,cantidad, empleado, id_operaciones_subparte_producto, lote ;
         Spinner spinner;
         public ViewHolderOperacionesLotes(@NonNull View itemView) {
             super(itemView);
@@ -275,9 +307,13 @@ public class Adapter_operaciones_lotes extends RecyclerView
             empleado= itemView.findViewById(R.id.empleado);
             id_operaciones_subparte_producto=itemView.findViewById(R.id.id_operaciones_subparte_producto);
             spinner = itemView.findViewById(R.id.spinner2);
+            lote= itemView.findViewById(R.id.edtlote);
 
 
         }
+    }
+    public interface OnItemLongClickListener {
+        void onItemLongClick(operaciones_lotes_clase asignacion);
     }
 
 

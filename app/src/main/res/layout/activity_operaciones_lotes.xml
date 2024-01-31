@@ -195,6 +195,94 @@
                     android:visibility="gone" />
 
 
+                <LinearLayout
+                    android:id="@+id/llContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#3498db"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Producto"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sección"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvOperation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Operación"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cantidad"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apellido"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+                <Button
+                android:id="@+id/boton_dividir_lote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#011336"
+                android:layout_gravity="end"
+                android:textColor="#FFCE17"
+                android:textSize="20dp"
+                android:text="Dividir lote"
+                android:visibility="gone"/>
+                <Button
+                    android:id="@+id/botonEditarCantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:layout_gravity="end"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp"
+                    android:text="editar cantidad "
+                    android:visibility="gone"/>
+
+
 
 
 
@@ -341,139 +429,9 @@
             </HorizontalScrollView>
 
 
-            <Button
-                android:id="@+id/buttonmodificar_operacione"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modificar"
-                android:visibility="gone" />
 
 
-            <Button
-                android:id="@+id/boton_agregar_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:layout_gravity="end"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:text="Agregar operacion" />
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="406dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#D8CDA8">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/id_producto_filtro_deproducto"
-                            android:layout_width="53dp"
-                            android:layout_height="40dp"
-                            android:background="#1976D2"
-                            android:padding="8dp"
-                            android:text=""
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/operaciones_filtrado_deproducto"
-                            android:layout_width="600dp"
-                            android:layout_height="40dp"
-                            android:background="#1976D2"
-                            android:padding="8dp"
-                            android:text="operaciones"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/producto_filtrado_deproducto"
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
-                            android:background="#2196F3"
-                            android:padding="8dp"
-                            android:text="producto"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/subparte_filtrado_deproducot"
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
-                            android:background="#1976D2"
-                            android:padding="8dp"
-                            android:text="sección"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/cantidadoperacion_filtrado_deproducto"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:background="#2196F3"
-                            android:padding="8dp"
-                            android:text="cantidad"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/maquina_filtrado_deproducto"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:background="#1976D2"
-                            android:padding="8dp"
-                            android:text="Maquina"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/precio_filtrado_deproducto"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:background="#2196F3"
-                            android:padding="8dp"
-                            android:text="precio"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleroperacionesproducto"
-                        android:layout_width="match_parent"
-                        android:layout_height="311dp">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
-
-                </LinearLayout>
-            </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>
 

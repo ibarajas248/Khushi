@@ -54,6 +54,7 @@ public class agregarProducto extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +163,8 @@ public class agregarProducto extends AppCompatActivity {
                 adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {
                     @Override
                     public void onItemLongClick(nuevoProducto p) {
+
+
 
                         precio.setText(String.valueOf(p.getPrecio()));
                         producto.setText(p.getProducto());

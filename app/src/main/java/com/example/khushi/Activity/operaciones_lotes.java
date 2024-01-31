@@ -12,11 +12,13 @@ import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,7 +56,7 @@ public class operaciones_lotes extends AppCompatActivity {
 
     RecyclerView recycler;
     RequestQueue queue;
-
+    LinearLayout linearLayoutFicha;
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
     Adapter_operaciones_lotes adapter123;
     public String finalVariableRecibida_idproducto_oc;
@@ -65,6 +67,16 @@ public class operaciones_lotes extends AppCompatActivity {
     //editText para modificar cantidad de nuevos lotes
     private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
 
+
+
+
+    Button botonDividirLote, botonEditarCantidad;
+
+
+    TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView;
+
+
+    int idParaUpdate; //variable para almacenar el id de la tarea asignada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +94,17 @@ public class operaciones_lotes extends AppCompatActivity {
         cantLote9=(EditText)findViewById(R.id.cantidadSublotes9);
         cantLote10=(EditText)findViewById(R.id.cantidadSublotes10);
 
+        linearLayoutFicha = findViewById(R.id.llContainer);
+
         spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         cantidadSublotesEditText = findViewById(R.id.cantidadSublotes);
         contenedorEditTexts = findViewById(R.id.linnear_operacion_lote);
 
         scrollView = findViewById(R.id.scroll_operacion_lote);
+
+        //Botones
+        botonDividirLote=(Button)findViewById(R.id.boton_dividir_lote);
+        botonEditarCantidad=(Button)findViewById(R.id.botonEditarCantidad);
 
 
 
@@ -103,6 +121,18 @@ public class operaciones_lotes extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
+
+        // ------------ inicializo los texview de la tarjeta de la operacion realizada
+
+        productTextView = findViewById(R.id.tvProduct);
+        sectionTextView = findViewById(R.id.tvSection);
+        operationTextView = findViewById(R.id.tvOperation);
+        quantityTextView = findViewById(R.id.tvQuantity);
+        nameTextView = findViewById(R.id.tvName);
+        lastNameTextView = findViewById(R.id.tvLastName);
+
+
+        //-----------------------------------------------------------------------------
 
 
 
@@ -186,6 +216,8 @@ public class operaciones_lotes extends AppCompatActivity {
 
 
 
+
+
     }
 
 
@@ -254,8 +286,10 @@ public class operaciones_lotes extends AppCompatActivity {
                         int id_lotes_operaciones= Integer.parseInt(jsonObject.getString("id_lotes_operaciones"));
                         int cantidad= Integer.parseInt(jsonObject.getString("cantidad"));
                         String StringEmpleado=jsonObject.getString("empleado");
-
+                        //falta implementar el id_producto_oc al adapter
+                        String id_producto_oc= jsonObject.getString("id_producto_oc");
                         String empleado=StringEmpleado;
+                        int lote= Integer.parseInt(jsonObject.getString("lote"));
 
 
                         // si el valor es null pone -1
@@ -276,7 +310,7 @@ public class operaciones_lotes extends AppCompatActivity {
                         }
                         int id_operaciones_subparte_producto=Integer.parseInt(jsonObject.getString("id_operaciones_subparte_producto"));
 
-                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto));
+                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,lote));
 
                         //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
                         listEmpleados.add(String.valueOf(empleado));
@@ -314,6 +348,42 @@ public class operaciones_lotes extends AppCompatActivity {
                         // Ejemplo: Guardar los valores en variables globales o hacer otra acción
                         // saveToGlobalVariables(idOperacion, nombreOperacion);*/
 
+                    }
+                });
+
+                adapter123.setOnItemLongClickListener(new Adapter_operaciones_lotes.OnItemLongClickListener() {
+                    @Override
+                    public void onItemLongClick(operaciones_lotes_clase asignacion) {
+
+                        idParaUpdate= asignacion.getId_lotes_operaciones();
+
+                        cantidadSublotesEditText.setVisibility(View.VISIBLE);
+                        linearLayoutFicha.setVisibility(View.VISIBLE);
+
+                        //idParaUpdate= asignacion.getId_lotes_operaciones();
+
+                        //asigna los valores a la tarjeta
+                        productTextView.setText(asignacion.getProducto());
+                        sectionTextView.setText(asignacion.getSubparte());
+                        operationTextView.setText(asignacion.getOperaciones());
+                        quantityTextView.setText(String.valueOf(asignacion.getCantidad()));
+                        nameTextView.setText(asignacion.getNombre());
+                        lastNameTextView.setText(asignacion.getApellido());
+
+                        //-------
+
+                        botonDividirLote.setVisibility(View.VISIBLE);
+                        botonEditarCantidad.setVisibility(View.VISIBLE);
+                        int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+
+
+                        botonDividirLote.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //eliminarOperacion("url");
+                            }
+                        });
                     }
                 });
 
@@ -468,6 +538,107 @@ public class operaciones_lotes extends AppCompatActivity {
 
     }
 
+    private void eliminarOperacion (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(operaciones_lotes.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("id_lotes_operaciones", String.valueOf(idParaUpdate));
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
+    }
+    private void  agregarOperacion (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", response);
+                Toast.makeText(operaciones_lotes.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(operaciones_lotes.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error en la solicitud: " + error.toString());
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+               /* productTextView.setText(asignacion.getProducto());
+                sectionTextView.setText(asignacion.getSubparte());
+                operationTextView.setText(asignacion.getOperaciones());
+                quantityTextView.setText(String.valueOf(asignacion.getCantidad()));
+                nameTextView.setText(asignacion.getNombre());
+                lastNameTextView.setText(asignacion.getApellido());*/
+
+               // parametros.put("id_producto_subparte_operacion",producto.getText().toString())
+
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
 
 
 
