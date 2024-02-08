@@ -2,44 +2,70 @@ package com.example.khushi.clasesinfo;
 
 public class operaciones_lotes_clase {
 
-    private String producto, subparte, operaciones,empleado;
+     String producto, subparte, operaciones,empleado;
     //para otro constructor
-    String nombre, apellido;
-    int id_lotes_operaciones, cantidad, id_operacione_subparte_producto, lotes;
+    String nombre, apellido, completado;
+    int id_lotes_operaciones, cantidad, id_operacione_subparte_producto, lotes,id_producto_oc;
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto) {
+
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones,
+                                   int cantidad, String empleado, int idOperacionesSubparteProducto, int lote, int idProductoOc,  String completado) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
-        this.id_lotes_operaciones = id_lotes_operaciones;
+        this.id_lotes_operaciones = idLotesOperaciones;
         this.cantidad = cantidad;
-        this.empleado = empleado;
-        this.id_operacione_subparte_producto = id_operacione_subparte_producto;
+        this.empleado= empleado;
+        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
+        this.lotes=lote;
+        this.id_producto_oc=idProductoOc;
+        this.completado=completado;
+
     }
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto,String nombre,String apellido) {
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
-        this.id_lotes_operaciones = id_lotes_operaciones;
+        this.id_lotes_operaciones = idLotesOperaciones;
         this.cantidad = cantidad;
-        this.empleado = empleado;
-        this.id_operacione_subparte_producto = id_operacione_subparte_producto;
-        this.nombre=nombre;
-        this.apellido=apellido;
+        this.empleado= empleado;
+        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
+        this.nombre=nombreEmpleado;
+        this.apellido=apellidoEmpleado;
+        this.lotes=lote;
     }
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int id_lotes_operaciones, int cantidad, String empleado, int id_operacione_subparte_producto, int lotes) {
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote, int idProductoOc, String completado) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
-        this.id_lotes_operaciones = id_lotes_operaciones;
+        this.id_lotes_operaciones = idLotesOperaciones;
         this.cantidad = cantidad;
-        this.empleado = empleado;
-        this.id_operacione_subparte_producto = id_operacione_subparte_producto;
-        this.lotes= lotes;
+        this.empleado= empleado;
+        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
+        this.lotes=lote;
+        this.nombre=nombreEmpleado;
+        this.apellido=apellidoEmpleado;
+        this.id_producto_oc=idProductoOc;
+        this.completado=completado;
     }
 
+    public String getCompletado() {
+        return completado;
+    }
+
+    public void setCompletado(String completado) {
+        this.completado = completado;
+    }
+
+    public int getId_producto_oc() {
+        return id_producto_oc;
+    }
+
+    public void setId_producto_oc(int id_producto_oc) {
+        this.id_producto_oc = id_producto_oc;
+    }
 
     public int getLotes() {
         return lotes;

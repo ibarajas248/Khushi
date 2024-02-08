@@ -10,35 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+
+        android:background="#838078"
+        >
 
 
-
-        <Spinner
-            android:id="@+id/spinnerselecproducto"
-            android:layout_width="wrap_content"
-            android:padding="12dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
-        <EditText
-            android:id="@+id/editTextnumero_lotes"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="escriba cantidad de lotes"
-            android:layout_marginBottom="16dp"
-            android:background="#EFE1AD"
-            android:ems="10"
-            android:padding="12dp"
-            android:inputType="number" />
-        <EditText
-            android:id="@+id/editTextnumero_productos"
-            android:background="#EFE1AD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="escriba cantidad de productos"
-            android:ems="10"
-            android:inputType="number"
-            android:padding="12dp"/>
+            android:layout_marginTop="25dp"
+            android:gravity="end"
+
+            android:orientation="vertical"
+            android:background="#4D4D4E">
+
+
+            <Spinner
+                android:id="@+id/spinnerselecproducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextnumero_lotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="#EFE1AD"
+                android:ems="10"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="escriba cantidad de lotes"
+                android:inputType="number"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextnumero_productos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFE1AD"
+                android:ems="10"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:hint="escriba cantidad de productos"
+                android:inputType="number"
+                android:padding="12dp" />
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -53,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#011336"
-                android:text="Agregar asignar producto a oc "
+                android:text="Asignar producto a oc "
                 android:textColor="#FFCE17"
                 android:textSize="16sp"
 
@@ -63,8 +84,9 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="446dp"
-            android:background="#EFE1AD">
+            android:layout_height="wrap_content"
+            android:background="#EFE1AD"
+            android:layout_marginTop="20dp">
 
 
 
@@ -125,7 +147,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:padding="8dp"
-                        android:background="#1976D2"
+                        android:background="#011336"
                         />
 
 
@@ -138,7 +160,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:padding="8dp"
-                        android:background="#1E88E5" />
+                        android:background="#011336"/>
 
                     <TextView
                         android:id="@+id/lotes_producto_oc"
@@ -149,7 +171,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:padding="8dp"
-                        android:background="#1976D2" />
+                        android:background="#011336" />
                     <TextView
                         android:id="@+id/cantidadProductos"
                         android:layout_width="100dp"
@@ -159,7 +181,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:padding="8dp"
-                        android:background="#1976D2" />
+                        android:background="#011336" />
 
 
 

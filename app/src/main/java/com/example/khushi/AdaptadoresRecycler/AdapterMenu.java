@@ -41,18 +41,19 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
     @Override
     public void onBindViewHolder(@NonNull AdapterMenu.viewHolderMenu holder, int position) {
         holder.etiNombre.setText(listaMenu.get(position).getTitulo());
+       //holder.foto.setImageResource(listaMenu.get(position).getFoto());
 
         // Verificar si la posición es par o impar
         if (position % 2 == 0) {
             // Para posiciones pares, cambia el color de fondo o el color del texto
-            holder.itemView.setBackgroundColor(0xFFACA89C);
-
+            holder.itemView.setBackgroundColor(0xFF011336);
+            holder.etiNombre.setTextColor(0xFFFFFFFF);
             //holder.producto.setTextColor(0xFF000000);
         } else {
             // Para posiciones impares, otro color diferente
             holder.itemView.setBackgroundColor(0xFFEFE1AD);
             // o
-            //holder.producto.setTextColor(0xFF000000);
+            //holder.etiNombre.setTextColor(0xFF000000);
         };
     }
 
@@ -79,8 +80,8 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
             super(itemView);
 
             etiNombre=(TextView) itemView.findViewById(R.id.idNombre);
-            etiInformacion=(TextView) itemView.findViewById(R.id.idInfo);
-            foto= (ImageView)itemView.findViewById(R.id.idImagen);
+            //etiInformacion=(TextView) itemView.findViewById(R.id.idInfo);
+            //foto= (ImageView)itemView.findViewById(R.id.idImagen);
         }
     }
 }

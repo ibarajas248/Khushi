@@ -70,7 +70,7 @@ public class RegistroActivity extends AppCompatActivity {
         for (int i = 0; i < 50; i++) {
             anios[i] = String.valueOf(1989 + i);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_anio_vinculacion, anios);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, anios);
         // Especifica el diseño del elemento desplegable
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -137,10 +137,10 @@ public class RegistroActivity extends AppCompatActivity {
         intent.putExtra("anio_vinculacion", aniovinculacion.getSelectedItem().toString().trim());
 
 
-        if (edtcontrasenasupervisor.getText().toString().equals("123123123")&& cbsupervisor.isChecked()){
+        if (edtcontrasenasupervisor.getText().toString().equals("j488wn3")&& cbsupervisor.isChecked()){
 
             intent.putExtra("Rol", "SUPERVISOR");
-        }else if(!edtcontrasenasupervisor.getText().toString().equals("123123123")&& cbsupervisor.isChecked()){
+        }else if(!edtcontrasenasupervisor.getText().toString().equals("j488wn3")&& cbsupervisor.isChecked()){
             //intent.putExtra("Rol","OPERARIO");
             Toast.makeText(RegistroActivity.this, "Contraseña  de supervisor incorrecta", Toast.LENGTH_SHORT).show();
             return;

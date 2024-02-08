@@ -140,7 +140,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                 }
                 AdapterDatos adapter123 = new AdapterDatos(listDatos);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(agregar_producto_oc.this, android.R.layout.simple_list_item_1, nombresProductos);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(agregar_producto_oc.this, R.layout.spinner_filtrar_en_lotes_operaciones, nombresProductos);
                 spinnerproducto.setAdapter(adapter); // Establecer el adaptador en el Spinner
 
 
@@ -277,11 +277,21 @@ public class agregar_producto_oc extends AppCompatActivity {
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Toast.makeText(getApplicationContext(),"seleccion "+listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto(),Toast.LENGTH_SHORT).show();
-                       Intent intent= new Intent(agregar_producto_oc.this, operaciones_lotes.class);
 
-                        intent.putExtra("id",String.valueOf(idPtoductoOC));
-                        startActivity(intent);
+                        int position = recycler.getChildAdapterPosition(v);
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            nuevoproducto_en_oc clickedItem = listProductoOrdenCompra.get(position);
+
+                            // Acceder al id del elemento clickeado
+                            int idProductoOC = clickedItem.getId();
+
+                            // Pasar el id a la siguiente actividad mediante Intent
+                            Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
+                            intent.putExtra("id", String.valueOf(idProductoOC));
+                            startActivity(intent);
+                        }
+
                     }
                 });
                /* adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {
@@ -291,6 +301,7 @@ public class agregar_producto_oc extends AppCompatActivity {
 
                     }
                 });*/
+
 
 
                 recycler.setAdapter(adapter123);

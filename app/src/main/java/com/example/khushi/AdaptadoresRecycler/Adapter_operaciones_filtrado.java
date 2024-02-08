@@ -83,8 +83,7 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
                             i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase()) ||
                             i.getSubparte().toLowerCase().contains(txtBuscar.toLowerCase())||
                             String.valueOf(i.getPrecio()).toLowerCase().contains(txtBuscar.toLowerCase())||
-                            String.valueOf(i.getCantidad()).toLowerCase().contains(txtBuscar.toLowerCase())||
-                            i.getMaquina().toLowerCase().contains(txtBuscar.toLowerCase())
+                            String.valueOf(i.getCantidad()).toLowerCase().contains(txtBuscar.toLowerCase())
                     )
                     .collect(Collectors.toList());
             listOperacionesFiltradas.clear();

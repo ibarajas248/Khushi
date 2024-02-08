@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class operaciones_lotes extends AppCompatActivity {
+public class operaciones_lotes extends AppCompatActivity  implements SearchView.OnQueryTextListener{
 
     ArrayList<operaciones_lotes_clase> listOperaciones;
     ArrayList<String>listEmpleados;
@@ -56,12 +57,14 @@ public class operaciones_lotes extends AppCompatActivity {
 
     RecyclerView recycler;
     RequestQueue queue;
-    LinearLayout linearLayoutFicha;
+    LinearLayout linearLayoutFicha,contenedorRecycler ;
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
     Adapter_operaciones_lotes adapter123;
     public String finalVariableRecibida_idproducto_oc;
     private Spinner spinnerFiltrar ;
     private EditText cantidadSublotesEditText;
+
+    SearchView buscarOperacionesDB;
     private LinearLayout contenedorEditTexts;
     ScrollView scrollView;
     //editText para modificar cantidad de nuevos lotes
@@ -94,7 +97,13 @@ public class operaciones_lotes extends AppCompatActivity {
         cantLote9=(EditText)findViewById(R.id.cantidadSublotes9);
         cantLote10=(EditText)findViewById(R.id.cantidadSublotes10);
 
-        linearLayoutFicha = findViewById(R.id.llContainer);
+
+        buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
+        buscarOperacionesDB.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
+
+        contenedorRecycler=findViewById(R.id.contenedorRecycler); //contenedor del recycler
+
+        linearLayoutFicha = findViewById(R.id.llContainer); //ficha de seleccion
 
         spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         cantidadSublotesEditText = findViewById(R.id.cantidadSublotes);
@@ -171,10 +180,10 @@ public class operaciones_lotes extends AppCompatActivity {
             public void run() {
                 // Llama al primer método aquí
                 agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
-                Log.d("holia que ndknek", "rfefrewfrewfrewfr");
+
 
             }
-        }, 5000); // Retraso de 5000 milisegundos (5 segundos)
+        }, 100); // Retraso de 5000 milisegundos (5 segundos)
 
 
         //spinnersubparte.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -287,9 +296,14 @@ public class operaciones_lotes extends AppCompatActivity {
                         int cantidad= Integer.parseInt(jsonObject.getString("cantidad"));
                         String StringEmpleado=jsonObject.getString("empleado");
                         //falta implementar el id_producto_oc al adapter
-                        String id_producto_oc= jsonObject.getString("id_producto_oc");
+                        int id_producto_oc = (Integer.parseInt(jsonObject.getString("id_producto_orden_compra")));
                         String empleado=StringEmpleado;
                         int lote= Integer.parseInt(jsonObject.getString("lote"));
+                        String completado= jsonObject.getString("completado");
+
+
+
+
 
 
                         // si el valor es null pone -1
@@ -310,7 +324,9 @@ public class operaciones_lotes extends AppCompatActivity {
                         }
                         int id_operaciones_subparte_producto=Integer.parseInt(jsonObject.getString("id_operaciones_subparte_producto"));
 
-                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,lote));
+
+                        //String producto, String subparte, String operaciones, String empleado, String nombre, String apellido, int id_lotes_operaciones, int cantidad, int id_operacione_subparte_producto, int lotes, int id_producto_oc
+                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto, lote, id_producto_oc,completado));
 
                         //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
                         listEmpleados.add(String.valueOf(empleado));
@@ -325,29 +341,7 @@ public class operaciones_lotes extends AppCompatActivity {
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
-                        //acciones para el click
-                        /*visibilidadModificar=true;
-                        botonModificar.setVisibility(View.VISIBLE);
-
-                        int position = recycler.getChildAdapterPosition(v);
-                        // Obtén el elemento seleccionado del ArrayList usando la posición
-                        nuevaOperacion operacionSeleccionada = listOperaciones.get(position);
-
-                        // Ahora puedes acceder a los valores de la operación seleccionada y guardarlos o realizar acciones con ellos
-
-                        //nombreOperacion = operacionSeleccionada.getNombreOperacion();
-                        nombreOperacion.setText(String.valueOf(operacionSeleccionada.getNombreOperacion()));
-                        cantidad.setText(String.valueOf(operacionSeleccionada.getCantidad()));
-                        idoperacionGlobal=operacionSeleccionada.getId_operacion();
-
-
-                        // Y así sucesivamente con otros valores que desees guardar o utilizar
-
-                        // Ejemplo: Guardar los valores en variables globales o hacer otra acción
-                        // saveToGlobalVariables(idOperacion, nombreOperacion);*/
-
+                        // este metodo se configuró en el adapter
                     }
                 });
 
@@ -359,6 +353,8 @@ public class operaciones_lotes extends AppCompatActivity {
 
                         cantidadSublotesEditText.setVisibility(View.VISIBLE);
                         linearLayoutFicha.setVisibility(View.VISIBLE);
+                        botonDividirLote.setVisibility(View.VISIBLE);
+                        botonEditarCantidad.setVisibility(View.VISIBLE);
 
                         //idParaUpdate= asignacion.getId_lotes_operaciones();
 
@@ -370,19 +366,137 @@ public class operaciones_lotes extends AppCompatActivity {
                         nameTextView.setText(asignacion.getNombre());
                         lastNameTextView.setText(asignacion.getApellido());
 
+
+
                         //-------
 
-                        botonDividirLote.setVisibility(View.VISIBLE);
-                        botonEditarCantidad.setVisibility(View.VISIBLE);
+
                         int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+
+
+                        //esconde el recycler
+                        spinnerFiltrar.setVisibility(View.GONE);
+                        buscarOperacionesDB.setVisibility(View.GONE);
+                        contenedorRecycler.setVisibility(View.GONE);
+                        recycler.setVisibility(View.GONE);
+
+
 
 
                         botonDividirLote.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                //eliminarOperacion("url");
+                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+                                int cantidad_lote= asignacion.getCantidad();
+                                int lote= asignacion.getLotes();
+                                int id_producto_oc=asignacion.getId_producto_oc();
+
+                            //String URL, int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
+                                eliminarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/eliminar_operacion_lote.php");
+                                String cantidadSublotesString = cantidadSublotesEditText.getText().toString();
+
+
+
+                                if (!cantidadSublotesString.isEmpty()) {
+                                    int cantidadLotesIterar = Integer.parseInt(cantidadSublotesString);
+                                    int modulo=cantidad_lote%cantidadLotesIterar;
+                                    for (int i = 0; i < cantidadLotesIterar; i++) {
+                                       if (modulo !=0){
+                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote);
+                                           modulo=0;
+                                       }else{
+                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote);
+
+                                       }
+                                        //hace aparecer el recycler
+
+                                        spinnerFiltrar.setVisibility(View.VISIBLE);
+                                        buscarOperacionesDB.setVisibility(View.VISIBLE);
+                                        contenedorRecycler.setVisibility(View.VISIBLE);
+                                        recycler.setVisibility(View.VISIBLE);
+
+                                        //----------------------------------
+
+                                        //desaparece la tarjeta
+
+                                        cantidadSublotesEditText.setVisibility(View.GONE);
+                                        linearLayoutFicha.setVisibility(View.GONE);
+                                        botonDividirLote.setVisibility(View.GONE);
+                                        botonEditarCantidad.setVisibility(View.GONE);
+
+
+
+                                        Toast.makeText(operaciones_lotes.this, "Lote dividido exitosamente", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // Manejar el caso en que la cadena esté vacía
+                                    Toast.makeText(operaciones_lotes.this, "La cantidad de sublotes no puede estar vacía", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                                Handler handler = new Handler();
+                                //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Llama al primer método aquí
+                                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+
+
+                                    }
+                                }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+
+
                             }
+                        });
+
+                        botonEditarCantidad.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+                                int cantidad_lote= Integer.parseInt(cantidadSublotesEditText.getText().toString());
+                                int lote= asignacion.getLotes();
+                                int id_producto_oc=asignacion.getId_producto_oc();
+
+                                //String URL, int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
+                                eliminarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/eliminar_operacion_lote.php");
+                                String cantidadSublotesString = cantidadSublotesEditText.getText().toString();
+
+
+
+                                if (!cantidadSublotesString.isEmpty()) {
+                                    dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote);
+
+
+                                    //hace aparecer el recycler
+
+                                    spinnerFiltrar.setVisibility(View.VISIBLE);
+                                    buscarOperacionesDB.setVisibility(View.VISIBLE);
+                                    contenedorRecycler.setVisibility(View.VISIBLE);
+                                    recycler.setVisibility(View.VISIBLE);
+
+                                    //----------------------------------
+
+                                    Toast.makeText(operaciones_lotes.this, "cantidad modificada exitosamente", Toast.LENGTH_LONG).show();
+
+                                    //desaparece la tarjeta
+
+                                    cantidadSublotesEditText.setVisibility(View.GONE);
+                                    linearLayoutFicha.setVisibility(View.GONE);
+                                    botonDividirLote.setVisibility(View.GONE);
+                                    botonEditarCantidad.setVisibility(View.GONE);
+
+                                } else {
+                                    // Manejar el caso en que la cadena esté vacía
+                                    Toast.makeText(operaciones_lotes.this, "La cantidad no puede estar vacía", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+
                         });
                     }
                 });
@@ -639,6 +753,70 @@ public class operaciones_lotes extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+    private void dividirOperacion (String URL, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote ){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        //holidfd
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Toast.makeText(operaciones_lotes.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(operaciones_lotes.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+                //int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
+
+                Map<String, String> parametros= new HashMap<String, String>();
+
+               // parametros.put("id_lotes_operaciones", String.valueOf(idParaUpdate));
+                parametros.put("id_producto_subparte_operacion",String.valueOf(id_producto_subparte_operacion));
+                parametros.put("id_producto_oc",String.valueOf(id_producto_oc));
+                parametros.put("cantidad", String.valueOf(cantidad));
+                parametros.put("lotes", String.valueOf(lote));
+
+                Log.i("d",String.valueOf(id_producto_subparte_operacion)+"/"+String.valueOf(id_producto_oc)+"/"+String.valueOf(cantidad)+"/"+String.valueOf(lote));
+
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
+    }
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+
+    public boolean onQueryTextChange(String s) {
+        adapter123.filtrado(s);
+
+        return false;
+    }
+
+
+
 
 
 

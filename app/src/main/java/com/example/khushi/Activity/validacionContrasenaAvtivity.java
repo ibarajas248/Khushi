@@ -105,6 +105,11 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
                     return;
                 }
                 agregarusuario("http://khushiconfecciones.com//app_khushi/insertar_empleado.php");
+                Toast.makeText(validacionContrasenaAvtivity.this, "Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -123,7 +128,7 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(validacionContrasenaAvtivity.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(validacionContrasenaAvtivity.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -135,7 +140,7 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
 
                 //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(validacionContrasenaAvtivity.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(validacionContrasenaAvtivity.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
             }
         }){

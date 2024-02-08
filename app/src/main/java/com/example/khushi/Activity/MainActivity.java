@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     String nombreUsuario;
 
 
+    //variables que paso al intent
+
+    private String ROL, idEmpleado;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,14 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
 
-                if (response.length()  > 0) {
 
-                    Toast.makeText(MainActivity.this, "Usuario validado correctamente", Toast.LENGTH_SHORT).show();
-                    String nombreUsuario= String.valueOf(user.getText());
-                    Intent intent= new Intent(MainActivity.this, Home.class);
-
-                    startActivity(intent);
-                }
                 // Este método se llama cuando la solicitud es exitosa y recibe un JSONArray como respuesta
                 JSONObject jsonObject=null;
                 for(int i=0;i<response.length();i++){
@@ -107,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         jsonObject=response.getJSONObject(i);
                         // Extraer datos del objeto JSON y mostrarlos en los campos de texto
                         int idusuario= Integer.parseInt(jsonObject.getString("id"));
-                        String ROL= jsonObject.getString("Rol");
+                        idEmpleado= String.valueOf(idusuario);
+                        ROL= jsonObject.getString("Rol");
                         String usuario=jsonObject.getString("usuario");
                         contrasenia.setText(jsonObject.getString("contrasenia"));
                         usuarioValidado=new Usuario(idusuario,ROL,usuario);
@@ -116,6 +115,18 @@ public class MainActivity extends AppCompatActivity {
                         // Capturar y mostrar cualquier error JSON que ocurra
                         Toast.makeText(getApplicationContext(),e.getMessage() , Toast.LENGTH_SHORT).show();
                     }
+
+                    if (response.length()  > 0) {
+
+                        Toast.makeText(MainActivity.this, "Usuario validado correctamente", Toast.LENGTH_SHORT).show();
+                        String nombreUsuario= String.valueOf(user.getText());
+                        Intent intent= new Intent(MainActivity.this, Home.class);
+                        intent.putExtra("Rol",String.valueOf(ROL));
+                        intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
+                        startActivity(intent);
+                    }
+
+
                 }
             }
         }, new Response.ErrorListener(){

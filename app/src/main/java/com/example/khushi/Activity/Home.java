@@ -21,21 +21,32 @@ import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
+    private String ROL ;
     private Toolbar toolbar1;
     ImageButton btnagregarproducto,btnagregaroperacionempleado,agregaroc;
     private RecyclerView recyclerView;
 
     ArrayList<menuClase> listaMenu;
+
+
+
+    String Rol, idEmpleado; //variable para perfil de usuario
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Intent intent = getIntent();
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+
+        Toast.makeText(this, idEmpleado, Toast.LENGTH_SHORT).show();
+
+
+
 
         listaMenu = new ArrayList<>();
-        btnagregarproducto= (ImageButton) findViewById(R.id.imgbtningresarproducto);
-        btnagregaroperacionempleado=(ImageButton)findViewById(R.id.imbtnoperacionrealizada);
-        agregaroc=(ImageButton)findViewById(R.id.imagenoc);
+
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,6 +66,16 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Operaciones asignadas"){
                     Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
+                    intent.putExtra("Rol",String.valueOf(ROL));
+                    intent.putExtra("operaciones_completadas","no");
+                    intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
+                    startActivity(intent);
+
+                }else if (listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Operaciones completadas"){
+                    Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
+                    intent.putExtra("Rol",String.valueOf(ROL));
+                    intent.putExtra("operaciones_completadas","si");
+                    intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                     startActivity(intent);
                 }
 
@@ -77,39 +98,26 @@ public class Home extends AppCompatActivity {
 
 
 
-        btnagregarproducto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(Home.this, agregarProducto.class);
-                startActivity(intent);
-
-
-            }
-        });
-        btnagregaroperacionempleado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(Home.this, operacion_realizada.class);
-                startActivity(intent);
-
-            }
-        });
-
-        agregaroc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(Home.this, ordenDeCompra.class);
-                startActivity(intent);
-            }
-        });
     }
 
+
+
     private void llenarMenu() {
-        listaMenu.add(new menuClase("Productos"));
-        listaMenu.add(new menuClase("Orden de compra"));
-        listaMenu.add(new menuClase("Operaciones asignadas"));
-        listaMenu.add(new menuClase("cuatro"));
-        listaMenu.add(new menuClase("cinco"));
+
+        //
+
+        if (ROL.equalsIgnoreCase("OPERARIO")){
+
+            listaMenu.add(new menuClase("Operaciones asignadas"));
+            listaMenu.add(new menuClase("Operaciones completadas"));
+        }else {
+            listaMenu.add(new menuClase("Productos"));
+            listaMenu.add(new menuClase("Orden de compra"));
+            listaMenu.add(new menuClase("Operaciones asignadas"));
+            listaMenu.add(new menuClase("Operaciones completadas"));
+            listaMenu.add(new menuClase("cinco"));
+        }
+
     }
 
 

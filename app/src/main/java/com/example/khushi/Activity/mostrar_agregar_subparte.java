@@ -502,7 +502,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 }
                //AdapterDatos adapter123 = new AdapterDatos(listSubparteSpinner);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(mostrar_agregar_subparte.this, android.R.layout.simple_list_item_1, nombresSubpartes);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(mostrar_agregar_subparte.this,R.layout.spinner_filtrar_en_lotes_operaciones, nombresSubpartes);
                 spinnersubparte.setAdapter(adapter); // Establecer el adaptador en el Spinner
 
 

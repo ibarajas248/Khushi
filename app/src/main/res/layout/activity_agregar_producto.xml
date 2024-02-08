@@ -11,7 +11,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#011336">
 
             <LinearLayout
                 android:layout_width="321dp"
@@ -56,11 +57,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
+                android:backgroundTint="#FFCE17"
                 android:text="Registrar producto"
-                android:textColor="#FFCE17"
+                android:textColor="#000000"
                 android:textSize="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/esquinas_curvas"
                 android:visibility="visible" />
 

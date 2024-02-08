@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +48,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class consultar_tareas_asignadas extends AppCompatActivity {
+public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener{
     ArrayList<Empleado_clase> listaEmpleados;
     ArrayList<operaciones_lotes_clase> listOperaciones;
     RecyclerView recycler;
@@ -59,10 +61,12 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
     RequestQueue queue;
     ArrayList<Integer> idsEmpleados;
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
-    Spinner spinnerEmpleado;
+    Spinner spinnerEmpleado,spinnerFiltrar;
     int idParaUpdate;
 //variable para almacenar el id de la tarea asignada
     private int Operacion_asignada;
+
+    SearchView buscarOperacionesDB;
 
     HorizontalScrollView Contenedor_Recycler;
 //variable para tarjeta cuando se selecciona una operacion
@@ -70,13 +74,29 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
     TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView;
 
     //------------
-
+    private String ROL, idEmpleado, operaciones_completadas; //variable que recibe del intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_tareas_asignadas);
 
+
+        //valores que recibe del anterior intent
+        Intent intent = getIntent();
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+        operaciones_completadas=intent.getStringExtra("operaciones_completadas");
+
+
+        //---------fin de valores recibidos en el intent
+
+        // inicializo el searchview---
+        buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
+        buscarOperacionesDB.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
+        //-----------
+
+        spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         spinnerEmpleado = findViewById(R.id.spinnerFiltrar_empleado);
         botonCompletaOperacion=(Button)findViewById(R.id.boton_completar_operacion);
 
@@ -85,14 +105,54 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         Handler handler = new Handler();
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
+
+
+        // array para opciones del Spinner
+        String[]opcionesFiltrado={"seleccione", "Sin Asignar", "Tareas Asignadas"};
+
+        //Arrayadapter del Spinner
+
+        ArrayAdapter<String> adapterSpinner= new ArrayAdapter<String>(this,
+                R.layout.spinner_filtrar_en_lotes_operaciones, opcionesFiltrado);
+
+        spinnerFiltrar.setAdapter(adapterSpinner);
+
+
+
+
+        if (ROL.equalsIgnoreCase("OPERARIO")){
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // Llama al primer método aquí
-                agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+
+                  if (operaciones_completadas.equalsIgnoreCase("no")){
+                      agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php?empleado="+idEmpleado);
+                  }else if(operaciones_completadas.equalsIgnoreCase("si")){
+                      agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php?empleado="+idEmpleado);
+
+                  }
+
 
             }
-        }, 5000); // Retraso de 5000 milisegundos (5 segundos)
+        }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+
+    }else{
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Llama al primer método aquí
+                    if (operaciones_completadas.equalsIgnoreCase("no")) {
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+                    }else if(operaciones_completadas.equalsIgnoreCase("si")){
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php");
+                    };
+
+                }
+            }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+
+        }
 
 
 
@@ -257,9 +317,12 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
                         String operaciones = jsonObject.getString("operaciones");
                         int id_lotes_operaciones= Integer.parseInt(jsonObject.getString("id_lotes_operaciones"));
                         int cantidad= Integer.parseInt(jsonObject.getString("cantidad"));
+                        int id_producto_oc = (Integer.parseInt(jsonObject.getString("id_producto_orden_compra")));
                         String StringEmpleado=jsonObject.getString("empleado");
                         String nombreEmpleado=jsonObject.getString("nombre");
                         String apellidoEmpleado=jsonObject.getString("Apellidos");
+                        int lote= Integer.parseInt(jsonObject.getString("lote"));
+                        String completado= jsonObject.getString("completado");
 
 
 
@@ -284,7 +347,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
                         }
                         int id_operaciones_subparte_producto=Integer.parseInt(jsonObject.getString("id_operaciones_subparte_producto"));
 
-                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,nombreEmpleado,apellidoEmpleado));
+                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,nombreEmpleado,apellidoEmpleado,lote,id_producto_oc,completado));
+
+
 
                         //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
                         listEmpleados.add(String.valueOf(empleado));
@@ -508,7 +573,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
                         agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
 
                     }
-                }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+                }, 1000); // Retraso de 5000 milisegundos (5 segundos)
 
                 dialog.dismiss(); // Cierra el diálogo
             }
@@ -519,4 +584,13 @@ public class consultar_tareas_asignadas extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 }

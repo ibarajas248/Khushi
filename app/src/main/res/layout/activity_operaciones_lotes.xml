@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#838078">
 
             <LinearLayout
                 android:id="@+id/linnear_operacion_lote"
@@ -37,7 +38,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="escriba cantidad de lotes"
+                    android:hint="lotes o cantidad"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone"
@@ -297,14 +298,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"/>
+                />
 
             <SearchView
                 android:id="@+id/searchoperacionesDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+
                 android:layout_marginEnd="10dp"
 
                 android:background="#EFE1AD" />
@@ -321,9 +322,11 @@
 
 
                 <LinearLayout
+                    android:id="@+id/contenedorRecycler"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
 
 
@@ -366,6 +369,17 @@
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/edtlote"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="Lote"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                            />
 
                         <TextView
                             android:id="@+id/empleado"
@@ -379,15 +393,16 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/cantidadoperacion_filtrado"
-                            android:layout_width="150dp"
+                            android:id="@+id/edtcompletado"
+                            android:layout_width="70dp"
                             android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="cantidad"
+                            android:text="completo"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                            />
 
                         <TextView
                             android:id="@+id/maquina_filtrado"
@@ -399,7 +414,8 @@
                             android:text="Maquina"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/precio_filtrado"
@@ -412,6 +428,17 @@
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/lote"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="Lote"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                            />
 
 
                     </LinearLayout>

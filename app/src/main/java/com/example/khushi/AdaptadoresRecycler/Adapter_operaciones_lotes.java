@@ -3,6 +3,7 @@ package com.example.khushi.AdaptadoresRecycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import java.util.stream.Collectors;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -33,6 +34,7 @@ import com.example.khushi.Activity.agregar_producto_oc;
 import com.example.khushi.Activity.operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
+import com.example.khushi.clasesinfo.operacionesFiltradas;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 import com.google.android.material.transition.Hold;
 
@@ -40,12 +42,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Adapter_operaciones_lotes extends RecyclerView
         .Adapter<Adapter_operaciones_lotes.ViewHolderOperacionesLotes> implements View.OnClickListener{
 
 
     ArrayList<operaciones_lotes_clase> listOperaciones;
+    ArrayList<operaciones_lotes_clase> buscador; //Array para el searchView
     private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
 
 
@@ -75,13 +79,17 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
     public Adapter_operaciones_lotes(Context context, ArrayList<operaciones_lotes_clase> listOperaciones,
-                                     List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados){
-        this.context= context;
+                                     List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados) {
+        this.context = context;
         this.listOperaciones = listOperaciones;
         this.spinnerDataList = spinnerDataList; // Inicializar la lista para el Spinner
         this.spinnerIdsList = spinnerIdsList; // Inicializa la lista de IDs
         this.listaEmpleados = listaEmpleados; //inicializa el objeto empleados
         this.id_lotes_operaciones = -1;
+
+        //inicializo el buscador
+        buscador = new ArrayList<>();
+        buscador.addAll(listOperaciones);
     }
 
 
@@ -110,13 +118,17 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.empleado.setText(String.valueOf(listOperaciones.get(position).getEmpleado()));
         holder.id_operaciones_subparte_producto.setText(String.valueOf(listOperaciones.get(position).getId_operacione_subparte_producto()));
         holder.lote.setText(String.valueOf(listOperaciones.get(position).getLotes()));
+        holder.id_producto_oc.setText(String.valueOf(listOperaciones.get(position).getId_producto_oc()));
 
         //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
                 R.layout.custom_spinner_item, spinnerDataList);
-        //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> selectedSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
+                R.layout.spinner_rojo, spinnerDataList);
 
-        //holder.spinner.setAdapter(spinnerAdapter);
+
+
+        holder.completado.setText(listOperaciones.get(position).getCompletado());
 
         if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
             holder.spinner.setAdapter(spinnerAdapter);
@@ -155,6 +167,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+
                 if (pos > 0 ) {
 
                     int selectedPosition = holder.getAdapterPosition();
@@ -172,7 +186,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                     //operaciones_lotes instancia = new operaciones_lotes();
                     operaciones_lotes instancia = (operaciones_lotes) context;
 
-                    Toast.makeText(instancia, parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(instancia, parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(instancia, id_lotes_operacionesString, Toast.LENGTH_SHORT).show();
 
 
@@ -212,6 +226,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.cantidad.setBackgroundColor(0xFFE82900);
             holder.empleado.setBackgroundColor(0xFFE82900);
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE82900);
+            holder.lote.setBackgroundColor(0xFFE82900);
+            holder.spinner.setAdapter(selectedSpinnerAdapter);//configuro el color del spinnr
+            holder.completado.setBackgroundColor(0xFFE82900);
 
 
         } else {
@@ -222,6 +239,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.cantidad.setBackgroundColor(0xFF1E88E5);
             holder.empleado.setBackgroundColor(0xFF1976D2);
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFF1976D2);
+            holder.lote.setBackgroundColor(0xFF1976D2);
+            holder.completado.setBackgroundColor(0xFF1976D2);
 
 
             // Restaura el color de fondo del Spinner manipulando directamente sus elementos
@@ -293,10 +312,16 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
 
+
     public class ViewHolderOperacionesLotes extends RecyclerView.ViewHolder {
 
-        TextView producto,subparte, operaciones,idLotesOperaciones,cantidad, empleado, id_operaciones_subparte_producto, lote ;
+        TextView producto,subparte, operaciones,idLotesOperaciones,
+                cantidad, empleado, id_operaciones_subparte_producto,
+                lote,id_producto_oc, completado ;
         Spinner spinner;
+
+
+
         public ViewHolderOperacionesLotes(@NonNull View itemView) {
             super(itemView);
             producto=itemView.findViewById(R.id.producto);
@@ -308,13 +333,39 @@ public class Adapter_operaciones_lotes extends RecyclerView
             id_operaciones_subparte_producto=itemView.findViewById(R.id.id_operaciones_subparte_producto);
             spinner = itemView.findViewById(R.id.spinner2);
             lote= itemView.findViewById(R.id.edtlote);
+            id_producto_oc= itemView.findViewById(R.id.id_producto_oc);
+            completado= itemView.findViewById(R.id.edtcompletado);
 
 
         }
     }
+
+    public void filtrado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getOperaciones().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                            i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                            i.getSubparte().toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getCantidad()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getLotes()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            i.getCompletado().toLowerCase().contains(txtBuscar.toLowerCase())
+
+                    ).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
     public interface OnItemLongClickListener {
         void onItemLongClick(operaciones_lotes_clase asignacion);
     }
+
+
 
 
 

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="#4D4D4E">
 
 
         <EditText
@@ -32,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="314dp"
             android:background="#FFFFFF"
-            android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
