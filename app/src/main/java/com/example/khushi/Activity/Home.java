@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.AdapterMenu;
-import com.example.khushi.AdaptadoresRecycler.Adapter_menu;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.menuClase;
 
@@ -46,6 +45,12 @@ public class Home extends AppCompatActivity {
 
 
         listaMenu = new ArrayList<>();
+
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+
+        getSupportActionBar().setTitle("Khushi");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
 
         recyclerView = findViewById(R.id.recycler);
@@ -118,6 +123,11 @@ public class Home extends AppCompatActivity {
             listaMenu.add(new menuClase("cinco"));
         }
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 

@@ -11,7 +11,8 @@
     <ScrollView
         android:id="@+id/scroll_operacion_lote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="#838078">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,10 +56,11 @@
             </LinearLayout>
             <SearchView
                 android:id="@+id/searchoperacionesDB"
-                android:layout_width="382dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="#EFE1AD"
 
                 />
@@ -66,7 +68,7 @@
 
             <HorizontalScrollView
                 android:id="@+id/ContenedorRecycler"
-                android:layout_width="382dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
@@ -77,7 +79,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -225,8 +227,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="#3498db"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:id="@+id/tvProduct"

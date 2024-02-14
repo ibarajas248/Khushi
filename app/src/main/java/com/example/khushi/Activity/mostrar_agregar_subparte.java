@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,12 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -47,12 +50,15 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     private String idproducto;
     Switch switch_aparecer;
 
+
+
     ArrayList<nuevaSubParte> listsubparte;
     ArrayList<nuevaSubParte> listSubparteSpinner;
     private EditText subparte;
     private Button registrarSubproducto, btnModificarSubparte, btnEliminarSeccion;
     RecyclerView recycler;
     RequestQueue queue;
+    private Toolbar toolbar1;
 
     boolean validacion = false;
     private Handler handler = new Handler();
@@ -71,12 +77,20 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_agregar_subparte);
         spinnersubparte=(Spinner) findViewById(R.id.spinner);
 
+
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
         subparte=(EditText)findViewById(R.id.mosagre_escribirsubpart);
         subparte.setEnabled(false);
+        subparte.setVisibility(View.GONE);
         registrarSubproducto=(Button)findViewById(R.id.ma_subparte_agregar);
         btnModificarSubparte=(Button)findViewById(R.id.boton_modificar_subparte);
         btnEliminarSeccion=(Button)findViewById(R.id.btn_eliminar_subparte);
         switch_aparecer = (Switch) findViewById(R.id.switch2);
+        switch_aparecer.setVisibility(View.VISIBLE);
 
 
         recycler = findViewById(R.id.recyclerViewSubParte);
@@ -92,7 +106,17 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         Spinnersubparte("http://khushiconfecciones.com/app_khushi/spinner_subparte.php"); // Volver a cargar la lista desde el servidor
-        agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listsubparte.clear();
+                // Limpiar la lista existente
+                agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
+
+            }
+        }, 3000); // 3000 milisegundos = 3 segundos
+
 
         switch_aparecer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -101,10 +125,12 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                     // Acción si el Switch está activado
                     switchActivado = true;
                     subparte.setEnabled(true);
+                    subparte.setVisibility(View.VISIBLE);
                 } else {
                     // Acción si el Switch está desactivado
                     switchActivado = false;
                     subparte.setEnabled(false);
+                    subparte.setVisibility(View.GONE);
 
                 }
 
@@ -588,6 +614,11 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         queue= Volley.newRequestQueue(this);
         queue.add(stringRequest);
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 

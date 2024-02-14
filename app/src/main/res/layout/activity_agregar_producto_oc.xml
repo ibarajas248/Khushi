@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00FFFFFF"
     tools:context=".Activity.ordenDeCompra">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-
         android:background="#838078"
-        >
+
+        android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:gravity="end"
+            android:background="#4D4D4E"
 
-            android:orientation="vertical"
-            android:background="#4D4D4E">
+            android:gravity="end"
+            android:orientation="vertical">
 
 
             <Spinner
@@ -31,17 +31,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="16dp"
+                android:background="#EFE1AD"
                 android:padding="12dp" />
 
             <EditText
                 android:id="@+id/editTextnumero_lotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="16dp"
                 android:background="#EFE1AD"
                 android:ems="10"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:hint="escriba cantidad de lotes"
                 android:inputType="number"
                 android:padding="12dp" />
@@ -50,11 +52,11 @@
                 android:id="@+id/editTextnumero_productos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#EFE1AD"
-                android:ems="10"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
+                android:background="#EFE1AD"
+                android:ems="10"
                 android:hint="escriba cantidad de productos"
                 android:inputType="number"
                 android:padding="12dp" />
@@ -65,9 +67,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
             android:gravity="end"
-            android:layout_marginTop="25dp">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnasignar_boton_a_oc"
@@ -85,9 +87,8 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EFE1AD"
-            android:layout_marginTop="20dp">
-
+            android:layout_marginTop="20dp"
+            android:background="#EFE1AD">
 
 
             <LinearLayout
@@ -96,8 +97,7 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -112,77 +112,76 @@
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/id_oc_producto_oc"
                         android:layout_width="53dp"
                         android:layout_height="40dp"
+                        android:background="#2196F3"
+                        android:padding="8dp"
                         android:text=""
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#2196F3"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/id_producto_producto_oc"
                         android:layout_width="50dp"
                         android:layout_height="40dp"
+                        android:background="#1E88E5"
+                        android:padding="8dp"
                         android:text="Nombre Operación"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#1E88E5"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/ordenCompra_p_oc"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
+                        android:background="#011336"
+                        android:padding="8dp"
                         android:text="orden de compra"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#011336"
-                        />
+                        android:textStyle="bold" />
 
 
                     <TextView
                         android:id="@+id/producto_p_oc"
                         android:layout_width="400dp"
                         android:layout_height="40dp"
+                        android:background="#011336"
+                        android:padding="8dp"
                         android:text="producto"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#011336"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/lotes_producto_oc"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:background="#011336"
+                        android:padding="8dp"
                         android:text="lotes"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#011336" />
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/cantidadProductos"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:background="#011336"
+                        android:padding="8dp"
                         android:text="cantidad"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="8dp"
-                        android:background="#011336" />
-
+                        android:textStyle="bold" />
 
 
                     <!-- Agregar más TextViews para los nuevos campos -->
@@ -201,7 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Editar OC"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </LinearLayout>

@@ -306,6 +306,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
 
+
                         // si el valor es null pone -1
 
                         if (StringEmpleado.isEmpty()) {
@@ -492,6 +493,18 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                     // Manejar el caso en que la cadena esté vacía
                                     Toast.makeText(operaciones_lotes.this, "La cantidad no puede estar vacía", Toast.LENGTH_SHORT).show();
                                 }
+
+                                Handler handler = new Handler();
+                                //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Llama al primer método aquí
+                                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+
+
+                                    }
+                                }, 1500); // Retraso de 5000 milisegundos (5 segundos)
 
 
                             }

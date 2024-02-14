@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     private boolean switchActivado = false;
     private int idProductoAgregado,precioGlobal;
 
+    LinearLayout contenedor_recycler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,9 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
+
+        contenedor_recycler=(LinearLayout)findViewById(R.id.contenedor_recycler);
+        contenedor_recycler.setVisibility(View.GONE);
 
 
         recycler_operaciones_de_producto = (RecyclerView) findViewById(R.id.recycleroperacionesproducto);
@@ -98,10 +104,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // Acción si el Switch está activado
+                    contenedor_recycler.setVisibility(View.VISIBLE);
                     switchActivado = true;
                 } else {
-                    // Acción si el Switch está desactivado
+                    contenedor_recycler.setVisibility(View.GONE);
                     switchActivado = false;
 
                 }
@@ -115,8 +121,23 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             public void onClick(View v) {
                 if (switchActivado == true) {
 
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listOperacionesDeProducto.clear();
+                             // Limpiar la lista existente
+                            listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
+                                    + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
+
+                        }
+                    }, 3000); // 3000 milisegundos = 3 segundos
+
+
                     agregarOperacionesRecursivamente(listOperaciones, 0);
                     boolean insercionRealizada = false;
+
+
+
 
                     /*for (operacionesFiltradas operacion : listOperaciones) {
                         if (operacion.isChecked()) {
