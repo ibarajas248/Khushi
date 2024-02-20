@@ -1,12 +1,26 @@
 package com.example.khushi.AdaptadoresRecycler;
 
+import android.app.Activity;
+import android.content.Context;
+import android.Manifest;
+
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevoProducto;
@@ -14,7 +28,8 @@ import com.example.khushi.clasesinfo.nuevoProducto;
 import java.util.ArrayList;
 
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos>implements View.OnClickListener {
-
+    private static final int CODIGO_RESULTADO_CAMARA = 1; // Definir el código de resultado para la cámara
+    private static final int CODIGO_DE_SOLICITUD_DE_CAMARA = 2; // Definir el código de solicitud de permisos de la cámara
     ArrayList<nuevoProducto> listDatos;
     private View.OnClickListener listener;
     private OnItemLongClickListener itemLongClickListener;
@@ -34,7 +49,11 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     @NonNull
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        Context context = parent.getContext(); // Obtén el contexto desde el ViewGroup
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto,null,false);
+
+
         // escucha el evento de seleccion
         view.setOnClickListener(this);
         return new ViewHolderDatos(view);
@@ -44,7 +63,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
 
-
+        ;
         holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
         holder.producto.setText(listDatos.get(position).getProducto());
         holder.precio.setText(String.valueOf(listDatos.get(position).getPrecio()));
@@ -72,6 +91,17 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             }
         });
 
+        holder.imagenProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirCamara(holder.itemView.getContext(), listDatos.get(holder.getAdapterPosition()));
+
+
+            }
+        });
+
+
+
 
     }
 
@@ -95,17 +125,54 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
 
+
         TextView id_producto,producto,precio;
+        ImageButton imagenProducto;
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
             //hago referencia a los datos que le llegan
             id_producto= itemView.findViewById(R.id.idproducto);
             producto=itemView.findViewById(R.id.producto);
             precio=itemView.findViewById(R.id.precioProducto);
+            imagenProducto = itemView.findViewById(R.id.imageButton);
 
 
         }
+        public View getItemView(){
+            return itemView;
+        }
 
 
+    }
+
+    private void abrirCamara(Context context, nuevoProducto producto) {
+        // Verifica si el permiso de la cámara ya está concedido
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Si no está concedido, solicita el permiso
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, CODIGO_DE_SOLICITUD_DE_CAMARA);
+        } else {
+            // El permiso ya está concedido, abre la cámara
+            iniciarActividadCamara(context);
+        }
+    }
+
+    private void iniciarActividadCamara(Context context) {
+        Intent intentAbrirCamara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intentAbrirCamara.resolveActivity(context.getPackageManager()) != null) {
+            if (context instanceof Activity) {
+                ((Activity) context).startActivityForResult(intentAbrirCamara, CODIGO_RESULTADO_CAMARA);
+            }
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODIGO_RESULTADO_CAMARA && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            // Ahora, puedes convertir el Bitmap a un byte array y enviarlo al servidor
+           // enviarImagenAlServidor(imageBitmap);
+
+        }
     }
 }

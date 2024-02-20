@@ -1,27 +1,7 @@
+<!-- res/layout/toolbar_layout.xml -->
 <androidx.appcompat.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar2"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#011336"
-    android:elevation="4dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-<TextView
-android:id="@+id/toolbar_title"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Toolbar Title"
-android:textColor="#FFFFFF"
-    android:textSize="18sp"
-    android:textStyle="bold" />
-
-<ImageButton
-android:id="@+id/action_button"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:background="?attr/selectableItemBackgroundBorderless"
-android:layout_gravity="end" />
-
-    </androidx.appcompat.widget.Toolbar>
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"/>

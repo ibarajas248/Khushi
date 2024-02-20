@@ -15,7 +15,8 @@
         android:src="@drawable/ic_menu_camera"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -29,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imageView6"
+        android:layout_toEndOf="@id/imageButton"
         android:layout_marginStart="16dp"
         android:orientation="vertical">
 

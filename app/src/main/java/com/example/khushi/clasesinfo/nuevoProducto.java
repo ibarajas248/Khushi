@@ -4,11 +4,26 @@ public class nuevoProducto {
     private String producto;
     private int id_producto;
     private float precio;
+    private int foto;
 
     public nuevoProducto(String producto, int id_producto, float precio) {
         this.producto = producto;
         this.id_producto = id_producto;
         this.precio = precio;
+    }
+    public nuevoProducto(String producto, int id_producto, float precio, int foto) {
+        this.producto = producto;
+        this.id_producto = id_producto;
+        this.precio = precio;
+        this.foto = foto;
+    }
+
+    public int getFoto() {
+        return foto;
+    }
+
+    public void setFoto(int foto) {
+        this.foto = foto;
     }
 
     public nuevoProducto(int idProducto) {

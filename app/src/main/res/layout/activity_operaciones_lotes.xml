@@ -8,6 +8,7 @@
 
 
 
+
     <ScrollView
         android:id="@+id/scroll_operacion_lote"
         android:layout_width="match_parent"
@@ -18,6 +19,156 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#838078">
+            <LinearLayout
+                android:id="@+id/llContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="#3498db"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Producto"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sección"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvOperation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Operación"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Apellido"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <LinearLayout
+                    android:id="@+id/LayoutImageButtondividir"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/bordes_redondos_azul"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtondividir"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/bordes_redondos_azul"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/extraer"
+                        app:tint="#FFEB3B"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LayoutImageButtondividirAutomatico"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/bordes_redondos_azul"
+                    android:gravity="center"
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtondividirAutomatico"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/bordes_redondos_azul"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/dividir_automatico"
+                        app:tint="#FFEB3B"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LayoutImageButtonEditar"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/bordes_redondos_azul"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonEditar"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/bordes_redondos_azul"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/editar"
+                        app:tint="#FFEB3B"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:id="@+id/linnear_operacion_lote"
@@ -54,7 +205,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 1"
+                    android:hint="cantidad 1"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -69,7 +220,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 2"
+                    android:hint="cantidad 2"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -84,7 +235,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 3"
+                    android:hint="cantidad 3"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -114,7 +265,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 5"
+                    android:hint="cantidad 5"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -129,7 +280,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 6"
+                    android:hint="cantidad 6"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -145,7 +296,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 7"
+                    android:hint="cantidad 7"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -160,7 +311,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 8"
+                    android:hint="cantidad 8"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -175,7 +326,7 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 9"
+                    android:hint="cantidad 9"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
@@ -190,77 +341,16 @@
                     android:background="@drawable/esquinas_curvas"
                     android:ems="10"
                     android:textSize="23dp"
-                    android:hint="cantidad lote 11"
+                    android:hint="cantidad 10"
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:visibility="gone" />
 
 
-                <LinearLayout
-                    android:id="@+id/llContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:background="#3498db"
-                    android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/tvProduct"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Producto"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sección"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvOperation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Operación"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvQuantity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cantidad"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Apellido"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"/>
-                </LinearLayout>
                 <Button
                 android:id="@+id/boton_dividir_lote"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
@@ -271,8 +361,32 @@
                 android:text="Dividir lote"
                 android:visibility="gone"/>
                 <Button
-                    android:id="@+id/botonEditarCantidad"
-                    android:layout_width="wrap_content"
+                android:id="@+id/botonEditarCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#011336"
+                android:layout_gravity="end"
+                android:textColor="#FFCE17"
+                android:textSize="20dp"
+                android:text="editar cantidad "
+                android:visibility="gone"/>
+                <Button
+                android:id="@+id/botonDividirManual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#011336"
+                android:layout_gravity="end"
+                android:textColor="#FFCE17"
+                android:textSize="20dp"
+                android:text="dividir manualmente "
+                android:visibility="gone"/>
+                <Button
+                    android:id="@+id/botonDividirManualConfirmar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
@@ -280,8 +394,35 @@
                     android:layout_gravity="end"
                     android:textColor="#FFCE17"
                     android:textSize="20dp"
-                    android:text="editar cantidad "
+                    android:text="dividir operacion "
                     android:visibility="gone"/>
+                <Button
+                    android:id="@+id/partir_lote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:layout_gravity="end"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp"
+                    android:text="partir lote "
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/boton_dividir_automatico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:layout_gravity="end"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp"
+                    android:text="partir por partes iguales  "
+                    android:visibility="gone"/>
+
+
+
 
 
 

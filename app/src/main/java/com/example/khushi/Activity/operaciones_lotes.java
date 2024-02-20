@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
@@ -57,15 +58,16 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
     RecyclerView recycler;
     RequestQueue queue;
-    LinearLayout linearLayoutFicha,contenedorRecycler ;
+    LinearLayout linearLayoutFicha,contenedorRecycler,LayoutImageButtondividirManual, LayoutImageButtonEditar ;
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
     Adapter_operaciones_lotes adapter123;
     public String finalVariableRecibida_idproducto_oc;
     private Spinner spinnerFiltrar ;
     private EditText cantidadSublotesEditText;
 
+
     SearchView buscarOperacionesDB;
-    private LinearLayout contenedorEditTexts;
+    private LinearLayout contenedorEditTexts,LayoutImageButtondividirAutomatico;
     ScrollView scrollView;
     //editText para modificar cantidad de nuevos lotes
     private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
@@ -73,7 +75,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
 
-    Button botonDividirLote, botonEditarCantidad;
+    ImageButton botonimagendividir,botonimagendividirAutomatico,botonImagenEditar;
+    Button botonDividirLote, botonEditarCantidad,botonDividirManual,botonPartirLote,botonDividirManualConfirmar, botonPartirPartesIguales;
 
 
     TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView;
@@ -81,39 +84,64 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
     int idParaUpdate; //variable para almacenar el id de la tarea asignada
 
+
+    // variables que necesito para partir lote manual
+
+    //  fin de variables que necesito para partir lote manual
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaciones_lotes);
 
-        cantLote1=(EditText)findViewById(R.id.cantidadSublotes1);
-        cantLote2=(EditText)findViewById(R.id.cantidadSublotes2);
-        cantLote3=(EditText)findViewById(R.id.cantidadSublotes3);
-        cantLote4=(EditText)findViewById(R.id.cantidadSublotes4);
-        cantLote5=(EditText)findViewById(R.id.cantidadSublotes5);
-        cantLote6=(EditText)findViewById(R.id.cantidadSublotes6);
-        cantLote7=(EditText)findViewById(R.id.cantidadSublotes7);
-        cantLote8=(EditText)findViewById(R.id.cantidadSublotes8);
-        cantLote9=(EditText)findViewById(R.id.cantidadSublotes9);
-        cantLote10=(EditText)findViewById(R.id.cantidadSublotes10);
+        cantLote1 = (EditText) findViewById(R.id.cantidadSublotes1);
+        cantLote2 = (EditText) findViewById(R.id.cantidadSublotes2);
+        cantLote3 = (EditText) findViewById(R.id.cantidadSublotes3);
+        cantLote4 = (EditText) findViewById(R.id.cantidadSublotes4);
+        cantLote5 = (EditText) findViewById(R.id.cantidadSublotes5);
+        cantLote6 = (EditText) findViewById(R.id.cantidadSublotes6);
+        cantLote7 = (EditText) findViewById(R.id.cantidadSublotes7);
+        cantLote8 = (EditText) findViewById(R.id.cantidadSublotes8);
+        cantLote9 = (EditText) findViewById(R.id.cantidadSublotes9);
+        cantLote10 = (EditText) findViewById(R.id.cantidadSublotes10);
 
 
-        buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
+        botonimagendividir = (ImageButton) findViewById(R.id.imageButtondividir);//nuevo boton dividir
+        botonimagendividirAutomatico=(ImageButton)findViewById(R.id.imageButtondividirAutomatico);
+        botonImagenEditar=(ImageButton)findViewById(R.id.imageButtonEditar);//boton imagen editar
+
+        botonDividirManualConfirmar=(Button)findViewById(R.id.botonDividirManualConfirmar); //confirma enviar cantidades
+        botonPartirPartesIguales=(Button)findViewById(R.id.boton_dividir_automatico);
+
+        buscarOperacionesDB = (SearchView) findViewById(R.id.searchoperacionesDB);
         buscarOperacionesDB.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
 
-        contenedorRecycler=findViewById(R.id.contenedorRecycler); //contenedor del recycler
+
+        //layout que contiene el boton de dividir manualmente una operacion de un lote
+        LayoutImageButtondividirManual=(LinearLayout)findViewById(R.id.LayoutImageButtondividir);
+        LayoutImageButtondividirAutomatico=(LinearLayout)findViewById(R.id.LayoutImageButtondividirAutomatico);
+        LayoutImageButtonEditar=(LinearLayout)findViewById(R.id.LayoutImageButtonEditar);
+
+        contenedorRecycler = findViewById(R.id.contenedorRecycler); //contenedor del recycler
 
         linearLayoutFicha = findViewById(R.id.llContainer); //ficha de seleccion
 
-        spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
+        spinnerFiltrar = (Spinner) findViewById(R.id.spinnerFiltrar);
         cantidadSublotesEditText = findViewById(R.id.cantidadSublotes);
         contenedorEditTexts = findViewById(R.id.linnear_operacion_lote);
 
         scrollView = findViewById(R.id.scroll_operacion_lote);
 
         //Botones
-        botonDividirLote=(Button)findViewById(R.id.boton_dividir_lote);
-        botonEditarCantidad=(Button)findViewById(R.id.botonEditarCantidad);
+        botonDividirLote = (Button) findViewById(R.id.boton_dividir_lote);
+        botonEditarCantidad = (Button) findViewById(R.id.botonEditarCantidad);
+        botonPartirLote=(Button)findViewById(R.id.partir_lote); //subdivide el lote con las cantidades agregadas manualmente
+
+
+        // este boton me permite dividir el lote y ajustar manualmente las cantidades.
+
+        botonDividirManual=(Button)findViewById(R.id.botonDividirManual);
 
 
 
@@ -220,8 +248,14 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
               @Override
               public void onNothingSelected(AdapterView<?> parent) {
 
+
               }
           });
+
+
+
+
+
 
 
 
@@ -352,10 +386,16 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
                         idParaUpdate= asignacion.getId_lotes_operaciones();
 
-                        cantidadSublotesEditText.setVisibility(View.VISIBLE);
+
                         linearLayoutFicha.setVisibility(View.VISIBLE);
-                        botonDividirLote.setVisibility(View.VISIBLE);
-                        botonEditarCantidad.setVisibility(View.VISIBLE);
+                        //botonDividirLote.setVisibility(View.VISIBLE);
+                        //botonEditarCantidad.setVisibility(View.VISIBLE);
+                        botonimagendividir.setVisibility(View.VISIBLE);
+
+
+                        LayoutImageButtondividirManual.setVisibility(View.VISIBLE);
+                        LayoutImageButtondividirAutomatico.setVisibility(View.VISIBLE);
+                        LayoutImageButtonEditar.setVisibility(View.VISIBLE);
 
                         //idParaUpdate= asignacion.getId_lotes_operaciones();
 
@@ -388,10 +428,14 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                             @Override
                             public void onClick(View v) {
 
-                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+
+                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();// variable local
+
+
                                 int cantidad_lote= asignacion.getCantidad();
                                 int lote= asignacion.getLotes();
                                 int id_producto_oc=asignacion.getId_producto_oc();
+
 
                             //String URL, int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
                                 eliminarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/eliminar_operacion_lote.php");
@@ -419,7 +463,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
                                         //----------------------------------
 
-                                        //desaparece la tarjeta
+                                        //-------desaparece la tarjeta-------------------//
 
                                         cantidadSublotesEditText.setVisibility(View.GONE);
                                         linearLayoutFicha.setVisibility(View.GONE);
@@ -511,6 +555,198 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                         });
+
+                        botonimagendividir.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                cantidadSublotesEditText.setHint("numero a dividir lote");
+                                cantidadSublotesEditText.setVisibility(View.VISIBLE);
+                                botonDividirManual.setVisibility(View.VISIBLE);
+                                LayoutImageButtonEditar.setVisibility(View.GONE);
+                                botonDividirLote.setVisibility(View.GONE);
+                                LayoutImageButtondividirManual.setVisibility(View.GONE);
+                                botonEditarCantidad.setVisibility(View.GONE);
+                                LayoutImageButtondividirAutomatico.setVisibility(View.GONE);
+                            }
+                        });
+
+                        botonDividirManual.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //desaparencen los botones que ya no necesito
+                                cantidadSublotesEditText.setVisibility(View.GONE);
+                                botonDividirManual.setVisibility(View.GONE);
+                                botonDividirLote.setVisibility(View.GONE);
+                                botonEditarCantidad.setVisibility(View.GONE);
+                                botonimagendividir.setVisibility(View.GONE);
+
+
+                                //aparecer el boton para agregar las particiones del lote
+                                botonDividirManualConfirmar.setVisibility(View.VISIBLE);
+
+                                cantidadSublotesEditText.setVisibility(View.VISIBLE);//caja de texto donde ingreso la info
+                                int cantidad= Integer.parseInt(cantidadSublotesEditText.getText().toString());
+
+                                // creo un Array que contenga los  edittext que deseo mostrar
+                                EditText[] cantLoteArray = new EditText[]{cantLote1, cantLote2, cantLote3, cantLote4, cantLote5, cantLote6, cantLote7, cantLote8, cantLote9, cantLote10};
+
+                                if (cantidad<=10){
+                                    for (int i = 0; i<cantidad;i++){
+                                        cantLoteArray[i].setVisibility(View.VISIBLE);
+
+                                    }
+                                    botonDividirManualConfirmar.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                             eliminarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/eliminar_operacion_lote.php");
+
+                                            for (int i = 0; i<cantidad;i++){
+                                                cantLoteArray[i].setVisibility(View.VISIBLE);
+
+
+                                                int cantidad_lote= Integer.parseInt(cantLoteArray[i].getText().toString());//agarro la cantidad del editText
+
+
+                                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
+                                                int lote= asignacion.getLotes();
+                                                int id_producto_oc=asignacion.getId_producto_oc();
+                                                dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote);
+
+
+                                            }
+
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    // Llama al primer método aquí
+                                                    agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote_filtro.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc+"&empleado=null");
+
+
+                                                }
+                                            }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+
+
+
+
+                                        }
+                                    });
+
+                                }else{
+                                    Toast.makeText(operaciones_lotes.this, "No puede agregar mas de 10 lotes, intente con otra cantidad", Toast.LENGTH_SHORT).show();
+                                }
+
+
+
+                            }
+                        });
+                        botonimagendividirAutomatico.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                cantidadSublotesEditText.setHint("Numero a dividir lote");
+                                cantidadSublotesEditText.setVisibility(View.VISIBLE);
+                                botonPartirPartesIguales.setVisibility(View.VISIBLE);
+                                LayoutImageButtondividirAutomatico.setVisibility(View.GONE);
+
+                                //ele3mentos a ocultar
+                                LayoutImageButtonEditar.setVisibility(View.GONE);
+                                botonEditarCantidad.setVisibility(View.GONE);
+                                botonDividirLote.setVisibility(View.GONE);
+                                LayoutImageButtondividirManual.setVisibility(View.GONE);
+
+
+                            }
+                        });
+                        botonPartirPartesIguales.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();// variable local
+
+
+                                int cantidad_lote= asignacion.getCantidad();
+                                int lote= asignacion.getLotes();
+                                int id_producto_oc=asignacion.getId_producto_oc();
+
+
+                                //String URL, int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
+                                eliminarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/eliminar_operacion_lote.php");
+                                String cantidadSublotesString = cantidadSublotesEditText.getText().toString();
+
+                                if (!cantidadSublotesString.isEmpty()) {
+                                    int cantidadLotesIterar = Integer.parseInt(cantidadSublotesString);
+                                    int modulo=cantidad_lote%cantidadLotesIterar;
+                                    for (int i = 0; i < cantidadLotesIterar; i++) {
+                                        if (modulo !=0){
+                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote);
+                                            modulo=0;
+                                        }else{
+                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote);
+
+                                        }
+                                        //hace aparecer el recycler
+
+                                        spinnerFiltrar.setVisibility(View.VISIBLE);
+                                        buscarOperacionesDB.setVisibility(View.VISIBLE);
+                                        contenedorRecycler.setVisibility(View.VISIBLE);
+                                        recycler.setVisibility(View.VISIBLE);
+
+                                        //----------------------------------
+
+                                        //-------desaparece la tarjeta-------------------//
+
+                                        cantidadSublotesEditText.setVisibility(View.GONE);
+                                        linearLayoutFicha.setVisibility(View.GONE);
+                                        botonDividirLote.setVisibility(View.GONE);
+                                        botonEditarCantidad.setVisibility(View.GONE);
+
+
+
+                                        Toast.makeText(operaciones_lotes.this, "Lote dividido exitosamente", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // Manejar el caso en que la cadena esté vacía
+                                    Toast.makeText(operaciones_lotes.this, "La cantidad de sublotes no puede estar vacía", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                                Handler handler = new Handler();
+                                //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Llama al primer método aquí
+                                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+
+
+                                    }
+                                }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+                            }
+                        });
+                        botonImagenEditar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                LayoutImageButtonEditar.setVisibility(View.GONE);
+                                LayoutImageButtonEditar.setVisibility(View.GONE);
+                                botonDividirLote.setVisibility(View.GONE);
+                                LayoutImageButtondividirManual.setVisibility(View.GONE);
+                                LayoutImageButtondividirAutomatico.setVisibility(View.GONE);
+                                botonDividirManual.setVisibility(View.GONE);
+
+                                cantidadSublotesEditText.setHint("Cantidad");
+                                cantidadSublotesEditText.setVisibility(View.VISIBLE);
+                                botonEditarCantidad.setVisibility(View.VISIBLE);
+
+
+
+                            }
+                        });
+
+
+
+
+
+
                     }
                 });
 

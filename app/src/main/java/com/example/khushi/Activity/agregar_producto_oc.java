@@ -89,8 +89,10 @@ public class agregar_producto_oc extends AppCompatActivity {
         agregarProductoOc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 agregarproducto_oc("http://khushiconfecciones.com//app_khushi/agregar_producto_oc.php");
                 listDatos.clear(); // Limpiar la lista existente
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -243,7 +245,8 @@ public class agregar_producto_oc extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                //listProductoOrdenCompra.clear(); // Limpiar la lista existente
+
+                listProductoOrdenCompra.clear(); // Limpiar la lista existente
 
 
                 for (int i = 0; i < response.length(); i++) {
