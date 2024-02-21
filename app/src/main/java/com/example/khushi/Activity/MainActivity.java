@@ -34,15 +34,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
     //id de software_para verificar en una solicitud http si esta version todavia es compatible...
-    int version_Software_id=3;//
+    int version_Software_id=2;// Si el id de la base de datos de coincide, se exige
+    String linkDescargaSoftware;
 
-    Boolean permisoInisioSesion;
+    Boolean permisoInisioSesion= true;
     RequestQueue requestQueue;
     boolean validacion=false;
     Button btnregistro;
@@ -79,17 +82,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //accion al presionar el boton
+                validacionSoftware("http://khushiconfecciones.com//app_khushi/informacion_software/buscar_version_software.php");
+
+                Handler handler = new Handler();
+                //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if ((!user.getText().toString().isEmpty() || !contrasenia.getText().toString().isEmpty())&&permisoInisioSesion==true) {
+                            String contraseniaEncriptada;
+                            contraseniaEncriptada = encryptPassword(contrasenia.getText().toString());
+                            //user.setText(contraseniaEncriptada);
+                            //Toast.makeText(MainActivity.this, contraseniaEncriptada, Toast.LENGTH_SHORT).show();
+                            validarUsuario("http://khushiconfecciones.com//app_khushi/validar_inicio_sesion.php" + "?usuario=" + user.getText().toString() + "&contrasenia=" + contraseniaEncriptada);
+                        } else if(permisoInisioSesion==false){
+                            Toast.makeText(MainActivity.this, "Debe actualizar el software", Toast.LENGTH_SHORT).show();
+
+                            Handler handler = new Handler();
+                            //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Llama al primer método aquí
+                                    Intent descarga =new Intent(Intent.ACTION_VIEW,Uri.parse(linkDescargaSoftware));
+                                    startActivity(descarga);
+                                }
+                            }, 5000); // Retraso de 5000 milisegundos (5 segundos)
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, "Algun campo vacío", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, 3000); // Retraso de 5000 milisegundos (5 segundos)
 
 
-                if ((!user.getText().toString().isEmpty() || !contrasenia.getText().toString().isEmpty())) {
-                    String contraseniaEncriptada;
-                    contraseniaEncriptada = encryptPassword(contrasenia.getText().toString());
-                    //user.setText(contraseniaEncriptada);
-                    //Toast.makeText(MainActivity.this, contraseniaEncriptada, Toast.LENGTH_SHORT).show();
-                    validarUsuario("http://khushiconfecciones.com//app_khushi/validar_inicio_sesion.php" + "?usuario=" + user.getText().toString() + "&contrasenia=" + contraseniaEncriptada);
-                } else {
-                    Toast.makeText(MainActivity.this, "Algun campo vacío", Toast.LENGTH_LONG).show();
-                }
 
 
                 //validarUsuario("http://khushiconfecciones.com//app_khushi/validar_inicio_sesion.php");
@@ -189,8 +216,14 @@ public class MainActivity extends AppCompatActivity {
                         // Extraer datos del objeto JSON y mostrarlos en los campos de texto
 
                         int id = Integer.parseInt(jsonObject.getString("id"));
-                        String linkDescarga = jsonObject.getString("enlace_descarga");
-                        Toast.makeText(MainActivity.this, "proban do ando "+id, Toast.LENGTH_SHORT).show();
+                        linkDescargaSoftware = jsonObject.getString("enlace_descarga");
+
+
+                        if (id==version_Software_id){
+                            permisoInisioSesion=true;
+                        }else{
+                            permisoInisioSesion=false;
+                        }
 
 
                     }catch (JSONException e){

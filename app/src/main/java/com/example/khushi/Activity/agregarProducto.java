@@ -109,6 +109,8 @@ public class agregarProducto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
+
+
                 listDatos.clear(); // Limpiar la lista existente
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -153,10 +155,14 @@ public class agregarProducto extends AppCompatActivity {
                         Float precio = Float.parseFloat(jsonObject.getString("precio"));
 
                         int id_producto = Integer.parseInt(jsonObject.getString("id_producto"));
+                        String url =(jsonObject.getString("url_foto"));
+
 
                        // String data4 = (data1+ data2+data3);
 
-                        listDatos.add(new nuevoProducto(producto,id_producto,precio));
+
+                        //String url="http://khushiconfecciones.com//app_khushi/imagenes/carpeta_imagenes/Intel_logo_(2006-2020).jpg";
+                        listDatos.add(new nuevoProducto(producto,id_producto,precio,url));
 
 
 
