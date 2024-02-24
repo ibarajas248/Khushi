@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         user=(EditText)findViewById(R.id.edtusuario);
         contrasenia=(EditText)findViewById(R.id.edtContraseniapp1);
+
+
 
 
         btniniciosesion.setOnClickListener(new View.OnClickListener() {
