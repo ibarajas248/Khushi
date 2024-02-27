@@ -121,16 +121,15 @@ public class Home extends AppCompatActivity {
 
         if (ROL.equalsIgnoreCase("OPERARIO")){
 
-            listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.ic_menu_camera));
+            listaMenu.add(new menuClase("Operaciones asignadas"));
             listaMenu.add(new menuClase("Operaciones completadas"));
         }else {
-            listaMenu.add(new menuClase("Productos",R.drawable.producto));
-            listaMenu.add(new menuClase("Orden de compra",R.drawable.oc));
-            listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.asignar));
-            listaMenu.add(new menuClase("Operaciones completadas",R.drawable.tarea));
+            listaMenu.add(new menuClase("Productos"));
+            listaMenu.add(new menuClase("Orden de compra"));
+            listaMenu.add(new menuClase("Operaciones asignadas"));
+            listaMenu.add(new menuClase("Operaciones completadas"));
             listaMenu.add(new menuClase("cinco"));
         }
-
 
     }
 

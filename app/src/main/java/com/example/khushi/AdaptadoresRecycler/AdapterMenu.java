@@ -55,19 +55,6 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
             // o
             //holder.etiNombre.setTextColor(0xFF000000);
         };
-
-
-
-        holder.foto.setImageResource(listaMenu.get(position).getFoto());
-        if (position % 2 == 0) {
-            // Para posiciones pares, aplica un tinte a la imagen
-            holder.foto.setColorFilter(0xFFFFFFFF); // Color de tinte para pares
-        } else {
-            // Para posiciones impares, otro color de tinte
-            holder.foto.setColorFilter(0xFF011336); // Color de tinte para impares
-        }
-
-
     }
 
     @Override
@@ -93,7 +80,6 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
             super(itemView);
 
             etiNombre=(TextView) itemView.findViewById(R.id.idNombre);
-            foto= (ImageView)itemView.findViewById(R.id.idImagen);
             //etiInformacion=(TextView) itemView.findViewById(R.id.idInfo);
             //foto= (ImageView)itemView.findViewById(R.id.idImagen);
         }
