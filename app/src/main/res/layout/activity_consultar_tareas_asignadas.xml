@@ -201,14 +201,44 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerviewoperaciones"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
 
                 </LinearLayout>
             </HorizontalScrollView>
+
+
+
+                <!-- ... Otras vistas ... -->
+
+                <LinearLayout
+                    android:id="@+id/llContainerDos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#D8CDA8">
+
+                    <!-- RecyclerView para operaciones habilitadas -->
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerviewoperacionesHabilitadas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                </LinearLayout>
+
+
+
 
 
             <Button

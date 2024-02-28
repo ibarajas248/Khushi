@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -32,12 +33,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.khushi.AdaptadoresRecycler.Adapter_Operaciones_Habilitadas;
 import com.example.khushi.AdaptadoresRecycler.Adapter_consulta_tareas_asignadas;
 import com.example.khushi.AdaptadoresRecycler.Adapter_consultar_tareas;
 import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
 import com.example.khushi.clasesinfo.Usuario;
+import com.example.khushi.clasesinfo.nuevoProducto;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import org.json.JSONArray;
@@ -51,8 +54,10 @@ import java.util.Map;
 public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener{
     ArrayList<Empleado_clase> listaEmpleados;
     ArrayList<operaciones_lotes_clase> listOperaciones;
-    RecyclerView recycler;
+    ArrayList<operaciones_lotes_clase> listOperacionesHabilitadas;
+    RecyclerView recycler,recyclerHabilitado;
     Adapter_consulta_tareas_asignadas adapter123;
+    Adapter_Operaciones_Habilitadas adapterHabilitada;
 
     //boton para completar una operacion
     Button botonCompletaOperacion;
@@ -102,9 +107,14 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        recyclerHabilitado=(RecyclerView)findViewById(R.id.recyclerviewoperacionesHabilitadas);
+        recyclerHabilitado.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
         queue = Volley.newRequestQueue(this);
         Handler handler = new Handler();
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
+        listOperacionesHabilitadas = new ArrayList<operaciones_lotes_clase>();
 
 
         // array para opciones del Spinner
@@ -129,6 +139,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                   if (operaciones_completadas.equalsIgnoreCase("no")){
                       agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php?empleado="+idEmpleado);
+                      agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php?empleado="+idEmpleado);
+
                   }else if(operaciones_completadas.equalsIgnoreCase("si")){
                       agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php?empleado="+idEmpleado);
 
@@ -145,6 +157,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     // Llama al primer método aquí
                     if (operaciones_completadas.equalsIgnoreCase("no")) {
                         agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+                        agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php");
+
+
                     }else if(operaciones_completadas.equalsIgnoreCase("si")){
                         agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php");
                     };
@@ -214,6 +229,114 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
             }
         });
+    }
+
+
+
+
+    public void agregarListaOperacion_Habilitada(String URL) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                listOperacionesHabilitadas.clear(); // Limpiar la lista existente
+
+
+
+                for (int i = 0; i < response.length(); i++) {
+
+
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+                        String producto = jsonObject.getString("producto");
+                        String subparte = jsonObject.getString("subparte");
+                        String operaciones = jsonObject.getString("operaciones");
+                        int id_lotes_operaciones= Integer.parseInt(jsonObject.getString("id_lotes_operaciones"));
+                        int cantidad= Integer.parseInt(jsonObject.getString("cantidad"));
+                        int id_producto_oc = (Integer.parseInt(jsonObject.getString("id_producto_orden_compra")));
+                        String StringEmpleado=jsonObject.getString("empleado");
+                        String nombreEmpleado=jsonObject.getString("nombre");
+                        String apellidoEmpleado=jsonObject.getString("Apellidos");
+                        int lote= Integer.parseInt(jsonObject.getString("lote"));
+                        String completado= jsonObject.getString("completado");
+                        String habilitado=jsonObject.getString("habilitado");
+                        String fecha=jsonObject.getString("fecha");
+
+
+
+
+                        String empleado=StringEmpleado;
+
+
+                        // si el valor es null pone -1
+
+                        if (StringEmpleado.isEmpty()) {
+                            // Si la cadena está vacía, asigna un valor predeterminado (por ejemplo, -1)
+                            empleado = "no asignado"; // o cualquier otro valor predeterminado que desees
+                        } else {
+                            // Intenta convertir la cadena a un entero
+                            try {
+                                empleado=String.valueOf(empleado);
+                            } catch (NumberFormatException e) {
+                                // Si hay un error al convertir, maneja la excepción aquí
+                                // Por ejemplo, asigna un valor predeterminado o muestra un mensaje de error
+                                empleado = "error"; // Valor predeterminado en caso de error
+                                e.printStackTrace(); // Imprime la traza de error para ver qué ocurrió
+                            }
+                        }
+                        int id_operaciones_subparte_producto=Integer.parseInt(jsonObject.getString("id_operaciones_subparte_producto"));
+
+                        listOperacionesHabilitadas.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,nombreEmpleado,apellidoEmpleado,lote,id_producto_oc,completado,habilitado,fecha));
+
+
+
+                        //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
+                        listEmpleados.add(String.valueOf(empleado));
+
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                adapterHabilitada = new Adapter_Operaciones_Habilitadas(listOperacionesHabilitadas);
+
+                adapterHabilitada.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(consultar_tareas_asignadas.this, "clcik", Toast.LENGTH_SHORT).show();
+                        //mostrarAlertDialog();
+
+
+
+
+                    }
+                });
+
+                adapterHabilitada.setOnItemLongClickListener(new Adapter_Operaciones_Habilitadas.OnItemLongClickListener() {
+                    @Override
+                    public void onItemLongClick(operaciones_lotes_clase asignacion) {
+                        //asignacion.getNombre(); --- asi es como obtengo los valores estos los debo pasar al metodo
+                        mostrarAlertDialog();
+                    }
+                });
+
+
+
+
+
+                recyclerHabilitado.setAdapter(adapterHabilitada);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        queue.add(jsonArrayRequest);
     }
 
     private void llenarListaSpinner (String URL) {
@@ -366,6 +489,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(consultar_tareas_asignadas.this, "clcik", Toast.LENGTH_SHORT).show();
+
 
                     }
                 });
@@ -583,6 +707,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+
 
     @Override
     public boolean onQueryTextSubmit(String query) {

@@ -111,7 +111,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
     public void onBindViewHolder(@NonNull ViewHolderOperacionesLotes holder, int position) {
 
         holder.producto.setText(listOperaciones.get(position).getProducto());
+
         holder.subparte.setText(listOperaciones.get(position).getSubparte());
+
         holder.operaciones.setText(listOperaciones.get(position).getOperaciones());
         holder.idLotesOperaciones.setText(String.valueOf(listOperaciones.get(position).getId_lotes_operaciones()));
         holder.cantidad.setText(String.valueOf(listOperaciones.get(position).getCantidad()));
@@ -175,6 +177,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                     //int selectedId = spinnerIdsList.get(pos-1);
                     String selectid = (listaEmpleados.get(pos-1).getId());
                     String selectnombre= listaEmpleados.get(pos-1).getNombre();
+
                     int id_operacione= listOperaciones.get(position).getId_lotes_operaciones();
 
 
@@ -319,6 +322,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 cantidad, empleado, id_operaciones_subparte_producto,
                 lote,id_producto_oc, completado ;
         Spinner spinner;
+        String dato="holesa";
 
 
 
@@ -335,6 +339,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
             lote= itemView.findViewById(R.id.edtlote);
             id_producto_oc= itemView.findViewById(R.id.id_producto_oc);
             completado= itemView.findViewById(R.id.edtcompletado);
+            String dato="holesa";
 
 
         }

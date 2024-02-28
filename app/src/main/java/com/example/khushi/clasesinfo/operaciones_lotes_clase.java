@@ -4,7 +4,7 @@ public class operaciones_lotes_clase {
 
      String producto, subparte, operaciones,empleado;
     //para otro constructor
-    String nombre, apellido, completado;
+    String nombre, apellido, completado,habilitado,  fecha;
     int id_lotes_operaciones, cantidad, id_operacione_subparte_producto, lotes,id_producto_oc;
 
 
@@ -23,18 +23,9 @@ public class operaciones_lotes_clase {
 
     }
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote) {
-        this.producto = producto;
-        this.subparte = subparte;
-        this.operaciones = operaciones;
-        this.id_lotes_operaciones = idLotesOperaciones;
-        this.cantidad = cantidad;
-        this.empleado= empleado;
-        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
-        this.nombre=nombreEmpleado;
-        this.apellido=apellidoEmpleado;
-        this.lotes=lote;
-    }
+
+
+
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote, int idProductoOc, String completado) {
         this.producto = producto;
@@ -49,6 +40,40 @@ public class operaciones_lotes_clase {
         this.apellido=apellidoEmpleado;
         this.id_producto_oc=idProductoOc;
         this.completado=completado;
+    }
+
+    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote, int idProductoOc, String completado, String habilitado, String fecha) {
+
+        this.producto = producto;
+        this.subparte = subparte;
+        this.operaciones = operaciones;
+        this.id_lotes_operaciones = idLotesOperaciones;
+        this.cantidad = cantidad;
+        this.empleado= empleado;
+        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
+        this.lotes=lote;
+        this.id_producto_oc=idProductoOc;
+        this.completado=completado;
+        this.fecha=fecha;
+        this.nombre=nombreEmpleado;
+        this.apellido=apellidoEmpleado;
+        this.habilitado=habilitado;
+    }
+
+    public String getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(String habilitado) {
+        this.habilitado = habilitado;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getCompletado() {
