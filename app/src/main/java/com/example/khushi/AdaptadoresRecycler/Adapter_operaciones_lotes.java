@@ -110,6 +110,10 @@ public class Adapter_operaciones_lotes extends RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ViewHolderOperacionesLotes holder, int position) {
 
+
+        holder.habilitado.setVisibility(View.GONE);
+
+
         holder.producto.setText(listOperaciones.get(position).getProducto());
 
         holder.subparte.setText(listOperaciones.get(position).getSubparte());
@@ -222,6 +226,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         if (position == selectedPosition) {
+            //holder.habilitado.setBackgroundColor(0xFFE82900);
             holder.producto.setBackgroundColor(0xFFE82900);
             holder.subparte.setBackgroundColor(0xFFE82900);
             holder.operaciones.setBackgroundColor(0xFFE82900);
@@ -235,6 +240,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         } else {
+           // holder.habilitado.setBackgroundColor(0xFF1E88E5);
             holder.producto.setBackgroundColor(0xFF1976D2);
             holder.subparte.setBackgroundColor(0xFF1E88E5);
             holder.operaciones.setBackgroundColor(0xFF1976D2);
@@ -318,7 +324,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
     public class ViewHolderOperacionesLotes extends RecyclerView.ViewHolder {
 
-        TextView producto,subparte, operaciones,idLotesOperaciones,
+        TextView habilitado, producto,subparte, operaciones,idLotesOperaciones,
                 cantidad, empleado, id_operaciones_subparte_producto,
                 lote,id_producto_oc, completado ;
         Spinner spinner;
@@ -328,6 +334,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
         public ViewHolderOperacionesLotes(@NonNull View itemView) {
             super(itemView);
+
+
+            habilitado=itemView.findViewById(R.id.tvHabilitado);
             producto=itemView.findViewById(R.id.producto);
             subparte=itemView.findViewById(R.id.subparte);
             operaciones=itemView.findViewById(R.id.operaciones);
@@ -339,7 +348,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
             lote= itemView.findViewById(R.id.edtlote);
             id_producto_oc= itemView.findViewById(R.id.id_producto_oc);
             completado= itemView.findViewById(R.id.edtcompletado);
-            String dato="holesa";
+
 
 
         }

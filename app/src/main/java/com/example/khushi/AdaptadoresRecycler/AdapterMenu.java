@@ -52,6 +52,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
         } else {
             // Para posiciones impares, otro color diferente
             holder.itemView.setBackgroundColor(0xFFEFE1AD);
+            holder.etiNombre.setTextColor(0xFF011336);
             // o
             //holder.etiNombre.setTextColor(0xFF000000);
         };

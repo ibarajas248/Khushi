@@ -246,10 +246,6 @@ public class agregarProducto extends AppCompatActivity {
 
 
 
-
-
-
-
                 Map<String, String> parametros= new HashMap<String, String>();
                 //parametros.put("id_producto", String.valueOf(generarid()));
                 parametros.put("producto",producto.getText().toString());
@@ -381,8 +377,9 @@ public class agregarProducto extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menuPrincipal) {
-            Intent intent = new Intent(agregarProducto.this, Menu.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(agregarProducto.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
             startActivity(intent);
             finish(); // Cierra la actividad actual
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado

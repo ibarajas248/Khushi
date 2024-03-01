@@ -87,6 +87,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
     @Override
     public void onBindViewHolder(@NonNull Adapter_consulta_tareas_asignadas.ViewHolderTareasAsignadas holder, int position) {
 
+        holder.habilitada.setText(listOperaciones.get(position).getHabilitado());
         holder.producto.setText(listOperaciones.get(position).getProducto());
         holder.producto.setVisibility(View.VISIBLE);//visibilizar producto
         holder.subparte.setText(listOperaciones.get(position).getSubparte());
@@ -153,7 +154,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
     }
 
     public class ViewHolderTareasAsignadas extends RecyclerView.ViewHolder {
-        TextView producto, subparte, operaciones, idLotesOperaciones,
+        TextView habilitada, producto, subparte, operaciones, idLotesOperaciones,
                 cantidad, empleado, id_operaciones_subparte_producto,
                 nombre, apellidos, lote, completado ;
 
@@ -161,6 +162,8 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
         public ViewHolderTareasAsignadas(@NonNull View itemView) {
             super(itemView);
 
+
+            habilitada= itemView.findViewById(R.id.tvHabilitado);
             producto = itemView.findViewById(R.id.producto);
             subparte = itemView.findViewById(R.id.subparte);
             operaciones = itemView.findViewById(R.id.operaciones);

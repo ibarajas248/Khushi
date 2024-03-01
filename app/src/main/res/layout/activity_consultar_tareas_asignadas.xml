@@ -75,6 +75,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="#D8CDA8"
+
                 >
 
 
@@ -90,6 +91,17 @@
                         android:orientation="horizontal">
 
 
+                        <TextView
+                            android:id="@+id/tvHabilitado"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="Habilitado"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                             />
                         <TextView
                             android:id="@+id/producto"
                             android:layout_width="200dp"
@@ -215,7 +227,7 @@
                 <!-- ... Otras vistas ... -->
 
                 <LinearLayout
-                    android:id="@+id/llContainerDos"
+                    android:id="@+id/llContainerHabilitada"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -223,7 +235,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="#D8CDA8">
+                    android:background="#D8CDA8"
+                    >
 
                     <!-- RecyclerView para operaciones habilitadas -->
 
@@ -241,6 +254,7 @@
 
 
 
+
             <Button
                 android:id="@+id/buttonmodificar_operacione"
                 android:layout_width="wrap_content"
@@ -252,7 +266,7 @@
 
 
             <LinearLayout
-                android:id="@+id/llContainer"
+                android:id="@+id/llContainerficha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -316,6 +330,14 @@
                     android:text="Apellido"
                     android:textColor="#ffffff"
                     android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tvhabilitado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Habilitado"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
             </LinearLayout>
 
 
@@ -338,6 +360,18 @@
                 android:textSize="20dp"
                 android:text="completo"
                 android:visibility="gone"/>
+            <Button
+                android:id="@+id/buttonHabilitar"
+                android:text="Habilitar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#011336"
+                android:layout_gravity="end"
+                android:textColor="#FFCE17"
+                android:textSize="20dp"
+                android:visibility="gone" />
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"

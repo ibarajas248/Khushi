@@ -16,10 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,12 +33,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.Adapter_Operaciones_Habilitadas;
 import com.example.khushi.AdaptadoresRecycler.Adapter_consulta_tareas_asignadas;
-import com.example.khushi.AdaptadoresRecycler.Adapter_consultar_tareas;
-import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
-import com.example.khushi.clasesinfo.Usuario;
-import com.example.khushi.clasesinfo.nuevoProducto;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import org.json.JSONArray;
@@ -49,6 +43,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -60,6 +55,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     Adapter_Operaciones_Habilitadas adapterHabilitada;
 
     //boton para completar una operacion
+    RequestQueue requestQueue;
     Button botonCompletaOperacion;
     ArrayList<String> nombres;
     ArrayList<String>listEmpleados;
@@ -75,11 +71,13 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
     HorizontalScrollView Contenedor_Recycler;
 //variable para tarjeta cuando se selecciona una operacion
-    LinearLayout linearLayout;
+    LinearLayout linearLayoutFicha;
     TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView;
 
     //------------
     private String ROL, idEmpleado, operaciones_completadas; //variable que recibe del intent
+
+    List<String> habilitados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +113,17 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         Handler handler = new Handler();
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
         listOperacionesHabilitadas = new ArrayList<operaciones_lotes_clase>();
+
+        Contenedor_Recycler= (HorizontalScrollView) findViewById(R.id.ContenedorRecycler);
+
+        if(ROL.equalsIgnoreCase("OPERARIO")){
+            Contenedor_Recycler.setVisibility(View.GONE);
+        }
+
+
+        permisosUsuario(); //debo arreglar estos permisos
+
+
 
 
         // array para opciones del Spinner
@@ -181,10 +190,10 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         //Scroll del contenedor de operaciones
 
-        Contenedor_Recycler= (HorizontalScrollView) findViewById(R.id.ContenedorRecycler);
+
 
         // ------------ inicializo los texview de la tarjeta de la operacion realizada
-        linearLayout = findViewById(R.id.llContainer);
+        linearLayoutFicha = findViewById(R.id.llContainerficha);
         productTextView = findViewById(R.id.tvProduct);
         sectionTextView = findViewById(R.id.tvSection);
         operationTextView = findViewById(R.id.tvOperation);
@@ -231,7 +240,20 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         });
     }
 
+    private void permisosUsuario() {
 
+
+
+        LinearLayout layoutOPHabilitado=(LinearLayout)findViewById(R.id.llContainerHabilitada);
+        if (ROL!="OPERARIO"){
+            layoutOPHabilitado.setVisibility(View.GONE);
+
+        }else if(ROL.equalsIgnoreCase("OPERARIO")){
+
+            layoutOPHabilitado.setVisibility(View.VISIBLE);
+            Contenedor_Recycler.setVisibility(View.GONE);
+        }
+    }
 
 
     public void agregarListaOperacion_Habilitada(String URL) {
@@ -446,10 +468,15 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         String apellidoEmpleado=jsonObject.getString("Apellidos");
                         int lote= Integer.parseInt(jsonObject.getString("lote"));
                         String completado= jsonObject.getString("completado");
-
-
-
+                        String habilitado= jsonObject.getString("habilitado");
+                        String fecha= jsonObject.getString("fecha");
                         String empleado=StringEmpleado;
+
+
+                        if (habilitado.equalsIgnoreCase("si")&&(completado.equalsIgnoreCase("no"))){
+                            habilitados.add(StringEmpleado);
+                        }
+
 
 
                         // si el valor es null pone -1
@@ -470,7 +497,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         }
                         int id_operaciones_subparte_producto=Integer.parseInt(jsonObject.getString("id_operaciones_subparte_producto"));
 
-                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto,nombreEmpleado,apellidoEmpleado,lote,id_producto_oc,completado));
+                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,
+                                id_operaciones_subparte_producto,nombreEmpleado,apellidoEmpleado,lote,id_producto_oc,completado,habilitado,fecha));
 
 
 
@@ -502,6 +530,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                         botonCompletaOperacion.setVisibility(View.VISIBLE);
 
+                        Button botonHabilitar=findViewById(R.id.buttonHabilitar);
+                        botonHabilitar.setVisibility(View.VISIBLE);
+
                         //asigna los valores a la tarjeta
                         productTextView.setText(asignacion.getProducto());
                         sectionTextView.setText(asignacion.getSubparte());
@@ -509,15 +540,35 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         quantityTextView.setText(String.valueOf(asignacion.getCantidad()));
                         nameTextView.setText(asignacion.getNombre());
                         lastNameTextView.setText(asignacion.getApellido());
+                        TextView tvHabilitado=findViewById(R.id.tvhabilitado);
+                        tvHabilitado.setText("habilitado: "+asignacion.getHabilitado());
                         //-------
                         //el recycler desaparece
                         recycler.setVisibility(View.GONE);
                         Contenedor_Recycler.setVisibility(View.GONE);
                         // la tarjeta se hace visible
-                        linearLayout.setVisibility(View.VISIBLE);
+                        linearLayoutFicha.setVisibility(View.VISIBLE);
 
                         //guardo el valor del id de la opracion adignada
-                        Operacion_asignada= asignacion.getId_lotes_operaciones();
+                        Operacion_asignada=  asignacion.getId_lotes_operaciones();
+
+
+                        botonHabilitar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                botonHabilitar.setVisibility(View.GONE);
+                                int idPasar = asignacion.getId_lotes_operaciones();
+                                if (habilitados.contains(asignacion.getEmpleado())){
+                                    Toast.makeText(consultar_tareas_asignadas.this, "este empleado ya tiene una operacion en curso", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    alertDialoghabilitar(idPasar);
+                                }
+                            }
+
+
+
+
+                        });
 
 
 
@@ -538,6 +589,52 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     }
 
 
+
+    private void habilitarOperacion(String URL, int idPasar){
+
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Toast.makeText(consultar_tareas_asignadas.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(consultar_tareas_asignadas.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+
+                //aca se deben poner los parametros para hacer un update..
+                parametros.put("id_lotes_operaciones", String.valueOf(idPasar));
+                parametros.put("habilitado","si");
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
     private void  tareaCompletada (String URL, int id_lotes_operaciones){
         // Crear una solicitud de cadena (StringRequest) con un método POST
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -626,6 +723,38 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         requestQueue.add(stringRequest);
 
     }
+    private void alertDialoghabilitar(int idPasar) {
+        Toast.makeText(consultar_tareas_asignadas.this, "holissss", Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Desea habilitar operación?");
+        builder.setMessage("solo puede habilitar una operación a la vez ");
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                habilitarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/editar_habilitado.php",idPasar);
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        // Agregar botón negativo (por ejemplo, "Cancelar")
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        // Mostrar el diálogo
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+
 
 
 
@@ -647,7 +776,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 // la tarjeta se hace invisible
 
                 //vuelvo a cargar el Recycler
-                linearLayout.setVisibility(View.GONE);
+                linearLayoutFicha.setVisibility(View.GONE);
                 botonCompletaOperacion.setVisibility(View.GONE);
 
                 //esta  accion va despues del alertdialog
@@ -686,7 +815,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 // la tarjeta se hace invisible
 
                 //vuelvo a cargar el Recycler
-                linearLayout.setVisibility(View.GONE);
+                linearLayoutFicha.setVisibility(View.GONE);
                 botonCompletaOperacion.setVisibility(View.GONE);
 
                 Handler handler = new Handler();

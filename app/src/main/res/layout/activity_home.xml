@@ -13,7 +13,7 @@
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A3A3A3"
+
 
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -22,37 +22,32 @@
     <!-- HorizontalScrollView y RecyclerView -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="649dp"
-        android:layout_below="@id/toolbar1">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar1"
+        >
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-            </LinearLayout>
 
-        </HorizontalScrollView>
 
     </RelativeLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="#3989D3"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"
         app:menu="@menu/nav_bar"
+
         />
 
 </RelativeLayout>

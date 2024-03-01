@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             //Toast.makeText(MainActivity.this, contraseniaEncriptada, Toast.LENGTH_SHORT).show();
                             validarUsuario("http://khushiconfecciones.com//app_khushi/validar_inicio_sesion.php" + "?usuario=" + user.getText().toString() + "&contrasenia=" + contraseniaEncriptada);
                         } else if(permisoInisioSesion==false){
+
                             Toast.makeText(MainActivity.this, "Debe actualizar el software", Toast.LENGTH_SHORT).show();
 
                             Handler handler = new Handler();
@@ -107,8 +108,15 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     // Llama al primer método aquí
-                                    Intent descarga =new Intent(Intent.ACTION_VIEW,Uri.parse(linkDescargaSoftware));
-                                    startActivity(descarga);
+
+                                    if (linkDescargaSoftware.equalsIgnoreCase("mantenimiento")){
+                                        Intent intent= new Intent(MainActivity.this, Mantenimiento.class);
+                                        startActivity(intent);
+                                    }else{
+                                        Intent descarga =new Intent(Intent.ACTION_VIEW,Uri.parse(linkDescargaSoftware));
+                                        startActivity(descarga);
+                                    }
+
                                 }
                             }, 5000); // Retraso de 5000 milisegundos (5 segundos)
                         }

@@ -1,10 +1,13 @@
 package com.example.khushi.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.example.khushi.AdaptadoresRecycler.AdapterMenu;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.menuClase;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,10 +30,13 @@ public class Home extends AppCompatActivity {
 
     private String ROL ;
     private Toolbar toolbar1;
+    Menu menu;
     ImageButton btnagregarproducto,btnagregaroperacionempleado,agregaroc;
     private RecyclerView recyclerView;
 
     ArrayList<menuClase> listaMenu;
+
+
 
 
 
@@ -54,7 +61,7 @@ public class Home extends AppCompatActivity {
         setSupportActionBar(toolbar1);
 
         getSupportActionBar().setTitle("Khushi");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
 
         recyclerView = findViewById(R.id.recycler);
@@ -121,14 +128,37 @@ public class Home extends AppCompatActivity {
 
         if (ROL.equalsIgnoreCase("OPERARIO")){
 
-            listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.ic_menu_camera));
-            listaMenu.add(new menuClase("Operaciones completadas"));
-        }else {
+            listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.asignar));
+            listaMenu.add(new menuClase("Operaciones completadas",R.drawable.tarea));
+            listaMenu.add(new menuClase("Estadísticas",R.drawable.estadisticas));
+            listaMenu.add(new menuClase("Productos",R.drawable.producto));
+            listaMenu.add(new menuClase("Informar un problema",R.drawable.advertencia));
+            listaMenu.add(new menuClase("Novedades",R.drawable.nuevo));
+            listaMenu.add(new menuClase("Perfil",R.drawable.perfil));
+        }else if(ROL.equalsIgnoreCase("ADMIN")){
             listaMenu.add(new menuClase("Productos",R.drawable.producto));
             listaMenu.add(new menuClase("Orden de compra",R.drawable.oc));
             listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.asignar));
             listaMenu.add(new menuClase("Operaciones completadas",R.drawable.tarea));
-            listaMenu.add(new menuClase("cinco"));
+            listaMenu.add(new menuClase("Estadísticas",R.drawable.estadisticas));
+            listaMenu.add(new menuClase("Clientes",R.drawable.clientes));
+            listaMenu.add(new menuClase("Informar un problema",R.drawable.advertencia));
+            listaMenu.add(new menuClase("Proveedores",R.drawable.provedores));
+
+            listaMenu.add(new menuClase("Perfil",R.drawable.perfil));
+        }
+        else if(ROL.equalsIgnoreCase("SUPERVISOR")){
+            listaMenu.add(new menuClase("Productos",R.drawable.producto));
+            listaMenu.add(new menuClase("Orden de compra",R.drawable.oc));
+            listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.asignar));
+            listaMenu.add(new menuClase("Operaciones completadas",R.drawable.tarea));
+            listaMenu.add(new menuClase("Estadísticas",R.drawable.estadisticas));
+            listaMenu.add(new menuClase("Clientes",R.drawable.clientes));
+            listaMenu.add(new menuClase("Informar un problema",R.drawable.advertencia));
+            listaMenu.add(new menuClase("Novedades",R.drawable.nuevo));
+            listaMenu.add(new menuClase("Proveedores",R.drawable.provedores));
+
+            listaMenu.add(new menuClase("Perfil",R.drawable.perfil));
         }
 
 
@@ -146,11 +176,7 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menuPrincipal) {
-            Intent intent = new Intent(Home.this, Menu.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish(); // Cierra la actividad actual
-            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
 
         } else if (id == R.id.fragmento2) {
             // Lanzar la Activity correspondiente al fragmento2
@@ -159,7 +185,9 @@ public class Home extends AppCompatActivity {
             Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
         }
 
-        return super.onOptionsItemSelected(item);
+
+        return true;
+
     }
 
     private void abrirEnlaceExterno(String url) {
@@ -175,6 +203,10 @@ public class Home extends AppCompatActivity {
             // Puedes mostrar un mensaje al usuario o realizar alguna otra acción
         }
     }
+
+
+
+
 
 
 
