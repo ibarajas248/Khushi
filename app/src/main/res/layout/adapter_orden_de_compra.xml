@@ -22,7 +22,8 @@
             android:text="ID:"
             android:textColor="#000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/orden_de_compra"

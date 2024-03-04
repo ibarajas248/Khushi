@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -55,6 +56,8 @@ public class agregarProducto extends AppCompatActivity {
     boolean validacion = false;
     int idProducto;
 
+    private String ROL, idEmpleado;// recibe el intent
+
 
 
 
@@ -86,6 +89,14 @@ public class agregarProducto extends AppCompatActivity {
         listDatos = new ArrayList<nuevoProducto>();
         queue = Volley.newRequestQueue(this);
         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
+
+        //recibe variables del anterior intent
+        Intent intent = getIntent();
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+
+        roles_de_usuario();
+
 
         modificarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,11 +143,22 @@ public class agregarProducto extends AppCompatActivity {
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
                         recycler.setVisibility(View.VISIBLE);
 
+
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
             }
         });
     }
+
+    private void roles_de_usuario() {
+        if (ROL.equalsIgnoreCase("SUPERVISOR")|| ROL.equalsIgnoreCase("OPERARIO") ){
+            LinearLayout layoutIngresaProducto=findViewById(R.id.LayoutIngresaProducto);
+            layoutIngresaProducto.setVisibility(View.GONE);
+            registrarProducto.setVisibility(View.GONE);
+
+        }
+    }
+
     private void agregarlista(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -170,13 +192,14 @@ public class agregarProducto extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                AdapterDatos adapter123 = new AdapterDatos(listDatos);
+                AdapterDatos adapter123 = new AdapterDatos(listDatos,ROL);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                        // Toast.makeText(getApplicationContext(),"seleccion "+listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto(),Toast.LENGTH_SHORT).show();
                             Intent intent= new Intent(agregarProducto.this, mostrar_agregar_subparte.class);
-
+                            intent.putExtra("Rol",String.valueOf(ROL));
+                            intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                             intent.putExtra("id_producto",String.valueOf(listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto()));
                             startActivity(intent);
                         }
@@ -187,14 +210,18 @@ public class agregarProducto extends AppCompatActivity {
 
 
 
-                        precio.setText(String.valueOf(p.getPrecio()));
-                        producto.setText(p.getProducto());
-                        idProducto=p.getId_producto();
-                        modificarProducto.setVisibility(View.VISIBLE);
-                        eliminarProducto.setVisibility(View.VISIBLE);
-                        visibilidadModificar=true;
-                        recycler.setVisibility(View.GONE);
-                        registrarProducto.setVisibility(View.GONE);
+                        if (ROL.equalsIgnoreCase("ADMIN")){
+                            precio.setText(String.valueOf(p.getPrecio()));
+                            producto.setText(p.getProducto());
+                            idProducto=p.getId_producto();
+                            modificarProducto.setVisibility(View.VISIBLE);
+                            eliminarProducto.setVisibility(View.VISIBLE);
+                            visibilidadModificar=true;
+                            recycler.setVisibility(View.GONE);
+                            registrarProducto.setVisibility(View.GONE);
+
+                        }
+
 
                     }
                 });

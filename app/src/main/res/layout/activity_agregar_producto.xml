@@ -30,6 +30,7 @@
             android:background="#011336">
 
             <LinearLayout
+                android:id="@+id/LayoutIngresaProducto"
                 android:layout_width="321dp"
                 android:layout_height="197dp"
                 android:layout_gravity="center_horizontal"

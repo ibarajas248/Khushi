@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity {
         ROL = intent.getStringExtra("Rol");
         idEmpleado= intent.getStringExtra("idEmpleado");
 
-        Toast.makeText(this, idEmpleado, Toast.LENGTH_SHORT).show();
+        
 
 
         abrirEnlaceExterno("https://www.google.com");
@@ -76,6 +76,8 @@ public class Home extends AppCompatActivity {
 
                 if (listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Productos"){
                     Intent intent= new Intent(Home.this, agregarProducto.class);
+                    intent.putExtra("Rol",String.valueOf(ROL));
+                    intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                     startActivity(intent);
                 }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Orden de compra"){
                     Intent intent= new Intent(Home.this, ordenDeCompra.class);

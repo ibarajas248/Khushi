@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,6 +53,8 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
 
 
+
+
     ArrayList<nuevaSubParte> listsubparte;
     ArrayList<nuevaSubParte> listSubparteSpinner;
     private EditText subparte;
@@ -70,6 +73,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     private int idSubparteSeleccionada; //id cuando seleccion subpñarte del Spinner
 
     private String subparteSeleccionada;
+    private String ROL, idEmpleado;// recibe el intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +83,11 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
 
         toolbar1=findViewById(R.id.toolbar1);
+        toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
+
         getSupportActionBar().setTitle("Khushi");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         subparte=(EditText)findViewById(R.id.mosagre_escribirsubpart);
         subparte.setEnabled(false);
@@ -97,10 +103,15 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
 
-
+        //recibe el intent
         Intent intent = getIntent();
         idproducto = intent.getStringExtra("id_producto");
-        Toast.makeText(mostrar_agregar_subparte.this,idproducto,Toast.LENGTH_SHORT).show();
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+
+        roles_de_usuario();
+
+
         listsubparte= new ArrayList<nuevaSubParte>();
         listSubparteSpinner= new ArrayList<nuevaSubParte>();
         queue = Volley.newRequestQueue(this);
@@ -218,6 +229,19 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
     }
 
+    private void roles_de_usuario() {
+        if (ROL.equalsIgnoreCase("SUPERVISOR")|| ROL.equalsIgnoreCase("OPERARIO") ){
+            LinearLayout layoutAgregarSubparte=findViewById(R.id.LayoutAgregarSubparte);
+            layoutAgregarSubparte.setVisibility(View.GONE);
+            layoutAgregarSubparte.setVisibility(View.GONE);
+            Button agregarSubparte=findViewById(R.id.ma_subparte_agregar);
+            agregarSubparte.setVisibility(View.GONE);
+
+
+
+        }
+    }
+
     private void agregarlistaSubParte(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -270,10 +294,15 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         idproducto=String.valueOf(s.getId_producto());
                         id_subparte=s.getId_subparte();
 
-                        btnModificarSubparte.setVisibility(View.VISIBLE);
+
+                        if (ROL.equalsIgnoreCase("ADMIN")){//esconde los botones eliminar y editar
+                            btnModificarSubparte.setVisibility(View.VISIBLE);
+                            btnEliminarSeccion.setVisibility(View.VISIBLE);
+                        }
+
                         visibilidadModificar=true;
                         registrarSubproducto.setVisibility(View.GONE);
-                        btnEliminarSeccion.setVisibility(View.VISIBLE);
+
 
                         Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+" "+String.valueOf(id_subparte)+" "+idproducto, Toast.LENGTH_SHORT).show();
 
@@ -619,6 +648,29 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu1, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuPrincipal) {
+            Intent intent = new Intent(mostrar_agregar_subparte.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
+        } else if (id == R.id.fragmento2) {
+            // Lanzar la Activity correspondiente al fragmento2
+            //Intent intentFragmento2 = new Intent(this, Home.class);
+            //startActivity(intentFragmento2);
+            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
 

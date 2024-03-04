@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/imageButton"
         android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
 
         <TextView
             android:id="@+id/idproducto"
@@ -42,16 +43,19 @@
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/producto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:elegantTextHeight="false"
             android:text="Nombre del Producto"
             android:textColor="#333"
-            android:textSize="16sp"
-            android:layout_marginStart="8dp"/>
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/precioProducto"

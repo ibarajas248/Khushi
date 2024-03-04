@@ -9,14 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.os.Handler;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -435,6 +433,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 int cantidad_lote= asignacion.getCantidad();
                                 int lote= asignacion.getLotes();
                                 int id_producto_oc=asignacion.getId_producto_oc();
+                                int id_lotes_operaciones=asignacion.getId_lotes_operaciones();
 
 
                             //String URL, int id_lotes_operaciones, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote
@@ -448,10 +447,10 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                     int modulo=cantidad_lote%cantidadLotesIterar;
                                     for (int i = 0; i < cantidadLotesIterar; i++) {
                                        if (modulo !=0){
-                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote);
+                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote, id_lotes_operaciones);
                                            modulo=0;
                                        }else{
-                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote);
+                                           dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote, id_lotes_operaciones);
 
                                        }
                                         //hace aparecer el recycler
@@ -512,7 +511,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                                 if (!cantidadSublotesString.isEmpty()) {
-                                    dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote);
+                                    dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote, id_producto_oc);
 
 
                                     //hace aparecer el recycler
@@ -611,7 +610,18 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                                 int id_producto_subparte_operacion= asignacion.getId_operacione_subparte_producto();
                                                 int lote= asignacion.getLotes();
                                                 int id_producto_oc=asignacion.getId_producto_oc();
-                                                dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote);
+                                                Toast.makeText(operaciones_lotes.this, idParaUpdate, Toast.LENGTH_SHORT).show();
+
+
+                                                //asignacion.getId_lotes_operaciones()
+                                               if (i!=0){
+                                                   String URL= "http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php";
+
+                                                }else{
+                                                   String URL= "http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php";
+                                               }
+
+                                                dividirOperacion(URL, id_producto_subparte_operacion, id_producto_oc, cantidad_lote, lote,id_producto_oc);
 
 
                                             }
@@ -678,10 +688,10 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                     int modulo=cantidad_lote%cantidadLotesIterar;
                                     for (int i = 0; i < cantidadLotesIterar; i++) {
                                         if (modulo !=0){
-                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote);
+                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar+modulo, lote, id_producto_oc);
                                             modulo=0;
                                         }else{
-                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote);
+                                            dividirOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php", id_producto_subparte_operacion, id_producto_oc, cantidad_lote/cantidadLotesIterar, lote, id_producto_oc);
 
                                         }
                                         //hace aparecer el recycler
@@ -1002,7 +1012,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         requestQueue.add(stringRequest);
 
     }
-    private void dividirOperacion (String URL, int id_producto_subparte_operacion,int id_producto_oc,int cantidad, int lote ){
+    private void dividirOperacion (String URL, int id_producto_subparte_operacion, int id_producto_oc, int cantidad, int lote, int id_lotes_operaciones){
         // Crear una solicitud de cadena (StringRequest) con un método POST
         //holidfd
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

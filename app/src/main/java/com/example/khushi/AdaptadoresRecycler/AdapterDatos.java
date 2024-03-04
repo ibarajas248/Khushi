@@ -41,6 +41,7 @@
         ArrayList<nuevoProducto> listDatos;
         private View.OnClickListener listener;
         private OnItemLongClickListener itemLongClickListener;
+        private String ROL;
     
     
         public interface OnItemLongClickListener {
@@ -52,6 +53,10 @@
         }
         public AdapterDatos(ArrayList<nuevoProducto> listDatos) {
             this.listDatos = listDatos;
+        }
+        public AdapterDatos(ArrayList<nuevoProducto> listDatos, String ROL) {
+            this.listDatos = listDatos;
+            this.ROL=ROL;
         }
     
         @NonNull
@@ -75,6 +80,9 @@
             holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
             holder.producto.setText(listDatos.get(position).getProducto());
             holder.precio.setText(String.valueOf(listDatos.get(position).getPrecio()));
+            if (ROL.equalsIgnoreCase("SUPERVISOR")||ROL.equalsIgnoreCase("OPERARIO")){
+                holder.precio.setVisibility(View.GONE);
+            }
             // Verificar si la posición es par o impar
             if (position % 2 == 0) {
                 // Para posiciones pares, cambia el color de fondo o el color del texto
