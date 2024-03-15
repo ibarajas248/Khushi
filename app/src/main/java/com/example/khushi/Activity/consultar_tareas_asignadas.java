@@ -3,6 +3,7 @@ package com.example.khushi.Activity;
 import static android.app.ProgressDialog.show;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,8 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,6 +52,8 @@ import java.util.Map;
 public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener{
     ArrayList<Empleado_clase> listaEmpleados;
     ArrayList<operaciones_lotes_clase> listOperaciones;
+
+    private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
     ArrayList<operaciones_lotes_clase> listOperacionesHabilitadas;
     RecyclerView recycler,recyclerHabilitado;
     Adapter_consulta_tareas_asignadas adapter123;
@@ -62,7 +67,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     RequestQueue queue;
     ArrayList<Integer> idsEmpleados;
     ArrayAdapter<String> adapter;// adapter que va a tomar el spinner
-    Spinner spinnerEmpleado,spinnerFiltrar;
+    Spinner spinnerEmpleado;
+    Spinner spinnerFiltrar;
     int idParaUpdate;
 //variable para almacenar el id de la tarea asignada
     private int Operacion_asignada;
@@ -78,6 +84,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     private String ROL, idEmpleado, operaciones_completadas; //variable que recibe del intent
 
     List<String> habilitados = new ArrayList<>();
+    private Toolbar toolbar1;
+
+    String operacionCOmpletadaActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +99,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         ROL = intent.getStringExtra("Rol");
         idEmpleado= intent.getStringExtra("idEmpleado");
         operaciones_completadas=intent.getStringExtra("operaciones_completadas");
+        operacionCOmpletadaActivity=intent.getStringExtra("vercompletadas");
 
 
         //---------fin de valores recibidos en el intent
@@ -97,7 +107,13 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         // inicializo el searchview---
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
         buscarOperacionesDB.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
+
         //-----------
+
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         spinnerEmpleado = findViewById(R.id.spinnerFiltrar_empleado);
@@ -116,7 +132,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         Contenedor_Recycler= (HorizontalScrollView) findViewById(R.id.ContenedorRecycler);
 
-        if(ROL.equalsIgnoreCase("OPERARIO")){
+        if(ROL.equalsIgnoreCase("OPERARIO")&& !operacionCOmpletadaActivity.equalsIgnoreCase("si")){
             Contenedor_Recycler.setVisibility(View.GONE);
         }
 
@@ -127,9 +143,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
         // array para opciones del Spinner
-        String[]opcionesFiltrado={"seleccione", "Sin Asignar", "Tareas Asignadas"};
+        String[]opcionesFiltrado={"Todos los filtros","Habilitado", "producto", "Seccion","Operaciones","Cantidad","Nombre","Apellido","Lote","completado"};
 
-        //Arrayadapter del Spinner
+
 
         ArrayAdapter<String> adapterSpinner= new ArrayAdapter<String>(this,
                 R.layout.spinner_filtrar_en_lotes_operaciones, opcionesFiltrado);
@@ -140,7 +156,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
         if (ROL.equalsIgnoreCase("OPERARIO")){
-
+        spinnerFiltrar.setVisibility(View.GONE);
+        buscarOperacionesDB.setVisibility(View.GONE);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -234,7 +251,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
 
-                mostrarAlertDialog();
+                mostrarAlertDialog(idParaUpdate);
 
             }
         });
@@ -245,13 +262,15 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
         LinearLayout layoutOPHabilitado=(LinearLayout)findViewById(R.id.llContainerHabilitada);
-        if (ROL!="OPERARIO"){
-            layoutOPHabilitado.setVisibility(View.GONE);
+        if (!ROL.equalsIgnoreCase("OPERARIO")){
+           layoutOPHabilitado.setVisibility(View.GONE);
 
         }else if(ROL.equalsIgnoreCase("OPERARIO")){
 
             layoutOPHabilitado.setVisibility(View.VISIBLE);
-            Contenedor_Recycler.setVisibility(View.GONE);
+
+            //buscarOperacionesDB.setVisibility(View.GONE);
+            //Contenedor_Recycler.setVisibility(View.GONE);
         }
     }
 
@@ -340,7 +359,10 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     @Override
                     public void onItemLongClick(operaciones_lotes_clase asignacion) {
                         //asignacion.getNombre(); --- asi es como obtengo los valores estos los debo pasar al metodo
-                        mostrarAlertDialog();
+
+                        int idParaMarcarMaracarCompletada= asignacion.getId_lotes_operaciones();
+
+                        mostrarAlertDialog(idParaMarcarMaracarCompletada);
                     }
                 });
 
@@ -353,7 +375,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No tiene operaciones Asignadas", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -516,7 +538,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(consultar_tareas_asignadas.this, "clcik", Toast.LENGTH_SHORT).show();
+
 
 
                     }
@@ -529,6 +551,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                        idParaUpdate= asignacion.getId_lotes_operaciones();
 
                         botonCompletaOperacion.setVisibility(View.VISIBLE);
+                        buscarOperacionesDB.setVisibility(View.GONE);
+                        spinnerFiltrar.setVisibility(View.GONE);
 
                         Button botonHabilitar=findViewById(R.id.buttonHabilitar);
                         botonHabilitar.setVisibility(View.VISIBLE);
@@ -544,7 +568,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         tvHabilitado.setText("habilitado: "+asignacion.getHabilitado());
                         //-------
                         //el recycler desaparece
-                        recycler.setVisibility(View.GONE);
+                        //recycler.setVisibility(View.GONE);
                         Contenedor_Recycler.setVisibility(View.GONE);
                         // la tarjeta se hace visible
                         linearLayoutFicha.setVisibility(View.VISIBLE);
@@ -556,13 +580,23 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         botonHabilitar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                botonHabilitar.setVisibility(View.GONE);
+
                                 int idPasar = asignacion.getId_lotes_operaciones();
                                 if (habilitados.contains(asignacion.getEmpleado())){
                                     Toast.makeText(consultar_tareas_asignadas.this, "este empleado ya tiene una operacion en curso", Toast.LENGTH_SHORT).show();
                                 }else{
                                     alertDialoghabilitar(idPasar);
                                 }
+
+                                botonHabilitar.setVisibility(View.GONE);
+                                botonCompletaOperacion.setVisibility(View.GONE);
+                                linearLayoutFicha.setVisibility(View.GONE);
+                                buscarOperacionesDB.setVisibility(View.VISIBLE);
+                                Contenedor_Recycler.setVisibility(View.VISIBLE);
+                                spinnerFiltrar.setVisibility(View.VISIBLE);
+
+
+
                             }
 
 
@@ -600,6 +634,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Toast.makeText(consultar_tareas_asignadas.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                linearLayoutFicha.setVisibility(View.GONE);
+                botonCompletaOperacion.setVisibility(View.GONE);
+                recycler.setVisibility(View.VISIBLE);
 
             }
         }, new Response.ErrorListener() {
@@ -671,7 +708,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         requestQueue.add(stringRequest);
 
     }
-    private void  operacionCompletada (String URL){
+    private void  operacionCompletada (String URL,int idCompletada){
         // Crear una solicitud de cadena (StringRequest) con un método POST
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -710,7 +747,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                 Map<String, String> parametros= new HashMap<String, String>();
                //envio la solicitud
-                parametros.put("id_lotes_operaciones", String.valueOf(Operacion_asignada));
+                parametros.put("id_lotes_operaciones", String.valueOf(idCompletada));
 
 
 
@@ -724,7 +761,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
     }
     private void alertDialoghabilitar(int idPasar) {
-        Toast.makeText(consultar_tareas_asignadas.this, "holissss", Toast.LENGTH_SHORT).show();
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Desea habilitar operación?");
@@ -734,6 +771,17 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 habilitarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/editar_habilitado.php",idPasar);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Llama al primer método aquí
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+
+                    }
+                }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+
                 dialog.dismiss(); // Cierra el diálogo
             }
         });
@@ -758,7 +806,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
 
-    private void mostrarAlertDialog() {
+    private void mostrarAlertDialog(int idCompleta) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Desea marcar como completada esta operación?");
         builder.setMessage("Está acción no se podrá modificar ");
@@ -771,17 +819,23 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                 //el recycler aparece
 
-                Contenedor_Recycler.setVisibility(View.VISIBLE);
-                recycler.setVisibility(View.VISIBLE);
-                // la tarjeta se hace invisible
+                if (!ROL.equalsIgnoreCase("OPERARIO")){
+                    Contenedor_Recycler.setVisibility(View.VISIBLE);
+                    recycler.setVisibility(View.VISIBLE);
+
+                    // la tarjeta se hace invisible
+                }
+
 
                 //vuelvo a cargar el Recycler
                 linearLayoutFicha.setVisibility(View.GONE);
                 botonCompletaOperacion.setVisibility(View.GONE);
 
+
                 //esta  accion va despues del alertdialog
-                tareaCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/marcar_tarea_completada.php",idParaUpdate);
-                operacionCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operacion_completada.php");
+
+                tareaCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/marcar_tarea_completada.php",idCompleta);
+                operacionCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operacion_completada.php",idCompleta);
                 botonCompletaOperacion.setVisibility(View.GONE);
 
                 Handler handler = new Handler();
@@ -810,19 +864,26 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                 //el recycler aparece
 
-                Contenedor_Recycler.setVisibility(View.VISIBLE);
-                recycler.setVisibility(View.VISIBLE);
-                // la tarjeta se hace invisible
+                if (ROL.equalsIgnoreCase("ADMIN")||ROL.equalsIgnoreCase("SUPERVISOR")){
+                    Contenedor_Recycler.setVisibility(View.VISIBLE);
+                    recycler.setVisibility(View.VISIBLE);
+                    // la tarjeta se hace invisible
 
-                //vuelvo a cargar el Recycler
-                linearLayoutFicha.setVisibility(View.GONE);
-                botonCompletaOperacion.setVisibility(View.GONE);
+                    //vuelvo a cargar el Recycler
+                    linearLayoutFicha.setVisibility(View.GONE);
+                    linearLayoutFicha.setVisibility(View.GONE);
+                    botonCompletaOperacion.setVisibility(View.GONE);
+                }else if (ROL.equalsIgnoreCase("OPERARIO")){
+                    recyclerHabilitado.setVisibility(View.VISIBLE);
+                }
+
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         // Llama al primer método aquí
+                        // Llama al primer método aquíspinne
                         agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
 
                     }
@@ -838,7 +899,6 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     }
 
 
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -846,6 +906,61 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
     @Override
     public boolean onQueryTextChange(String newText) {
+
+       // {"Todos los filtros","Habilitado", "producto", "Seccion","Operaciones","Cantidad","Nombre","Apellido","Lote","completado"};
+
+        String seleccion= spinnerFiltrar.getSelectedItem().toString();
+        if (seleccion.equals("Todos los filtros")){
+            adapter123.filtrado(newText);
+        }else if (seleccion.equals("Habilitado")){
+            adapter123.filtradoHabilitado(newText);
+        }else if(seleccion.equals("producto")){
+            adapter123.filtradoProducto(newText);
+        }else if (seleccion.equals("Seccion")){
+            adapter123.filtradoSeccion(newText);
+        }else if (seleccion.equals("Operaciones")){
+            adapter123.filtradoOperacion(newText);
+        } else if (seleccion.equals("Cantidad")) {
+            adapter123.filtradoCantidad(newText);
+        }else if (seleccion.equals("Nombre")) {
+            adapter123.filtradoNombre(newText);
+        }else if (seleccion.equals("Apellido")) {
+            adapter123.filtradoApellido(newText);
+        }else if (seleccion.equals("Lote")) {
+            adapter123.filtradoLote(newText);
+        }
+        else if (seleccion.equals("completado")) {
+            adapter123.filtradoCompletado(newText);
+        }
+
+
         return false;
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuPrincipal) {
+            Intent intent = new Intent(consultar_tareas_asignadas.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
+        } else if (id == R.id.fragmento2) {
+            // Lanzar la Activity correspondiente al fragmento2
+            //Intent intentFragmento2 = new Intent(this, Home.class);
+            //startActivity(intentFragmento2);
+            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

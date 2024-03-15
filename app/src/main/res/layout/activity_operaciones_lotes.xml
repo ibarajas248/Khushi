@@ -1,618 +1,691 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Home">
+    tools:context=".Activity.Home"
+    >
 
-
-
-
-    <ScrollView
-        android:id="@+id/scroll_operacion_lote"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="#000000" />
 
-        <LinearLayout
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar1"
+        android:background="#838078">
+
+
+        <ScrollView
+            android:id="@+id/scroll_operacion_lote"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#838078">
+            android:layout_height="match_parent">
+
+
             <LinearLayout
-                android:id="@+id/llContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="#3498db"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tvProduct"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Producto"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sección"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvOperation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Operación"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvQuantity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cantidad"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Apellido"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                >
-
-                <LinearLayout
-                    android:id="@+id/LayoutImageButtondividir"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/bordes_redondos_azul"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="16dp"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-
-                    <ImageButton
-                        android:id="@+id/imageButtondividir"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:background="@drawable/bordes_redondos_azul"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/extraer"
-                        app:tint="#FFEB3B"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/LayoutImageButtondividirAutomatico"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/bordes_redondos_azul"
-                    android:gravity="center"
-                    android:layout_marginRight="16dp"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-
-                    <ImageButton
-                        android:id="@+id/imageButtondividirAutomatico"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/bordes_redondos_azul"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/dividir_automatico"
-                        app:tint="#FFEB3B"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/LayoutImageButtonEditar"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/bordes_redondos_azul"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-
-                    <ImageButton
-                        android:id="@+id/imageButtonEditar"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:background="@drawable/bordes_redondos_azul"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/editar"
-                        app:tint="#FFEB3B"
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-
-            <LinearLayout
-                android:id="@+id/linnear_operacion_lote"
-                android:layout_width="328dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_height="match_parent"
+                android:background="#535250"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/cantidadSublotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="lotes o cantidad"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone"
-                    />
-                <EditText
-                    android:id="@+id/cantidadSublotes1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 1"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 2"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 3"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad lote 4"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 5"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 6"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-
-                <EditText
-                    android:id="@+id/cantidadSublotes7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 7"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 8"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 9"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-                <EditText
-                    android:id="@+id/cantidadSublotes10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/esquinas_curvas"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="cantidad 10"
-                    android:inputType="number"
-                    android:paddingLeft="5dp"
-                    android:visibility="gone" />
-
-
-
-                <Button
-                android:id="@+id/boton_dividir_lote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:layout_gravity="end"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:text="Dividir lote"
-                android:visibility="gone"/>
-                <Button
-                android:id="@+id/botonEditarCantidad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:layout_gravity="end"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:text="editar cantidad "
-                android:visibility="gone"/>
-                <Button
-                android:id="@+id/botonDividirManual"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:layout_gravity="end"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:text="dividir manualmente "
-                android:visibility="gone"/>
-                <Button
-                    android:id="@+id/botonDividirManualConfirmar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="#011336"
-                    android:layout_gravity="end"
-                    android:textColor="#FFCE17"
-                    android:textSize="20dp"
-                    android:text="dividir operacion "
-                    android:visibility="gone"/>
-                <Button
-                    android:id="@+id/partir_lote"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="#011336"
-                    android:layout_gravity="end"
-                    android:textColor="#FFCE17"
-                    android:textSize="20dp"
-                    android:text="partir lote "
-                    android:visibility="gone"/>
-                <Button
-                    android:id="@+id/boton_dividir_automatico"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="#011336"
-                    android:layout_gravity="end"
-                    android:textColor="#FFCE17"
-                    android:textSize="20dp"
-                    android:text="partir por partes iguales  "
-                    android:visibility="gone"/>
-
-
-
-
-
-
-
-
-
-            </LinearLayout>
-
-
-            <Spinner
-                android:id="@+id/spinnerFiltrar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="#FFFFFF" />
-
-            <SearchView
-                android:id="@+id/searchoperacionesDB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-
-                android:layout_marginEnd="10dp"
-
-                android:background="#EFE1AD" />
-
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
-                android:layout_marginStart="10dp"
-
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#D8CDA8">
-
 
                 <LinearLayout
-                    android:id="@+id/contenedorRecycler"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:id="@+id/llContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#3498db"
                     android:orientation="vertical"
-                    >
+                    android:padding="16dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Producto"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Sección"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvOperation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Operación"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Cantidad"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Nombre"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apellido"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
 
 
-
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:orientation="horizontal"
 
+                        >
 
-                        <TextView
-                            android:id="@+id/tvHabilitado"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:text="Habilitado"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            android:visibility="gone" />
+                        <LinearLayout
+                            android:id="@+id/LayoutImageButtondividir"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bordes_redondos_azul"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:orientation="vertical"
+                            >
 
-                        <TextView
-                            android:id="@+id/subparte"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="Sección"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            <ImageButton
+                                android:id="@+id/imageButtondividir"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bordes_redondos_azul"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/extraer"
+                                app:tint="#FFEB3B" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/operaciones_filtrado"
-                            android:layout_width="400dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="operaciones"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:id="@+id/LayoutImageButtondividirAutomatico"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bordes_redondos_azul"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                        <TextView
-                            android:id="@+id/cantidad"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="cantidad"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/edtlote"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:text="Lote"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            />
+                            <ImageButton
+                                android:id="@+id/imageButtondividirAutomatico"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bordes_redondos_azul"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/dividir_automatico"
+                                app:tint="#FFEB3B" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/empleado"
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="Empleado"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:id="@+id/LayoutImageButtonEditar"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bordes_redondos_azul"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                        <TextView
-                            android:id="@+id/edtcompletado"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:text="completo"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            />
+                            <ImageButton
+                                android:id="@+id/imageButtonEditar"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bordes_redondos_azul"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/editar"
+                                app:tint="#FFEB3B" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/maquina_filtrado"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="Maquina"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"/>
+                        <LinearLayout
+                            android:id="@+id/LayoutImageButtonCopiar"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bordes_redondos_azul"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                        <TextView
-                            android:id="@+id/precio_filtrado"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="precio"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/lote"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:text="Lote"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            />
-
+                            <ImageButton
+                                android:id="@+id/imageButtonCopiar"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bordes_redondos_azul"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/copiar"
+                                app:tint="#FFEB3B" />
+                        </LinearLayout>
 
                     </LinearLayout>
+                </HorizontalScrollView>
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerviewoperaciones"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/linnear_operacion_lote"
+                    android:layout_width="328dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                    </androidx.recyclerview.widget.RecyclerView>
+                    <EditText
+                        android:id="@+id/cantidadSublotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="lotes o cantidad"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 1"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 2"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 3"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad lote 4"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 5"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 6"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 7"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 8"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 9"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/cantidadSublotes10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/esquinas_curvas"
+                        android:ems="10"
+                        android:hint="cantidad 10"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp"
+                        android:visibility="gone" />
+
+
+                    <Button
+                        android:id="@+id/boton_dividir_lote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="Dividir lote"
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/botonEditarCantidad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="editar cantidad "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/botonDividirManual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="dividir manualmente "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/botonDividirManualConfirmar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="dividir operacion "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/partir_lote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="partir lote "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+                    <Button
+                        android:id="@+id/editarcant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="editar cantidad "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/boton_dividir_automatico"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="partir por partes iguales  "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/boton_copiar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#011336"
+                        android:text="asignar cantidad  "
+                        android:textColor="#FFCE17"
+                        android:textSize="20dp"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
-            </HorizontalScrollView>
 
 
+                <Spinner
+                    android:id="@+id/spinnerFiltrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF" />
+
+                <SearchView
+                    android:id="@+id/searchoperacionesDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="#EFE1AD" />
+                <Spinner
+                    android:id="@+id/spinnerFiltrosDinamicos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    />
 
 
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
 
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_marginTop="10dp"
+
+                    android:layout_marginBottom="10dp"
+                    android:background="#D8CDA8">
+
+
+                    <LinearLayout
+                        android:id="@+id/contenedorRecycler"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/tvHabilitado"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Habilitado"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/subparte"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Sección"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/operaciones_filtrado"
+                                android:layout_width="400dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="operaciones"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/cantidad"
+                                android:layout_width="150dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="cantidad"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/edtlote"
+                                android:layout_width="70dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Lote"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/empleado"
+                                android:layout_width="200dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Empleado"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/edtcompletado"
+                                android:layout_width="70dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="completo"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/maquina_filtrado"
+                                android:layout_width="150dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Maquina"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/precio_filtrado"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="precio"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lote"
+                                android:layout_width="70dp"
+                                android:layout_height="40dp"
+                                android:background="#011336"
+                                android:padding="8dp"
+                                android:text="Lote"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerviewoperaciones"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>

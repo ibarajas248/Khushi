@@ -81,24 +81,28 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Orden de compra"){
                     Intent intent= new Intent(Home.this, ordenDeCompra.class);
+                    intent.putExtra("Rol",String.valueOf(ROL));
+                    intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                     startActivity(intent);
                 }else if(listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Operaciones asignadas"){
                     Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
                     intent.putExtra("Rol",String.valueOf(ROL));
                     intent.putExtra("operaciones_completadas","no");
                     intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
+                    intent.putExtra("vercompletadas","no");
                     startActivity(intent);
 
                 }else if (listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Operaciones completadas"){
-                    /*Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
+                    Intent intent= new Intent(Home.this, consultar_tareas_asignadas.class);
                     intent.putExtra("Rol",String.valueOf(ROL));
                     intent.putExtra("operaciones_completadas","si");
                     intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
+                    intent.putExtra("vercompletadas","si");
                     startActivity(intent);
 
-                    */
-                    Intent i =new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com"));
-                    startActivity(i);
+
+                    //Intent i =new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com"));
+                    //startActivity(i);
                 }
 
 
@@ -184,7 +188,7 @@ public class Home extends AppCompatActivity {
             // Lanzar la Activity correspondiente al fragmento2
             //Intent intentFragmento2 = new Intent(this, Home.class);
             //startActivity(intentFragmento2);
-            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -208,7 +212,10 @@ public class Home extends AppCompatActivity {
 
 
 
+    public void onBackPressed() {
+        // No hacer nada (bloquear el botón de retroceso)
 
+    }
 
 
 

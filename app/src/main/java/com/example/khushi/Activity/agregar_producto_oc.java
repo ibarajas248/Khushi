@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,11 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,6 +45,8 @@ import java.util.Map;
 public class agregar_producto_oc extends AppCompatActivity {
 
     RecyclerView recycler;
+
+    private Toolbar toolbar1;
     private int idproductoSeleccionado, idoc, idPtoductoOC;
     String ordenDeCompra, producto;
     private Spinner spinnerproducto;
@@ -55,12 +61,34 @@ public class agregar_producto_oc extends AppCompatActivity {
     private EditText cantidadLote, cantidadProductos;
     Button agregarProductoOc;
     RequestQueue queue;
+
+    private String ROL, idEmpleado;// recibe el intent
     private boolean isMethodRunning = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_producto_oc);
+
+
+        Intent intent=getIntent();
+        idoc=Integer.parseInt(intent.getStringExtra("id_oc"));
+        ordenDeCompra=intent.getStringExtra("orden_de_compra");
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+
+        //llenar el toolbar-------
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
+        //final de llenar toolbar
+
+
+
+
+        permisosRol();
 
         spinnerproducto=(Spinner) findViewById(R.id.spinnerselecproducto);
         cantidadLote=(EditText)findViewById(R.id.editTextnumero_lotes);
@@ -79,9 +107,8 @@ public class agregar_producto_oc extends AppCompatActivity {
         dataArrayList = new ArrayList<>();
 
 
-        Intent intent=getIntent();
-        idoc=Integer.parseInt(intent.getStringExtra("id_oc"));
-        ordenDeCompra=intent.getStringExtra("orden_de_compra");
+
+
         spinnerproducto("http://khushiconfecciones.com/app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
 
         agregarlistaProductoOc("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
@@ -105,6 +132,14 @@ public class agregar_producto_oc extends AppCompatActivity {
         //agregarlistaProductoOc("dskjk");
 
 
+    }
+
+    private void permisosRol() {
+
+        LinearLayout elementosAdmin=findViewById(R.id.infoAdmin);
+        if (!ROL.equalsIgnoreCase("ADMIN")){
+            elementosAdmin.setVisibility(View.GONE);
+        }
     }
 
 
@@ -152,7 +187,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                         // Obtener el ID seleccionado usando la posición en el ArrayList de IDs
                         idproductoSeleccionado = idsProductos.get(position);
                         producto=nombresProductos.get(position);
-                        Toast.makeText(agregar_producto_oc.this,producto, Toast.LENGTH_SHORT).show();
+
                         // Guardar el ID en una variable o realizar alguna acción con él
                         // Ejemplo: guardar el ID en una variable global
                         // idSeleccionadoGlobal = idSeleccionado;
@@ -320,6 +355,35 @@ public class agregar_producto_oc extends AppCompatActivity {
         queue.add(jsonArrayRequest);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuPrincipal) {
+            Intent intent = new Intent(agregar_producto_oc.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
+        } else if (id == R.id.fragmento2) {
+            // Lanzar la Activity correspondiente al fragmento2
+            //Intent intentFragmento2 = new Intent(this, Home.class);
+            //startActivity(intentFragmento2);
+            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.fragmento3) {
+
+            Toast.makeText(this, "no diponible", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

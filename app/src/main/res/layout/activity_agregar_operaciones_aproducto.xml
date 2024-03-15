@@ -6,12 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Activity.Home">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A3A3A3"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        />
+
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4D4D4E">
+        android:layout_below="@id/toolbar1"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,91 +29,113 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/LayoutparaAdmin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:background="#011336"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
 
-                <EditText
-                    android:id="@+id/edtnombre_operacion_operacion"
+                >
+
+                <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#EFE1AD"
-                    android:ems="10"
-                    android:textSize="23dp"
-                    android:hint="Nombre de la operación"
-                    android:inputType="text"
-                    android:paddingLeft="5dp" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="60dp"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edtcantidad_operaciones"
-                    android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/edtnombre_operacion_operacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="Nombre de la operación"
+                        android:inputType="text"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp" />
+
+                    <EditText
+                        android:id="@+id/edtcantidad_operaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="cantidad"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp" />
+
+                    <EditText
+                        android:id="@+id/edtmaquina"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="maquina utilizada"
+                        android:inputType="text"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp" />
+
+                    <EditText
+                        android:id="@+id/edtprecio_operaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="Precio"
+                        android:inputType="numberDecimal"
+                        android:padding="3dp"
+                        android:paddingLeft="5dp"
+                        android:textSize="23dp" />
+
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:text="Ver inventario "
+                        android:textSize="19dp" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonmodificar_operacione"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:textSize="23dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#EFE1AD"
-                    android:ems="10"
-                    android:hint="cantidad"
-                    android:inputType="numberDecimal"
-                    android:paddingLeft="5dp" />
+                    android:text="Modificar"
+                    android:visibility="gone" />
 
-                <EditText
-                    android:id="@+id/edtmaquina"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/boton_agregar_operacion"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-
-                    android:layout_marginBottom="10dp"
-                    android:textSize="23dp"
-                    android:background="#EFE1AD"
-                    android:ems="10"
-                    android:hint="maquina utilizada"
-                    android:inputType="text"
-                    android:paddingLeft="5dp" />
-
-                <EditText
-                    android:id="@+id/edtprecio_operaciones"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="23dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#EFE1AD"
-                    android:ems="10"
-                    android:hint="Precio"
-                    android:inputType="numberDecimal"
-                    android:padding="3dp"
-                    android:paddingLeft="5dp" />
-
-                <Switch
-                    android:id="@+id/switch1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="19dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingLeft="5dp"
-                    android:background="#EFE1AD"
-                    android:text="Ver inventario " />
-
-
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:text="Agregar operacion"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp" />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -124,16 +156,16 @@
                 android:id="@+id/searchoperacionesDB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"/>
+                android:background="#D8CDA8"
+                />
 
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+
                 android:layout_marginBottom="10dp"
                 android:background="#D8CDA8">
 
@@ -248,32 +280,12 @@
         </LinearLayout>
 
 
-            <Button
-                android:id="@+id/buttonmodificar_operacione"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modificar"
-                android:visibility="gone" />
 
-
-            <Button
-                android:id="@+id/boton_agregar_operacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:layout_gravity="end"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:text="Agregar operacion" />
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="406dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="#D8CDA8">
 
@@ -298,7 +310,9 @@
                             android:text=""
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+
+                            />
 
                         <TextView
                             android:id="@+id/operaciones_filtrado_deproducto"

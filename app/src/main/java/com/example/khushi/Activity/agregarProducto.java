@@ -71,7 +71,7 @@ public class agregarProducto extends AppCompatActivity {
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         //final de llenar toolbar
 
@@ -196,13 +196,20 @@ public class agregarProducto extends AppCompatActivity {
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // Toast.makeText(getApplicationContext(),"seleccion "+listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto(),Toast.LENGTH_SHORT).show();
+
+                   // Toast.makeText(getApplicationContext(),"seleccion "+listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto(),Toast.LENGTH_SHORT).show();
+                        if (ROL.equalsIgnoreCase("ADMIN")){
                             Intent intent= new Intent(agregarProducto.this, mostrar_agregar_subparte.class);
                             intent.putExtra("Rol",String.valueOf(ROL));
                             intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                             intent.putExtra("id_producto",String.valueOf(listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto()));
                             startActivity(intent);
+                        }else{
+                            Toast.makeText(agregarProducto.this, "No disponible", Toast.LENGTH_SHORT).show();
                         }
+
+
+                    }
                 });
                 adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {
                     @Override
@@ -415,7 +422,10 @@ public class agregarProducto extends AppCompatActivity {
             // Lanzar la Activity correspondiente al fragmento2
             //Intent intentFragmento2 = new Intent(this, Home.class);
             //startActivity(intentFragmento2);
-            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.fragmento3) {
+
+            Toast.makeText(this, "no diponible", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

@@ -84,10 +84,7 @@
                 android:id="@+id/recyclerViewProductos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/esquinas_curvas"
                 android:visibility="visible" />
 
             <Button

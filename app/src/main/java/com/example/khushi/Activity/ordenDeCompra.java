@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,9 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +44,7 @@ public class ordenDeCompra extends AppCompatActivity {
     ArrayList<ordenDeCompraclase> listOC;
     boolean validacion = false;
     private boolean isMethodRunning = true;
+    private Toolbar toolbar1;
 
     private EditText escribeOC;
     private boolean visibilidadModificar= false;
@@ -47,12 +52,26 @@ public class ordenDeCompra extends AppCompatActivity {
     private ordenDeCompraclase nuevaOC;
 
     private Button botonEditarOc, botonagregaroc;
+    private String ROL, idEmpleado;// recibe el intent
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orden_de_compra);
+
+        Intent intent = getIntent();
+        ROL = intent.getStringExtra("Rol");
+        idEmpleado= intent.getStringExtra("idEmpleado");
+
+        rolesusuarios();
+
+
+
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
         listOC = new ArrayList<ordenDeCompraclase>();
 
         recycler = findViewById(R.id.recyclerordedecompra);
@@ -98,6 +117,13 @@ public class ordenDeCompra extends AppCompatActivity {
 
     }
 
+    private void rolesusuarios() {
+
+        LinearLayout espacioParaAdmin=findViewById(R.id.LayoutAgregarOC);
+        if(!ROL.equalsIgnoreCase("ADMIN")){
+            espacioParaAdmin.setVisibility(View.GONE);
+        }
+    }
 
 
     private void lista_oc(String URL) {
@@ -136,6 +162,9 @@ public class ordenDeCompra extends AppCompatActivity {
 
                         intent.putExtra("id_oc",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getIdOrdenCompra()));
                         intent.putExtra("orden_de_compra",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getOrdendeCompra()));
+                        intent.putExtra("Rol",String.valueOf(ROL));
+                        intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
+
                         startActivity(intent);
 
 
@@ -240,5 +269,32 @@ public class ordenDeCompra extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuPrincipal) {
+            Intent intent = new Intent(ordenDeCompra.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
+        } else if (id == R.id.fragmento2) {
+            // Lanzar la Activity correspondiente al fragmento2
+            //Intent intentFragmento2 = new Intent(this, Home.class);
+            //startActivity(intentFragmento2);
+            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

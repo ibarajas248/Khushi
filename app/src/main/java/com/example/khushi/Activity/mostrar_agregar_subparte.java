@@ -281,6 +281,8 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         Intent intent= new Intent(mostrar_agregar_subparte.this, Agregar_operaciones_a_producto.class);
                         intent.putExtra("id_producto",idproducto);
                         intent.putExtra("id_subparte",String.valueOf(listsubparte.get(recycler.getChildAdapterPosition(v)).getId_subparte()));
+                        intent.putExtra("ROL",ROL);
+                        intent.putExtra("idEmpleado",idEmpleado);
                         startActivity(intent);
                         finish();
                     }
@@ -529,7 +531,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 listsubparte.clear(); // Limpiar la lista existente
-                listsubparte.clear(); // Limpiar la lista existente
+
 
                 ArrayList<String> nombresSubpartes = new ArrayList<>(); // ArrayList para almacenar nombres de productos
                 ArrayList<Integer> idSubpartes = new ArrayList<>();//Arraylist para almacenar nombres de subpartes
@@ -657,7 +659,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         if (id == R.id.menuPrincipal) {
             Intent intent = new Intent(mostrar_agregar_subparte.this, Home.class);
             // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish(); // Cierra la actividad actual
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado

@@ -27,12 +27,21 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
     ArrayList<operacionesFiltradas> buscador; //Array para el searchView
 
     private View.OnClickListener listener;
+    private String ROL;
 
     public Adapter_operaciones_filtrado(ArrayList<operacionesFiltradas>listOperacionesFiltradas){
         this.listOperacionesFiltradas= listOperacionesFiltradas;
         //inicializo el buscador
         buscador=new ArrayList<>();
         buscador.addAll(listOperacionesFiltradas);
+    }
+    public Adapter_operaciones_filtrado(ArrayList<operacionesFiltradas>listOperacionesFiltradas, String ROL){
+        this.listOperacionesFiltradas= listOperacionesFiltradas;
+        //inicializo el buscador
+        buscador=new ArrayList<>();
+        buscador.addAll(listOperacionesFiltradas);
+        this.ROL=ROL;
+
     }
     @NonNull
     @Override
@@ -62,6 +71,9 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
                 listOperacionesFiltradas.get(position).setChecked(isChecked);
             }
         });
+
+
+
 
         // Establece el estado del CheckBox en función del modelo de datos
 

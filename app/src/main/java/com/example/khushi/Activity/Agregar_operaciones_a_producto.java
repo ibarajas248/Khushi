@@ -1,6 +1,7 @@
 package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -47,9 +50,10 @@ import java.util.Queue;
 public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     Switch switch_aparecer;
+    private Toolbar toolbar1;
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
-    Adapter_operaciones_filtrado adapter123;
+    Adapter_operaciones_filtrado adapter123,adapter1234;
 
     SearchView buscarOperacionesDB;
     RequestQueue queue;
@@ -61,11 +65,21 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     private int idProductoAgregado,precioGlobal;
 
     LinearLayout contenedor_recycler;
+    private String ROL, idEmpleado;// recibe el intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_operaciones_aproducto);
+
+
+        //llenar el toolbar-------
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
+
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
@@ -89,6 +103,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         Intent intent = getIntent();
         idproducto = Integer.parseInt(intent.getStringExtra("id_producto"));
         idsubparte = Integer.parseInt(intent.getStringExtra("id_subparte"));
+        ROL = intent.getStringExtra("ROL");
+        idEmpleado = intent.getStringExtra("idEmpleado");
 
         listOperaciones = new ArrayList<operacionesFiltradas>();
         listOperacionesDeProducto = new ArrayList<operacionesFiltradas>();
@@ -96,6 +112,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
       agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
         listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
                 + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
+
+        roles();
 
 
         buscarOperacionesDB.setOnQueryTextListener(this);
@@ -205,6 +223,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         });
     }
 
+    private void roles() {
+        if (ROL.equalsIgnoreCase("ADMIN")){
+            LinearLayout layoutAdmin=findViewById(R.id.LayoutparaAdmin);
+            layoutAdmin.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void realizarInserciones(final Queue<operacionesFiltradas> insercionesPendientes) {
         if (!insercionesPendientes.isEmpty()) {
             operacionesFiltradas operacion = insercionesPendientes.poll();
@@ -265,8 +290,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                 adapter123 = new Adapter_operaciones_filtrado(listOperaciones);
-                adapter123.setOnClickListener(new View.OnClickListener() {
+                 adapter1234 = new Adapter_operaciones_filtrado(listOperaciones);
+                adapter1234.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //acciones para el click
@@ -294,7 +319,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 });
 
 
-                recycler.setAdapter(adapter123);
+                recycler.setAdapter(adapter1234);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -343,7 +368,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                Adapter_operaciones_filtrado adapter123 = new Adapter_operaciones_filtrado(listOperacionesDeProducto);
+                Adapter_operaciones_filtrado adapter123 = new Adapter_operaciones_filtrado(listOperacionesDeProducto,ROL);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -745,5 +770,35 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         adapter123.filtrado(s);
 
         return false;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuPrincipal) {
+            Intent intent = new Intent(Agregar_operaciones_a_producto.this, Home.class);
+            // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+            return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
+
+        } else if (id == R.id.fragmento2) {
+            // Lanzar la Activity correspondiente al fragmento2
+            //Intent intentFragmento2 = new Intent(this, Home.class);
+            //startActivity(intentFragmento2);
+            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.fragmento3) {
+
+            Toast.makeText(this, "no diponible", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

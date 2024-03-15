@@ -51,8 +51,8 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
             //holder.producto.setTextColor(0xFF000000);
         } else {
             // Para posiciones impares, otro color diferente
-            holder.itemView.setBackgroundColor(0xFFEFE1AD);
-            holder.etiNombre.setTextColor(0xFF011336);
+            holder.itemView.setBackgroundColor(0xFF0339A3);
+            holder.etiNombre.setTextColor(0xFFFFFFFF);
             // o
             //holder.etiNombre.setTextColor(0xFF000000);
         };
@@ -65,7 +65,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.viewHolderMenu
             holder.foto.setColorFilter(0xFFFFFFFF); // Color de tinte para pares
         } else {
             // Para posiciones impares, otro color de tinte
-            holder.foto.setColorFilter(0xFF011336); // Color de tinte para impares
+            holder.foto.setColorFilter(0xFFFFFFFF); // Color de tinte para impares
         }
 
 

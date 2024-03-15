@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,8 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
 
 
     private OnItemLongClickListener itemLongClickListener;
+
+
 
 
     public interface OnItemLongClickListener {
@@ -106,7 +109,9 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
 
         // Cambia el color de fondo si el elemento está seleccionado
         if (position == selectedItem) {
+
             holder.itemView.setBackgroundColor(0xFFE82900); // Color cuando está seleccionado
+            holder.habilitada.setBackgroundColor(0xFFE82900);
             holder.producto.setBackgroundColor(0xFFE82900);
             holder.subparte.setBackgroundColor(0xFFE82900);
             holder.operaciones.setBackgroundColor(0xFFE82900);
@@ -119,6 +124,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.completado.setBackgroundColor(0xFFE82900);
         } else {
+            holder.habilitada.setBackgroundColor(0xFF1E88E5);
             holder.producto.setBackgroundColor(0xFF1976D2);
             holder.subparte.setBackgroundColor(0xFF1E88E5);
             holder.operaciones.setBackgroundColor(0xFF1976D2);
@@ -200,4 +206,157 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             notifyDataSetChanged();
         }
     }
+    public void filtrado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getOperaciones().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                            i.getHabilitado().toLowerCase().contains(txtBuscar.toLowerCase())||
+                            i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                            i.getSubparte().toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getCantidad()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getNombre()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getApellido()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            String.valueOf(i.getLotes()).toLowerCase().contains(txtBuscar.toLowerCase())||
+                            i.getCompletado().toLowerCase().contains(txtBuscar.toLowerCase())
+
+                    ).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void filtradoHabilitado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i ->
+                            i.getHabilitado().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+    }
+
+    public void filtradoProducto(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase())
+
+                    ).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+    public void filtradoSeccion(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getSubparte().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+    public void filtradoOperacion(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getOperaciones().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void filtradoCantidad(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> String.valueOf(i.getCantidad()).toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void filtradoNombre(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getNombre().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void filtradoApellido(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getApellido().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void filtradoCompletado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> i.getCompletado().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+    public void filtradoLote(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listOperaciones.clear();
+            listOperaciones.addAll(buscador);
+        } else {
+            List<operaciones_lotes_clase> coleccion = listOperaciones.stream().filter
+                    (i -> String.valueOf(i.getLotes()).toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            listOperaciones.clear();
+            listOperaciones.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+
+    }
+
+
+
 }

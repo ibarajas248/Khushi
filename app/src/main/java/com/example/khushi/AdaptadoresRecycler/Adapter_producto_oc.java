@@ -40,6 +40,9 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
         holder.lotes.setText(String.valueOf(listoperaciones_oc.get(position).getLotes()));
         holder.cantidadDeProductos.setText(String.valueOf(listoperaciones_oc.get(position).getCantidad_de_productos()));
 
+
+
+
     }
     @Override
     public int getItemCount() {
