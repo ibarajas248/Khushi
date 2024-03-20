@@ -7,10 +7,11 @@
 
     <item
         android:id="@+id/fragmento2"
-        android:title="Info" />
+        android:title="Cerrar sesión" />
 
     <item
         android:id="@+id/fragmento3"
         android:title="Ayuda" />
+
 
 </menu>

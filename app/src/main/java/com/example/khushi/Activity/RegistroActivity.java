@@ -34,7 +34,7 @@ import java.util.Map;
 public class RegistroActivity extends AppCompatActivity {
     private CheckBox  cbsupervisor;
     private EditText edtnombre,edtApellidos, edtcontrasenasupervisor
-            , edtCorreo,edttelefono, edtcelular, edtEPS;
+            , edtCorreo,edttelefono, edtcelular, edtEPS,edtcedula,fondoPension;
     private Button btnsiguiene;
     private Switch switchActivar;
     private EditText codigoAntiguo;
@@ -57,6 +57,8 @@ public class RegistroActivity extends AppCompatActivity {
         edtcelular= (EditText) findViewById(R.id.edtcelular);
         edtEPS= (EditText) findViewById(R.id.edEPS);
         aniovinculacion=(Spinner)findViewById(R.id.spaniovinculado);
+        edtcedula=(EditText)findViewById(R.id.edtcedula);
+        fondoPension=(EditText)findViewById(R.id.edtPeniones);
 
         edtcontrasenasupervisor= (EditText) findViewById(R.id.edtcontrasenasupervisor);
         cbsupervisor= (CheckBox) findViewById(R.id.cbsupervisor);
@@ -94,7 +96,7 @@ public class RegistroActivity extends AppCompatActivity {
                 }
 
 
-                //agregarusuario("http://khushiconfecciones.com//app_khushi/insertar_empleado.php");
+                agregarusuario("http://khushiconfecciones.com//app_khushi/insertar_empleado.php");
 
 
             }
@@ -135,8 +137,12 @@ public class RegistroActivity extends AppCompatActivity {
         intent.putExtra("celular", edtcelular.getText().toString().trim());
         intent.putExtra("EPS", edtEPS.getText().toString().trim());
         intent.putExtra("anio_vinculacion", aniovinculacion.getSelectedItem().toString().trim());
+        intent.putExtra("cedula",edtcedula.getText().toString().trim());
+        intent.putExtra("fondo_de_pensiones",fondoPension.getText().toString().trim());
 
 
+
+        // para asignar roles
         if (edtcontrasenasupervisor.getText().toString().equals("j488wn3")&& cbsupervisor.isChecked()){
 
             intent.putExtra("Rol", "SUPERVISOR");
@@ -190,13 +196,11 @@ public class RegistroActivity extends AppCompatActivity {
                 parametros.put("edtcelular",edtcelular.getText().toString());
                 parametros.put("edtEPS",edtEPS.getText().toString());
                 parametros.put("anio_vinculacion",aniovinculacion.getSelectedItem().toString());
+                parametros.put("cedula",edtcedula.getText().toString());
+                parametros.put("fondo_de_pensiones",fondoPension.getText().toString());
 
                 if (edtcontrasenasupervisor.getText().toString().equals("123123123")){
                     parametros.put("Rol","ADMIN");
-                }else{
-
-                    Toast.makeText(RegistroActivity.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-
                 }
 
 
@@ -263,7 +267,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private Boolean verificarcamposllenos (){
 
-        String id, nombre, apellidos,correo,telefono,celular, EPS, aniovinculacion_;
+        String id, nombre, apellidos,correo,telefono,celular, EPS, aniovinculacion_,cedula,pensiones;
         id=String.valueOf(generarid());
         nombre=edtnombre.getText().toString();
         apellidos=edtApellidos.getText().toString();
@@ -272,9 +276,13 @@ public class RegistroActivity extends AppCompatActivity {
         celular=edtcelular.getText().toString();
         EPS=edtEPS.getText().toString();
         aniovinculacion_=aniovinculacion.getSelectedItem().toString();
+        cedula=edtcedula.getText().toString();
+        pensiones=fondoPension.getText().toString();
+
+
 
         return !nombre.isEmpty() && !apellidos.isEmpty() && !correo.isEmpty()
-                && !telefono.isEmpty() && !celular.isEmpty() && !EPS.isEmpty()&&!aniovinculacion_.isEmpty();
+                && !telefono.isEmpty() && !celular.isEmpty() && !EPS.isEmpty()&&!aniovinculacion_.isEmpty() && !cedula.isEmpty() && !pensiones.isEmpty();
 
     }
 

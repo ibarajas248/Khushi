@@ -93,9 +93,21 @@
             android:layout_marginTop="5dp"
 
             android:background="@drawable/esquinas_curvas"
-            android:visibility="visible" />
+            android:visibility="visible" >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
+        <TextView
+            android:id="@+id/seleccionrecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="texto"
+            android:background="#CCCCCC"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:visibility="gone"
+            />
 
         <Button
 

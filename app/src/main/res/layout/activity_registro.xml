@@ -33,7 +33,7 @@
                 android:id="@+id/tvescribanombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="escriba su nombre "
+                android:text="Escriba su nombre: "
                 android:textSize="20dp" />
 
             <EditText
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="Nombre"
+                android:hint="Juan"
                 android:inputType="text"
                 android:textSize="20dp" />
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="escriba sus apellidos "
+                android:text="Escriba sus apellidos: "
                 android:textSize="20dp" />
 
             <EditText
@@ -61,9 +61,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="Apellidos"
+                android:hint="Pérez Rodriguez"
                 android:inputType="text"
                 android:textSize="20dp" />
+            <TextView
+                android:id="@+id/cedula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Número de cédula "
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edtcedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="12345687921"
+                android:inputType="number"
+                android:textSize="20dp" />
+
 
             <TextView
                 android:id="@+id/tvcorreo"
@@ -79,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="Correo Electrónico"
+                android:hint="juanperez@micorreo.com"
                 android:inputType="textEmailAddress"
                 android:textSize="20dp" />
 
@@ -97,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="Teléfono"
+                android:hint="3102456858"
                 android:inputType="number"
                 android:textSize="20dp" />
 
@@ -116,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="Celular"
+                android:hint="3001234569"
                 android:inputType="number"
                 android:textSize="20dp" />
 
@@ -126,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
-                android:text="EPS"
+                android:text="EPS:"
                 android:textSize="20dp" />
 
             <EditText
@@ -135,7 +152,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
-                android:hint="EPS"
+                android:hint="miSalud"
+                android:inputType="text"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/fondoPension"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="fondo de pensiones:"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edtPeniones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="miPensión"
                 android:inputType="text"
                 android:textSize="20dp" />
 

@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.AdapterOperaciones;
 import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_filtrado;
+import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_filtrado2;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevaOperacion;
 import com.example.khushi.clasesinfo.operacionesFiltradas;
@@ -53,7 +54,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     private Toolbar toolbar1;
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
-    Adapter_operaciones_filtrado adapter123,adapter1234;
+    //Adapter_operaciones_filtrado adapter123;
+    Adapter_operaciones_filtrado2 adapter123;
+    Adapter_operaciones_filtrado2 adapter1234;
+
+
 
     SearchView buscarOperacionesDB;
     RequestQueue queue;
@@ -201,8 +206,6 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         public void run() {
 
                             obtenerUltimaOperacion();
-                            Toast.makeText(Agregar_operaciones_a_producto.this, String.valueOf(idProductoAgregado) +
-                                    "hla", Toast.LENGTH_SHORT).show();
                         }
                     }, 6000); // 6000 milisegundos = 6 segundos
 
@@ -215,6 +218,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                     }
                 }, 6000); // 6000 milisegundos = 6 segundos
+
+
 
 
             }
@@ -290,36 +295,29 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                 adapter1234 = new Adapter_operaciones_filtrado(listOperaciones);
+                 adapter1234 = new Adapter_operaciones_filtrado2(listOperaciones);
                 adapter1234.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //acciones para el click
-                        /*visibilidadModificar=true;
-                        botonModificar.setVisibility(View.VISIBLE);
 
-                        int position = recycler.getChildAdapterPosition(v);
-                        // Obtén el elemento seleccionado del ArrayList usando la posición
-                        nuevaOperacion operacionSeleccionada = listOperaciones.get(position);
-
-                        // Ahora puedes acceder a los valores de la operación seleccionada y guardarlos o realizar acciones con ellos
-
-                        //nombreOperacion = operacionSeleccionada.getNombreOperacion();
-                        nombreOperacion.setText(String.valueOf(operacionSeleccionada.getNombreOperacion()));
-                        cantidad.setText(String.valueOf(operacionSeleccionada.getCantidad()));
-                        idoperacionGlobal=operacionSeleccionada.getId_operacion();
-
-
-                        // Y así sucesivamente con otros valores que desees guardar o utilizar
-
-                        // Ejemplo: Guardar los valores en variables globales o hacer otra acción
-                        // saveToGlobalVariables(idOperacion, nombreOperacion);*/
 
                     }
                 });
 
 
                 recycler.setAdapter(adapter1234);
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listOperacionesDeProducto.clear();
+                        // Limpiar la lista existente
+                        listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
+                                + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
+
+                    }
+                }, 1000); // 3000 milisegundos = 3 segundos
             }
         }, new Response.ErrorListener() {
             @Override
@@ -368,33 +366,23 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                Adapter_operaciones_filtrado adapter123 = new Adapter_operaciones_filtrado(listOperacionesDeProducto,ROL);
+                //Adapter_operaciones_filtrado2 adapter123 = new Adapter_operaciones_filtrado2(listOperacionesDeProducto,ROL);
+                Adapter_operaciones_filtrado2 adapter123 = new Adapter_operaciones_filtrado2(listOperacionesDeProducto);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //acciones para el click
-                        /*visibilidadModificar=true;
-                        botonModificar.setVisibility(View.VISIBLE);
-
-                        int position = recycler.getChildAdapterPosition(v);
-                        // Obtén el elemento seleccionado del ArrayList usando la posición
-                        nuevaOperacion operacionSeleccionada = listOperaciones.get(position);
-
-                        // Ahora puedes acceder a los valores de la operación seleccionada y guardarlos o realizar acciones con ellos
-
-                        //nombreOperacion = operacionSeleccionada.getNombreOperacion();
-                        nombreOperacion.setText(String.valueOf(operacionSeleccionada.getNombreOperacion()));
-                        cantidad.setText(String.valueOf(operacionSeleccionada.getCantidad()));
-                        idoperacionGlobal=operacionSeleccionada.getId_operacion();
-
-
-                        // Y así sucesivamente con otros valores que desees guardar o utilizar
-
-                        // Ejemplo: Guardar los valores en variables globales o hacer otra acción
-                        // saveToGlobalVariables(idOperacion, nombreOperacion);*/
-
+                        Toast.makeText(Agregar_operaciones_a_producto.this, "click corto ", Toast.LENGTH_SHORT).show();
                     }
                 });
+                adapter123.setOnItemLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Toast.makeText(Agregar_operaciones_a_producto.this, "click largo", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
+
+
 
 
                 recycler_operaciones_de_producto.setAdapter(adapter123);
@@ -743,8 +731,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             precioGlobal = (int) operacion.getPrecio();
             agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
             agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
+
             // Inserta la operación actual
             // ...
+
+
 
             // Espera un tiempo antes de continuar con la siguiente operación
             new Handler().postDelayed(new Runnable() {
@@ -801,4 +792,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

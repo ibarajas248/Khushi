@@ -14,7 +14,8 @@
         android:text="ID:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
             <!-- Agregar más TextViews para los nuevos campos -->
         <TextView
@@ -37,7 +38,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:padding="8dp"
-            android:background="#1E88E5" />
+            android:background="#1E88E5"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/id_subparte_operacion"
@@ -48,7 +50,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:padding="8dp"
-            android:background="#1976D2" />
+            android:background="#1976D2"
+            android:visibility="gone"/>
 
 
         <TextView

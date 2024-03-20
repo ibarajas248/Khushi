@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,6 +45,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 
 public class mostrar_agregar_subparte extends AppCompatActivity {
 
@@ -126,7 +130,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
 
             }
-        }, 3000); // 3000 milisegundos = 3 segundos
+        }, 2000); // 3000 milisegundos = 3 segundos
 
 
         switch_aparecer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -213,7 +217,10 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                eliminarSeccion("http://khushiconfecciones.com//app_khushi/eliminar_subparte.php");
+
+
+                alertdialogEliminar();
+
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -221,13 +228,52 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
 
                     }
-                }, 6000); // 6000 milisegundos = 6 segundos
+                }, 3000); // 6000 milisegundos = 6 segundos
+
+                btnEliminarSeccion.setVisibility(View.GONE);
 
             }
         });
 
 
     }
+
+    private void alertdialogEliminar() {
+
+
+        // Crear un AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Establecer el título y el mensaje del diálogo
+        builder.setTitle("Desea eliminar "+subparte.getText().toString())
+                .setMessage("si elimina "+ subparte.getText().toString()+" se perderan todas las operaciones asociadas");
+
+        // Agregar botones al diálogo
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eliminarSeccion("http://khushiconfecciones.com//app_khushi/eliminar_subparte.php");
+                recycler.setVisibility(View.VISIBLE);
+                TextView textoseleccion=findViewById(R.id.seleccionrecycler);
+                textoseleccion.setVisibility(View.GONE);
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Acción al hacer clic en el botón "Cancelar"
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        // Mostrar el diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 
     private void roles_de_usuario() {
         if (ROL.equalsIgnoreCase("SUPERVISOR")|| ROL.equalsIgnoreCase("OPERARIO") ){
@@ -293,12 +339,18 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                     public void onItemLongClick(nuevaSubParte s) {
 
                         subparte.setText(s.getSubparte());
-                        idproducto=String.valueOf(s.getId_producto());
+                        //idproducto=String.valueOf(s.getId_producto());
                         id_subparte=s.getId_subparte();
+
+                        recycler.setVisibility(View.GONE);
+                        TextView textoseleccion= (TextView) findViewById(R.id.seleccionrecycler);
+                        textoseleccion.setText(s.getSubparte());
+                        textoseleccion.setVisibility(View.VISIBLE);
+
 
 
                         if (ROL.equalsIgnoreCase("ADMIN")){//esconde los botones eliminar y editar
-                            btnModificarSubparte.setVisibility(View.VISIBLE);
+                            //btnModificarSubparte.setVisibility(View.VISIBLE);
                             btnEliminarSeccion.setVisibility(View.VISIBLE);
                         }
 
@@ -306,7 +358,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         registrarSubproducto.setVisibility(View.GONE);
 
 
-                        Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+" "+String.valueOf(id_subparte)+" "+idproducto, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mostrar_agregar_subparte.this, subparte.getText().toString()+"a "+String.valueOf(id_subparte)+"b "+idproducto, Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -571,6 +623,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                         subparteSeleccionada=nombresSubpartes.get(position);
                         registrarSubproducto.setVisibility(View.VISIBLE);
 
+
                         // Guardar el ID en una variable o realizar alguna acción con él
                         // Ejemplo: guardar el ID en una variable global
                         // idSeleccionadoGlobal = idSeleccionado;
@@ -604,6 +657,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
     private void eliminarSeccion (String URL){
         // Crear una solicitud de cadena (StringRequest) con un método POST
+
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -674,6 +728,8 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+
 
 
 

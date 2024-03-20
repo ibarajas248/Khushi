@@ -226,7 +226,8 @@
                             android:text="Sección"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/cantidadoperacion_filtrado"
@@ -334,7 +335,8 @@
                             android:text="producto"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/subparte_filtrado_deproducot"
@@ -345,7 +347,8 @@
                             android:text="sección"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/cantidadoperacion_filtrado_deproducto"

@@ -11,6 +11,8 @@ public class nuevaSubParte extends nuevoProducto {
         this.subparte = subparte;
     }
 
+
+
     public nuevaSubParte(int id_subparte, int id_producto) {
         super(id_producto);
         this.id_subparte = id_subparte;

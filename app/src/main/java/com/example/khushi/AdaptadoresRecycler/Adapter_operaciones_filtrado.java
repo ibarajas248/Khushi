@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -20,12 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_operaciones_filtrado.ViewHolderoperaciones> implements View.OnClickListener {
     ArrayList<operacionesFiltradas> listOperacionesFiltradas;
 
-    ArrayList<operacionesFiltradas> buscador; //Array para el searchView
+    private OnItemLongClickListener longClickListener;
 
+    ArrayList<operacionesFiltradas> buscador; //Array para el searchView
+    private int selectedPosition = RecyclerView.NO_POSITION; //variable para cambiar de color de la fila
+    private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
+    private OnItemLongClickListener itemLongClickListener;
     private View.OnClickListener listener;
     private String ROL;
 
@@ -41,8 +45,16 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
         buscador=new ArrayList<>();
         buscador.addAll(listOperacionesFiltradas);
         this.ROL=ROL;
-
     }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(operacionesFiltradas operacion);
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.longClickListener = listener;
+    }
+
+
     @NonNull
     @Override
     public Adapter_operaciones_filtrado.ViewHolderoperaciones onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,6 +76,7 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
         holder.precioFiltrado.setText(String.valueOf(listOperacionesFiltradas.get(position).getPrecio()));
 
 
+
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,15 +85,11 @@ public class Adapter_operaciones_filtrado extends RecyclerView.Adapter<Adapter_o
             }
         });
 
-
-
-
         // Establece el estado del CheckBox en función del modelo de datos
 
         holder.checkBox.setChecked(listOperacionesFiltradas.get(position).isChecked());
 
     }
-
 
     //metodo que hace el filtrado
 
