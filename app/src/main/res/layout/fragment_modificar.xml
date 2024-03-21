@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Activity.FragmentModificar">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="modificar"
+        android:textColor="#FFCE17"
+        android:background="#011336"
+        android:gravity="center"
+        android:enabled="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Producto"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:id="@+id/subparte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subparte"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:enabled="false" />
+        <EditText
+            android:id="@+id/operaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Operaciones"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:enabled="false"
+        android:layout_marginTop="15dp" />
+        <EditText
+            android:id="@+id/maquina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maquina"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:enabled="false"
+            android:layout_marginTop="15dp" />
+
+        <EditText
+            android:id="@+id/cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cantidad"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+              />
+        <EditText
+            android:id="@+id/precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+
+        <Button
+            android:id="@+id/buttonModificarPrecio"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modificar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#011336"
+            android:textColor="#FFCE17" />
+        <Button
+            android:id="@+id/buttonEliminarOperacion"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#011336"
+            android:textColor="#FFCE17" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

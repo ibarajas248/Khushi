@@ -3,6 +3,7 @@ package com.example.khushi.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener,FragmentModificar.OnButtonClickListener {
 
     Switch switch_aparecer;
     private Toolbar toolbar1;
@@ -72,17 +73,31 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     LinearLayout contenedor_recycler;
     private String ROL, idEmpleado;// recibe el intent
 
+    FragmentModificar fragmentmodificar;
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_operaciones_aproducto);
+
+        //fragmentmodificar=new FragmentModificar();
+        //getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments,fragmentmodificar).commit();
+
 
 
         //llenar el toolbar-------
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
+
+
 
 
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
@@ -207,7 +222,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                             obtenerUltimaOperacion();
                         }
-                    }, 6000); // 6000 milisegundos = 6 segundos
+                    }, 3000); // 6000 milisegundos = 6 segundos
 
                 }
 
@@ -282,6 +297,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         float cantidad = Float.parseFloat(jsonObject.getString("cantidad"));
                         String maquina = jsonObject.getString("maquina");
                         float precio = Float.parseFloat(jsonObject.getString("precio"));
+                        int id_asignacion_operacion= Integer.parseInt(jsonObject.getString("id_asignacion_operacion"));
 
 
                         // String data4 = (data1+ data2+data3);
@@ -353,13 +369,16 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         float cantidad = Float.parseFloat(jsonObject.getString("cantidad"));
                         String maquina = jsonObject.getString("maquina");
                         float precio = Float.parseFloat(jsonObject.getString("precio"));
+                        int id_precio = Integer.parseInt(jsonObject.getString("id_precio"));
+                        int id_asignacion_operacion = Integer.parseInt(jsonObject.getString("id_asignacion_operacion"));
 
 
                         // String data4 = (data1+ data2+data3);
 
 
+
                         listOperacionesDeProducto.add(new operacionesFiltradas(id_producto, id_subparte, id_operaciones,
-                                producto, subparte, operaciones, maquina, cantidad, precio));
+                                producto, subparte, operaciones, maquina, cantidad, precio, id_precio,id_asignacion_operacion));
 
 
                     } catch (JSONException e) {
@@ -372,12 +391,37 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(Agregar_operaciones_a_producto.this, "click corto ", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 adapter123.setOnItemLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        Toast.makeText(Agregar_operaciones_a_producto.this, "click largo", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Agregar_operaciones_a_producto.this, "click largo", Toast.LENGTH_SHORT).show();
+                        // Obtener la posición del item clickeado
+                        int position = recycler_operaciones_de_producto.getChildAdapterPosition(v);
+
+                        // Obtener el objeto operacionesFiltradas en esa posición
+                        operacionesFiltradas item = listOperacionesDeProducto.get(position);
+                        // Ahora puedes acceder a los elementos del objeto item y hacer lo que necesites con ellos
+
+                        String producto = item.getProducto();
+                        String subparte = item.getSubparte();
+                        String operaciones = item.getOperaciones();
+                        String maquina = item.getMaquina();
+                        float cantidad = item.getCantidad();
+                        float precio = item.getPrecio();
+                        int id_precio = item.getId_precio();
+                        int id_asignacion_operacion = item.getId_asignacion_operacion();
+
+
+
+                        fragmentmodificar= FragmentModificar.newInstance(producto, subparte, operaciones, maquina, cantidad, precio, id_precio,id_asignacion_operacion);
+                        getSupportFragmentManager().beginTransaction().add(R.id.contenedor_fragments,fragmentmodificar).commit();
+
+
+
+
                         return false;
                     }
                 });
@@ -397,6 +441,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
         queue.add(jsonArrayRequest);
     }
+
+
 
     private void agregarOperacion(String URL) {
         // Crear una solicitud de cadena (StringRequest) con un método POST
@@ -794,5 +840,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     }
 
 
-
+    @Override
+    public void onButtonClicked() {
+        agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
+    }
 }

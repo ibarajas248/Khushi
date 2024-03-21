@@ -132,8 +132,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
                     android:backgroundTint="#011336"
-                    android:text="Agregar operacion"
                     android:textColor="#FFCE17"
+                    android:text="Agregar operacion"
+
                     android:textSize="20dp" />
             </LinearLayout>
 
@@ -400,5 +401,13 @@
             </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>
+    <FrameLayout
+        android:id="@+id/contenedor_fragments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar1"/>
+    "
+
+
 
 </RelativeLayout>

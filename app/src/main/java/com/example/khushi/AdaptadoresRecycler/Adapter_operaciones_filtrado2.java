@@ -60,6 +60,8 @@ public class Adapter_operaciones_filtrado2 extends RecyclerView.Adapter<Adapter_
 
 
 
+
+
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -99,6 +101,7 @@ public class Adapter_operaciones_filtrado2 extends RecyclerView.Adapter<Adapter_
             cantidadOperacion=itemView.findViewById(R.id.cantidadoperacion_filtrado);
             maquina=itemView.findViewById(R.id.maquina_filtrado);
             precioFiltrado=itemView.findViewById(R.id.precio_filtrado);
+
         }
     }
 

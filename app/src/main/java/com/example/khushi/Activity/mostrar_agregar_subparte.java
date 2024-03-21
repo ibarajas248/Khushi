@@ -130,7 +130,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
 
             }
-        }, 2000); // 3000 milisegundos = 3 segundos
+        }, 900); // 3000 milisegundos = 3 segundos
 
 
         switch_aparecer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

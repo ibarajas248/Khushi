@@ -101,10 +101,14 @@ public class agregarProducto extends AppCompatActivity {
         modificarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                modificarProducto.setEnabled(false);
                 agregarproducto("http://khushiconfecciones.com//app_khushi/editar_producto.php");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        modificarProducto.setVisibility(View.GONE);
+                        eliminarProducto.setVisibility(View.GONE);
+                        modificarProducto.setEnabled(true);
                         listDatos.clear();
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
                         recycler.setVisibility(View.VISIBLE);
@@ -119,13 +123,16 @@ public class agregarProducto extends AppCompatActivity {
         registrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
+                // Inhabilitar el botón al hacer clic
+                registrarProducto.setEnabled(false);
+                agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
 
 
                 listDatos.clear(); // Limpiar la lista existente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        registrarProducto.setEnabled(true);
                         listDatos.clear(); // Limpiar la lista existente
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
                     }
@@ -135,10 +142,14 @@ public class agregarProducto extends AppCompatActivity {
         eliminarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eliminarProducto.setEnabled(false);
                 eliminarProducto("http://khushiconfecciones.com//app_khushi/eliminar_producto.php");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        modificarProducto.setVisibility(View.GONE);
+                        eliminarProducto.setVisibility(View.GONE);
+                        eliminarProducto.setEnabled(true);
                         listDatos.clear();
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php");
                         recycler.setVisibility(View.VISIBLE);

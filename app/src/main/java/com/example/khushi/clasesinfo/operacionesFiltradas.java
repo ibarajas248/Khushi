@@ -2,9 +2,10 @@ package com.example.khushi.clasesinfo;
 
 public class operacionesFiltradas {
     private boolean isChecked;
-    private int idProducto, idSubparte,idOperaciones;
+    private int idProducto, idSubparte,idOperaciones,id_precio,id_asignacion_operacion;
     private String producto,subparte,operaciones, maquina;
     private float cantidad, precio;
+
 
 
     public operacionesFiltradas(int idProducto, int idSubparte, int idOperaciones, String producto, String subparte, String operaciones, String maquina, float cantidad, float precio) {
@@ -18,7 +19,35 @@ public class operacionesFiltradas {
         this.cantidad = cantidad;
         this.precio= precio;
     }
+    public operacionesFiltradas(int idProducto, int idSubparte, int idOperaciones, String producto, String subparte, String operaciones, String maquina, float cantidad, float precio,int id_precio,int id_asignacion_operacion) {
+        this.idProducto = idProducto;
+        this.idSubparte = idSubparte;
+        this.idOperaciones = idOperaciones;
+        this.producto = producto;
+        this.subparte = subparte;
+        this.operaciones = operaciones;
+        this.maquina = maquina;
+        this.cantidad = cantidad;
+        this.precio= precio;
+        this.id_precio=id_precio;
+        this.id_asignacion_operacion=id_asignacion_operacion;
+    }
 
+    public int getId_asignacion_operacion() {
+        return id_asignacion_operacion;
+    }
+
+    public void setId_asignacion_operacion(int id_asignacion_operacion) {
+        this.id_asignacion_operacion = id_asignacion_operacion;
+    }
+
+    public int getId_precio() {
+        return id_precio;
+    }
+
+    public void setId_precio(int id_precio) {
+        this.id_precio = id_precio;
+    }
 
     public int getIdProducto() {
         return idProducto;
