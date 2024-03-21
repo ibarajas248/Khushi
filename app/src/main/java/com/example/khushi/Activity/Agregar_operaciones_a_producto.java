@@ -174,43 +174,6 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     agregarOperacionesRecursivamente(listOperaciones, 0);
                     boolean insercionRealizada = false;
 
-
-
-
-                    /*for (operacionesFiltradas operacion : listOperaciones) {
-                        if (operacion.isChecked()) {
-
-                            // Inserta el elemento en el RecyclerView de abajo
-                            // Asumiendo que tienes un método para agregar elementos a la lista en Adapter_operaciones_filtrado
-                            // Insertar en la lista del RecyclerView de abajo
-
-
-                            //agregarOperacionDeDB("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php", operacion);
-                            //en este caso no debheria agregarce un nuevo producto. mas bien se agrega precio
-                            idProductoAgregado=operacion.getIdOperaciones();
-                            precioGlobal= (int) operacion.getPrecio();
-
-                            agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    //crear metodo para vincular las operaciones de la iteracion
-
-
-                                    agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
-                                    Toast.makeText(Agregar_operaciones_a_producto.this, String.valueOf(idProductoAgregado) +
-                                            "hla", Toast.LENGTH_SHORT).show();
-                                }
-                            }, 6000); // 6000 milisegundos = 6 segundos
-
-
-
-                        }
-                    }*/
-
-                    //aaa
                 } else {
                     agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
                     //listOperaciones.clear(); // Limpiar la lista existente
@@ -221,10 +184,20 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         public void run() {
 
                             obtenerUltimaOperacion();
+                            nombreOperacion.setText("");
+                            cantidadOperaciones.setText("");
+                            maquina.setText("");
+                            precio.setText("");
                         }
                     }, 3000); // 6000 milisegundos = 6 segundos
 
                 }
+
+
+
+                //EditText nombreOperacion, cantidadOperaciones, maquina, precio;
+
+
 
                 new Handler().postDelayed(new Runnable() {
                     @Override

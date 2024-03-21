@@ -215,7 +215,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         //metodo para llenar las listas del spinner...
 
 
-        nombres.add("seleccione un Operario");
+        nombres.add("--------");
         idsEmpleados.add(0);
         llenarListaSpinner("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_empleados_spinner.php");
 
