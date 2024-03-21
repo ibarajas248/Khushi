@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //id de software_para verificar en una solicitud http si esta version todavia es compatible...
-    int version_Software_id=7;// Si el id de la base de datos de coincide, se exige
+    int version_Software_id=8;// Si el id de la base de datos de coincide, se exige
     String linkDescargaSoftware;
 
     Boolean permisoInisioSesion= true;
