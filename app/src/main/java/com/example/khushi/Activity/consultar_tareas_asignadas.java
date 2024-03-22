@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -104,6 +105,13 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         //---------fin de valores recibidos en el intent
 
+        if (operaciones_completadas.equalsIgnoreCase("si")){
+            TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);
+            textoDescriptivo.setText("Operaciones completadas");
+        }
+        TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);
+        textoDescriptivo.setText("Operaciones completadas");
+
         // inicializo el searchview---
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
         buscarOperacionesDB.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
@@ -188,6 +196,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                     }else if(operaciones_completadas.equalsIgnoreCase("si")){
                         agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php");
+
                     };
 
                 }
@@ -276,6 +285,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
     public void agregarListaOperacion_Habilitada(String URL) {
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -363,6 +373,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         int idParaMarcarMaracarCompletada= asignacion.getId_lotes_operaciones();
 
                         mostrarAlertDialog(idParaMarcarMaracarCompletada);
+
                     }
                 });
 
@@ -838,15 +849,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 operacionCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operacion_completada.php",idCompleta);
                 botonCompletaOperacion.setVisibility(View.GONE);
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Llama al primer método aquí
-                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
-
-                    }
-                }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+                recyclerHabilitado.setVisibility(View.GONE);
 
 
                 dialog.dismiss(); // Cierra el diálogo

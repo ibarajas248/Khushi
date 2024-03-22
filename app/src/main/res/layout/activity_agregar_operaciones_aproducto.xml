@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:id="@+id/LayoutparaAdmin"
                 android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="60dp"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    >
 
                     <EditText
                         android:id="@+id/edtnombre_operacion_operacion"

@@ -1,5 +1,7 @@
 package com.example.khushi.AdaptadoresRecycler;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -20,6 +22,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -131,6 +134,10 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 R.layout.custom_spinner_item, spinnerDataList);
         ArrayAdapter<String> selectedSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
                 R.layout.spinner_rojo, spinnerDataList);
+        ArrayAdapter<String> completoSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
+                R.layout.spinner_verde, spinnerDataList);
+
+
 
 
 
@@ -236,7 +243,39 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE82900);
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.spinner.setAdapter(selectedSpinnerAdapter);//configuro el color del spinnr
+
             holder.completado.setBackgroundColor(0xFFE82900);
+
+            if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
+                holder.spinner.setAdapter(selectedSpinnerAdapter);
+
+
+            } else {
+                holder.spinner.setAdapter(selectedSpinnerAdapter);
+                // Toma el valor de la celda
+                String empleado = listOperaciones.get(position).getEmpleado();
+
+
+                int posicionPredeterminada = 0;
+                // Iterar a través de la lista de empleados
+                for (Empleado_clase empleado1 : listaEmpleados) {
+                    // Obtener el valor del atributo 'id' para el empleado actual
+                    String idEmpleadoActual = empleado1.getId();
+
+                    // Comparar el atributo 'id' con la variable 'idBuscado'
+                    if (empleado.equals(idEmpleadoActual)) {
+                        // El atributo 'id' del empleado actual es igual a 'idBuscado'
+                        // Realizar las acciones necesarias aquí
+                        // ...
+                        holder.spinner.setSelection(posicionPredeterminada+1);
+                        break; // Puedes salir del bucle si encuentras una coincidencia, si lo deseas.
+                    }
+                    posicionPredeterminada=posicionPredeterminada+1;
+                }
+
+
+
+            }
 
 
         } else {
@@ -250,6 +289,55 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFF1976D2);
             holder.lote.setBackgroundColor(0xFF1976D2);
             holder.completado.setBackgroundColor(0xFF1976D2);
+
+
+            //colores para cuando este completo verde
+
+            if (listOperaciones.get(position).getHabilitado().equalsIgnoreCase("si")&&
+                    (listOperaciones.get(position).getCompletado().equalsIgnoreCase("si"))){
+
+                holder.producto.setBackgroundColor(0xFFA6E196);
+                holder.subparte.setBackgroundColor(0xFFA6E196);
+                holder.operaciones.setBackgroundColor(0xFFA6E196);
+                holder.idLotesOperaciones.setBackgroundColor(0xFFA6E196);
+                holder.cantidad.setBackgroundColor(0xFFA6E196);
+                holder.empleado.setBackgroundColor(0xFFA6E196);
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFA6E196);
+                holder.lote.setBackgroundColor(0xFFA6E196);
+                holder.spinner.setAdapter(completoSpinnerAdapter);//configuro el color del spinnr
+                holder.completado.setBackgroundColor(0xFFA6E196);
+
+                if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
+                    holder.spinner.setAdapter(completoSpinnerAdapter);
+
+
+                } else {
+                    holder.spinner.setAdapter(completoSpinnerAdapter);
+                    // Toma el valor de la celda
+                    String empleado = listOperaciones.get(position).getEmpleado();
+
+
+                    int posicionPredeterminada = 0;
+                    // Iterar a través de la lista de empleados
+                    for (Empleado_clase empleado1 : listaEmpleados) {
+                        // Obtener el valor del atributo 'id' para el empleado actual
+                        String idEmpleadoActual = empleado1.getId();
+
+                        // Comparar el atributo 'id' con la variable 'idBuscado'
+                        if (empleado.equals(idEmpleadoActual)) {
+                            // El atributo 'id' del empleado actual es igual a 'idBuscado'
+                            // Realizar las acciones necesarias aquí
+                            // ...
+                            holder.spinner.setSelection(posicionPredeterminada+1);
+                            break; // Puedes salir del bucle si encuentras una coincidencia, si lo deseas.
+                        }
+                        posicionPredeterminada=posicionPredeterminada+1;
+                    }
+
+
+
+                }
+            }
 
 
             // Restaura el color de fondo del Spinner manipulando directamente sus elementos

@@ -24,7 +24,8 @@ public class operaciones_lotes_clase {
     }
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones,
-                                   int cantidad, String empleado, int idOperacionesSubparteProducto, int lote, int idProductoOc,  String completado, String nombre, String Apellido) {
+                                   int cantidad, String empleado, int idOperacionesSubparteProducto, int lote,
+                                   int idProductoOc,  String completado, String nombre, String Apellido, String habilitado) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
@@ -37,6 +38,7 @@ public class operaciones_lotes_clase {
         this.completado=completado;
         this.nombre=nombre;
         this.apellido=Apellido;
+        this.habilitado=habilitado;
 
     }
 
@@ -44,20 +46,7 @@ public class operaciones_lotes_clase {
 
 
 
-    public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote, int idProductoOc, String completado) {
-        this.producto = producto;
-        this.subparte = subparte;
-        this.operaciones = operaciones;
-        this.id_lotes_operaciones = idLotesOperaciones;
-        this.cantidad = cantidad;
-        this.empleado= empleado;
-        this.id_operacione_subparte_producto=idOperacionesSubparteProducto;
-        this.lotes=lote;
-        this.nombre=nombreEmpleado;
-        this.apellido=apellidoEmpleado;
-        this.id_producto_oc=idProductoOc;
-        this.completado=completado;
-    }
+
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones, int cantidad, String empleado, int idOperacionesSubparteProducto, String nombreEmpleado, String apellidoEmpleado, int lote, int idProductoOc, String completado, String habilitado, String fecha) {
 
@@ -76,6 +65,8 @@ public class operaciones_lotes_clase {
         this.apellido=apellidoEmpleado;
         this.habilitado=habilitado;
     }
+
+
 
     public String getHabilitado() {
         return habilitado;

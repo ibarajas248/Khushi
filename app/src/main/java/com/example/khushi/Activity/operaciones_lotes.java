@@ -285,49 +285,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
 
-   /* private void eliminarOperacion (String URL,){
-        // Crear una solicitud de cadena (StringRequest) con un método POST
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Este método se llama cuando la solicitud es exitosa
-                // response contiene la respuesta del servidor en formato de cadena
 
-
-
-            }
-
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Este método se llama si hay un error en la solicitud
-                // error contiene detalles del error, como un mensaje de error
-
-                Toast.makeText(operaciones_lotes.this, error.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
-                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
-
-
-
-                Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("id_producto", String.valueOf(idProducto));
-
-
-                return parametros;
-            }
-        };
-
-        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
-        queue= Volley.newRequestQueue(this);
-        queue.add(stringRequest);
-
-    }*/
     public void agregarListaOperacion_Lote(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -356,6 +314,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                         String completado= jsonObject.getString("completado");
                         String nombre= jsonObject.getString("nombre");
                         String Apellidos= jsonObject.getString("Apellidos");
+                        String habilitado=jsonObject.getString("habilitado");
 
 
 
@@ -383,7 +342,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                         //String producto, String subparte, String operaciones, String empleado, String nombre, String apellido, int id_lotes_operaciones, int cantidad, int id_operacione_subparte_producto, int lotes, int id_producto_oc
-                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,cantidad,empleado,id_operaciones_subparte_producto, lote, id_producto_oc,completado,nombre,Apellidos));
+                        listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,
+                                        cantidad,empleado,id_operaciones_subparte_producto, lote, id_producto_oc,completado,nombre,Apellidos,habilitado));
 
                         //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
                         listEmpleados.add(String.valueOf(empleado));

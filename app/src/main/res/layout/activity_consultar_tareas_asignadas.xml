@@ -7,6 +7,7 @@
     tools:context=".Activity.Home">
 
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
@@ -30,6 +31,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/texto_desriptivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="operaciones asignadas"
+                android:textColor="#FFCE17"
+                android:background="#A6E196"
+                android:gravity="center"
+                 />
+
 
             <LinearLayout
                 android:id="@+id/linnear_operacion_lote"
