@@ -137,6 +137,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
         ArrayAdapter<String> completoSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
                 R.layout.spinner_verde, spinnerDataList);
 
+        ArrayAdapter<String> Spinner_opHabilitado  = new ArrayAdapter<String>(holder.itemView.getContext(),
+                R.layout.spinner_amarillo, spinnerDataList);
+
 
 
 
@@ -279,22 +282,39 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         } else {
-           // holder.habilitado.setBackgroundColor(0xFF1E88E5);
-            holder.producto.setBackgroundColor(0xFF1976D2);
-            holder.subparte.setBackgroundColor(0xFF1E88E5);
-            holder.operaciones.setBackgroundColor(0xFF1976D2);
-            holder.idLotesOperaciones.setBackgroundColor(0xFF1976D2);
-            holder.cantidad.setBackgroundColor(0xFF1E88E5);
-            holder.empleado.setBackgroundColor(0xFF1976D2);
-            holder.id_operaciones_subparte_producto.setBackgroundColor(0xFF1976D2);
-            holder.lote.setBackgroundColor(0xFF1976D2);
-            holder.completado.setBackgroundColor(0xFF1976D2);
+
+            if (position % 2 == 0) {
+                // Si la posición es par
+                holder.producto.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.subparte.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.operaciones.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.idLotesOperaciones.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.cantidad.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.empleado.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.lote.setBackgroundColor(0xFFB5B5B5); // Gris
+                holder.completado.setBackgroundColor(0xFFB5B5B5); // Gris
+            } else {
+                // Si la posición es impar
+                holder.producto.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.subparte.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.operaciones.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.idLotesOperaciones.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.cantidad.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.empleado.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.lote.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.completado.setBackgroundColor(0xFFFFFFFF); // Otro color
+            }
+
+
+
+
 
 
             //colores para cuando este completo verde
 
-            if (listOperaciones.get(position).getHabilitado().equalsIgnoreCase("si")&&
-                    (listOperaciones.get(position).getCompletado().equalsIgnoreCase("si"))){
+            if (listOperaciones.get(position).getCompletado().equalsIgnoreCase("si")){
 
                 holder.producto.setBackgroundColor(0xFFA6E196);
                 holder.subparte.setBackgroundColor(0xFFA6E196);
@@ -309,14 +329,10 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
-
-
                 } else {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
                     // Toma el valor de la celda
                     String empleado = listOperaciones.get(position).getEmpleado();
-
-
                     int posicionPredeterminada = 0;
                     // Iterar a través de la lista de empleados
                     for (Empleado_clase empleado1 : listaEmpleados) {
@@ -334,9 +350,48 @@ public class Adapter_operaciones_lotes extends RecyclerView
                         posicionPredeterminada=posicionPredeterminada+1;
                     }
 
-
-
                 }
+            }
+            //Amarillo cuando está en proceso la operacion, es decir habilitado
+           if (listOperaciones.get(position).getHabilitado().equalsIgnoreCase("si")&&
+                    listOperaciones.get(position).getCompletado().equalsIgnoreCase("no")){
+
+
+                holder.producto.setBackgroundColor(0xFFE1C970);
+                holder.subparte.setBackgroundColor(0xFFE1C970);
+                holder.operaciones.setBackgroundColor(0xFFE1C970);
+                holder.idLotesOperaciones.setBackgroundColor(0xFFE1C970);
+                holder.cantidad.setBackgroundColor(0xFFE1C970);
+                holder.empleado.setBackgroundColor(0xFFE1C970);
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE1C970);
+                holder.lote.setBackgroundColor(0xFFE1C970);
+                holder.spinner.setAdapter(Spinner_opHabilitado);//configuro el color del spinnr
+                holder.completado.setBackgroundColor(0xFFE1C970);
+               if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
+                   holder.spinner.setAdapter(Spinner_opHabilitado);
+               } else {
+                   holder.spinner.setAdapter(Spinner_opHabilitado);
+                   // Toma el valor de la celda
+                   String empleado = listOperaciones.get(position).getEmpleado();
+                   int posicionPredeterminada = 0;
+                   // Iterar a través de la lista de empleados
+                   for (Empleado_clase empleado1 : listaEmpleados) {
+                       // Obtener el valor del atributo 'id' para el empleado actual
+                       String idEmpleadoActual = empleado1.getId();
+
+                       // Comparar el atributo 'id' con la variable 'idBuscado'
+                       if (empleado.equals(idEmpleadoActual)) {
+                           // El atributo 'id' del empleado actual es igual a 'idBuscado'
+                           // Realizar las acciones necesarias aquí
+                           // ...
+                           holder.spinner.setSelection(posicionPredeterminada+1);
+                           break; // Puedes salir del bucle si encuentras una coincidencia, si lo deseas.
+                       }
+                       posicionPredeterminada=posicionPredeterminada+1;
+                   }
+
+               }
+
             }
 
 
