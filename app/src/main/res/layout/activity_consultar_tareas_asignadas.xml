@@ -21,7 +21,6 @@
         android:id="@+id/scroll_operacion_lote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#838078"
         android:layout_below="@+id/toolbar1"
         android:layout_centerVertical="true"
         >
@@ -37,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="operaciones asignadas"
                 android:textColor="#FFCE17"
-                android:background="#A6E196"
+                android:background="#838078"
                 android:gravity="center"
                  />
 
@@ -47,7 +46,7 @@
                 android:layout_width="328dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp"
+
                 android:orientation="vertical">
 
 
@@ -77,9 +76,8 @@
                 android:id="@+id/spinnerFiltrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+
+
                 android:background="#FFFFFF"
                 />
 
@@ -87,9 +85,7 @@
                 android:id="@+id/searchoperacionesDB"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
                 android:background="#EFE1AD"
-                android:layout_marginEnd="10dp"
 
                 />
 
@@ -98,9 +94,6 @@
                 android:id="@+id/ContenedorRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="#D8CDA8"
 

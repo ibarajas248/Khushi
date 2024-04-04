@@ -91,7 +91,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         setSupportActionBar(toolbar1);
 
         getSupportActionBar().setTitle("Khushi");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         subparte=(EditText)findViewById(R.id.mosagre_escribirsubpart);
         subparte.setEnabled(false);
@@ -650,10 +650,10 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
     }
 
-    public void onBackPressed() {
+    /*public void onBackPressed() {
         // No hacer nada (bloquear el botón de retroceso)
 
-    }
+    }*/
 
     private void eliminarSeccion (String URL){
         // Crear una solicitud de cadena (StringRequest) con un método POST
@@ -719,13 +719,24 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+
+            this.logout();
+
+        }else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+    private void logout() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
 
     }
 

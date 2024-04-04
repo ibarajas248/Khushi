@@ -1,0 +1,9 @@
+<!-- bottom_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#011336" /> <!-- Color interno azul -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" />
+    <padding android:bottom="2dp" /> <!-- Espacio para el borde inferior -->
+</shape>

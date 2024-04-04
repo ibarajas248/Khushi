@@ -63,9 +63,9 @@
         @Override
         public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     
-            Context context = parent.getContext(); // Obtén el contexto desde el ViewGroup
+            //Context context = parent.getContext(); // Obtén el contexto desde el ViewGroup
             View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto,null,false);
-    
+
     
             // escucha el evento de seleccion
             view.setOnClickListener(this);

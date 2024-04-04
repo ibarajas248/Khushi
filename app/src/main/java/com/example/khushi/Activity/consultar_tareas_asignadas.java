@@ -108,9 +108,11 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         if (operaciones_completadas.equalsIgnoreCase("si")){
             TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);
             textoDescriptivo.setText("Operaciones completadas");
+        }else{
+            TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);
+            textoDescriptivo.setText("Operaciones asignadas");
         }
-        TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);
-        textoDescriptivo.setText("Operaciones completadas");
+
 
         // inicializo el searchview---
         buscarOperacionesDB=(SearchView)findViewById(R.id.searchoperacionesDB);
@@ -121,7 +123,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         spinnerEmpleado = findViewById(R.id.spinnerFiltrar_empleado);
@@ -370,9 +372,15 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     public void onItemLongClick(operaciones_lotes_clase asignacion) {
                         //asignacion.getNombre(); --- asi es como obtengo los valores estos los debo pasar al metodo
 
-                        int idParaMarcarMaracarCompletada= asignacion.getId_lotes_operaciones();
 
-                        mostrarAlertDialog(idParaMarcarMaracarCompletada);
+                        if (operaciones_completadas.equalsIgnoreCase("si")){
+                            Toast.makeText(consultar_tareas_asignadas.this, "no disponible", Toast.LENGTH_SHORT).show();
+                        }else{
+                            int idParaMarcarMaracarCompletada= asignacion.getId_lotes_operaciones();
+
+                            mostrarAlertDialog(idParaMarcarMaracarCompletada);
+                        }
+
 
                     }
                 });
@@ -957,10 +965,14 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "hola2", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        } else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

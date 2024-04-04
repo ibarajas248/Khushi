@@ -37,6 +37,13 @@
 
                 >
 
+                <TextView
+                    android:id="@+id/texto_agregarOperacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_marginLeft="3dp"/>
+
                 <LinearLayout
                     android:id="@+id/LYagregar"
                     android:layout_width="match_parent"
@@ -44,7 +51,10 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="60dp"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     >
+
+
 
                     <EditText
                         android:id="@+id/edtnombre_operacion_operacion"

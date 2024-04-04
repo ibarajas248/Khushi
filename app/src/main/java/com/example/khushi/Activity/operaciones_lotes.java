@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
@@ -112,6 +113,11 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         cantLote9 = (EditText) findViewById(R.id.cantidadSublotes9);
         cantLote10 = (EditText) findViewById(R.id.cantidadSublotes10);
 
+        toolbar1=findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setTitle("Khushi");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
 
         String[]opcionesFiltrado={"Todos los filtros","Habilitado", "producto", "Seccion","Operaciones","Cantidad","Nombre","Apellido","Lote","completado"};
 
@@ -122,14 +128,33 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
         spinnerFiltrarDinamico.setAdapter(adapterSpinnerDinamico);
 
+
+        ImageView imageView = findViewById(R.id.flechAbajo);
+        final Spinner spinner = findViewById(R.id.spinnerFiltrar);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinner.performClick();
+            }
+        });
+
+        ImageView fechaabajodos = findViewById(R.id.flechAbajoDos);
+        final Spinner spinnerbajar = findViewById(R.id.spinnerFiltrosDinamicos);
+
+        fechaabajodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerbajar.performClick();
+            }
+        });
+
+
         botonimagendividir = (ImageButton) findViewById(R.id.imageButtondividir);//nuevo boton dividir
         botonimagendividirAutomatico=(ImageButton)findViewById(R.id.imageButtondividirAutomatico);
         botonImagenEditar=(ImageButton)findViewById(R.id.imageButtonEditar);//boton imagen editar
 
-        toolbar1=findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar1);
-        getSupportActionBar().setTitle("Khushi");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
 
         botonDividirManualConfirmar=(Button)findViewById(R.id.botonDividirManualConfirmar); //confirma enviar cantidades
         botonPartirPartesIguales=(Button)findViewById(R.id.boton_dividir_automatico);
@@ -1350,25 +1375,34 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         if (id == R.id.menuPrincipal) {
             Intent intent = new Intent(operaciones_lotes.this, Home.class);
             // Agregar las banderas FLAG_CLEAR_TOP y FLAG_SINGLE_TOP
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);            startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
             startActivity(intent);
             finish(); // Cierra la actividad actual
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
         }else if (id == R.id.fragmento3) {
             // Lanzar la Activity correspondiente al fragmento2
             //Intent intentFragmento2 = new Intent(this, Home.class);
             //startActivity(intentFragmento2);
             Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
 

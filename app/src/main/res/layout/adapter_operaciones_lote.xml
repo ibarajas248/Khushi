@@ -15,7 +15,7 @@
         android:text="Habilitado"
 
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#1976D2" />
     <TextView
@@ -25,7 +25,7 @@
         android:text="producto"
 
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#1976D2"
         android:visibility="gone"
@@ -39,7 +39,7 @@
         android:text="Producto"
 
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#1E88E5" />
 
@@ -48,9 +48,7 @@
         android:layout_width="400dp"
         android:layout_height="40dp"
         android:text="Operaciones"
-
         android:textSize="18sp"
-        android:textStyle="bold"
         android:padding="8dp"
         android:background="#1976D2" />
     <TextView
@@ -69,7 +67,7 @@
         android:layout_height="40dp"
         android:text="Cantidad"
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#2196F3"/>
     <TextView
@@ -120,7 +118,7 @@
         android:layout_height="40dp"
         android:text="Lote"
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#1976D2"
         />
@@ -150,7 +148,7 @@
         android:layout_height="40dp"
         android:text="completo"
         android:textSize="18sp"
-        android:textStyle="bold"
+
         android:padding="8dp"
         android:background="#1976D2"
         />

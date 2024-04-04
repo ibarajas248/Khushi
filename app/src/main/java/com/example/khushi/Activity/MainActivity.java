@@ -174,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Usuario validado correctamente", Toast.LENGTH_SHORT).show();
                         String nombreUsuario= String.valueOf(user.getText());
                         Intent intent= new Intent(MainActivity.this, Home.class);
+                        user.setText("");
+                        contrasenia.setText("");
+
                         intent.putExtra("Rol",String.valueOf(ROL));
                         intent.putExtra("idEmpleado",String.valueOf(idEmpleado));
                         startActivity(intent);

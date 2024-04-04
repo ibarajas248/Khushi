@@ -383,21 +383,21 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
                 }
             }
-            //Amarillo cuando está en proceso la operacion, es decir habilitado
+            //naranja cuando está en proceso la operacion, es decir habilitado
            if (listOperaciones.get(position).getHabilitado().equalsIgnoreCase("si")&&
                     listOperaciones.get(position).getCompletado().equalsIgnoreCase("no")){
 
 
-                holder.producto.setBackgroundColor(0x60FFEB15);
-                holder.subparte.setBackgroundColor(0x60FFEB15);
-                holder.operaciones.setBackgroundColor(0x60FFEB15);
-                holder.idLotesOperaciones.setBackgroundColor(0x60FFEB15);
-                holder.cantidad.setBackgroundColor(0x60FFEB15);
-                holder.empleado.setBackgroundColor(0x60FFEB15);
-                holder.id_operaciones_subparte_producto.setBackgroundColor(0x60FFEB15);
-                holder.lote.setBackgroundColor(0x60FFEB15);
+                holder.producto.setBackgroundColor(0xFFE6A712);
+                holder.subparte.setBackgroundColor(0xFFE6A712);
+                holder.operaciones.setBackgroundColor(0xFFE6A712);
+                holder.idLotesOperaciones.setBackgroundColor(0xFFE6A712);
+                holder.cantidad.setBackgroundColor(0xFFE6A712);
+                holder.empleado.setBackgroundColor(0xFFE6A712);
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE6A712);
+                holder.lote.setBackgroundColor(0xFFE6A712);
                 holder.spinner.setAdapter(Spinner_opHabilitado);//configuro el color del spinnr
-                holder.completado.setBackgroundColor(0x60FFEB15);
+                holder.completado.setBackgroundColor(0xFFE6A712);
                if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                        holder.spinner.setAdapter(Spinner_opHabilitado);
                } else {

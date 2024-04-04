@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -182,17 +184,26 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menuPrincipal) {
+            Toast.makeText(this, "Se encuentra en la pagina principal", Toast.LENGTH_SHORT).show();
 
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+
+            this.logout();
+
         }
 
 
         return true;
+
+    }
+
+    private void logout() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
 
     }
 

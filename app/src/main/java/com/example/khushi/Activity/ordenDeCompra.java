@@ -289,12 +289,25 @@ public class ordenDeCompra extends AppCompatActivity {
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+
+            this.logout();
+
+        }else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void logout() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
+
     }
 }

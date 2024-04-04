@@ -6,8 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -81,9 +86,12 @@ public class agregar_producto_oc extends AppCompatActivity {
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         //final de llenar toolbar
+
+
+
 
 
 
@@ -373,13 +381,17 @@ public class agregar_producto_oc extends AppCompatActivity {
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
         } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.fragmento3) {
 
             Toast.makeText(this, "no diponible", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

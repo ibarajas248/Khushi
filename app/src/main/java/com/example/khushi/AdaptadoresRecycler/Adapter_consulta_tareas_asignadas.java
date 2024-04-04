@@ -8,6 +8,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.khushi.R;
@@ -22,11 +23,11 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
 
     ArrayList<operaciones_lotes_clase> buscador; //Array para el searchView
 
-    private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
     ArrayList<operaciones_lotes_clase> listOperaciones;
+    private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
 
     private View.OnClickListener listener;
-
+    private int selectedPosition = RecyclerView.NO_POSITION; //variable para cambiar de color de la fila
 
     private OnItemLongClickListener itemLongClickListener;
 
@@ -107,6 +108,9 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
         holder.completado.setText(listOperaciones.get(position).getCompletado());
 
 
+
+
+
         // Cambia el color de fondo si el elemento está seleccionado
         if (position == selectedItem) {
 
@@ -123,20 +127,56 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             holder.apellidos.setBackgroundColor(0xFFE82900);
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.completado.setBackgroundColor(0xFFE82900);
+
+
+            //cambiarCOlorLetra
+
+
+            holder.habilitada.setTextColor(0xFFFFFFFF);
+            holder.producto.setTextColor(0xFFFFFFFF);
+            holder.subparte.setTextColor(0xFFFFFFFF);
+            holder.operaciones.setTextColor(0xFFFFFFFF);
+            holder.idLotesOperaciones.setTextColor(0xFFFFFFFF);
+            holder.cantidad.setTextColor(0xFFFFFFFF);
+            holder.empleado.setTextColor(0xFFFFFFFF);
+            holder.id_operaciones_subparte_producto.setTextColor(0xFFFFFFFF);
+            holder.nombre.setTextColor(0xFFFFFFFF);
+            holder.apellidos.setTextColor(0xFFFFFFFF);
+            holder.lote.setTextColor(0xFFFFFFFF);
+            holder.completado.setTextColor(0xFFFFFFFF);
         } else {
-            holder.habilitada.setBackgroundColor(0xFF1E88E5);
-            holder.producto.setBackgroundColor(0xFF1976D2);
-            holder.subparte.setBackgroundColor(0xFF1E88E5);
-            holder.operaciones.setBackgroundColor(0xFF1976D2);
-            holder.idLotesOperaciones.setBackgroundColor(0xFF1976D2);
-            holder.cantidad.setBackgroundColor(0xFF1E88E5);
-            holder.empleado.setBackgroundColor(0xFF1976D2);
-            holder.id_operaciones_subparte_producto.setBackgroundColor(0xFF1976D2);
-            holder.nombre.setBackgroundColor(0xFF1976D2);
-            holder.apellidos.setBackgroundColor(0xFF1E88E5);
-            holder.lote.setBackgroundColor(0xFF1976D2);
-            holder.completado.setBackgroundColor(0xFF1976D2);
+            if (position % 2 == 0){
+                holder.habilitada.setBackgroundColor(0xFFD9D9D9);
+                holder.producto.setBackgroundColor(0xFFD9D9D9);
+                holder.subparte.setBackgroundColor(0xFFD9D9D9);
+                holder.operaciones.setBackgroundColor(0xFFD9D9D9);
+                holder.idLotesOperaciones.setBackgroundColor(0xFFD9D9D9);
+                holder.cantidad.setBackgroundColor(0xFFD9D9D9);
+                holder.empleado.setBackgroundColor(0xFFD9D9D9);
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFD9D9D9);
+                holder.nombre.setBackgroundColor(0xFFD9D9D9);
+                holder.apellidos.setBackgroundColor(0xFFD9D9D9);
+                holder.lote.setBackgroundColor(0xFFD9D9D9);
+                holder.completado.setBackgroundColor(0xFFD9D9D9);
+            }else{
+
+                holder.habilitada.setBackgroundColor(0xFFFFFFFF);
+                holder.producto.setBackgroundColor(0xFFFFFFFF);
+                holder.subparte.setBackgroundColor(0xFFFFFFFF);
+                holder.operaciones.setBackgroundColor(0xFFFFFFFF);
+                holder.idLotesOperaciones.setBackgroundColor(0xFFFFFFFF);
+                holder.cantidad.setBackgroundColor(0xFFFFFFFF);
+                holder.empleado.setBackgroundColor(0xFFFFFFFF);
+                holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFFFFFFF);
+                holder.nombre.setBackgroundColor(0xFFFFFFFF);
+                holder.apellidos.setBackgroundColor(0xFFFFFFFF);
+                holder.lote.setBackgroundColor(0xFFFFFFFF);
+                holder.completado.setBackgroundColor(0xFFFFFFFF);
+
+            }
         }
+
+
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

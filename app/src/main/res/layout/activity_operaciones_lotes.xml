@@ -14,13 +14,9 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#000000" >
+        app:titleTextColor="#000000"
+        >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@android:drawable/arrow_down_float" />
 
 
    </androidx.appcompat.widget.Toolbar>
@@ -34,8 +30,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar1"
-        android:background="#838078">
+        android:layout_below="@+id/toolbar1">
 
 
         <ScrollView
@@ -100,7 +95,6 @@
                         android:id="@+id/tvName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="Nombre"
                         android:textColor="#ffffff"
                         android:textSize="18sp" />
@@ -124,8 +118,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:background="#FFFFFF"
                         android:gravity="center"
                         android:orientation="horizontal"
@@ -520,36 +512,80 @@
                         android:textSize="20dp"
                         android:visibility="gone" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"></LinearLayout>
+
 
                 </LinearLayout>
 
 
-                <Spinner
-                    android:id="@+id/spinnerFiltrar"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFFFFF" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="2dp"
+                    android:background="#011336"
+
+                     >
+
+                    <Spinner
+                        android:id="@+id/spinnerFiltrar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        android:background="#011336"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/flechAbajo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/arrow_down_float"
+                        android:layout_marginTop="8dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="2dp"
+                    android:background="#011336">
+                    <Spinner
+                        android:id="@+id/spinnerFiltrosDinamicos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        android:background="#011336"
+                        />
+
+                    <ImageView
+                        android:id="@+id/flechAbajoDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/arrow_down_float"
+                        android:layout_marginTop="8dp"
+
+                        />
+                </LinearLayout>
 
                 <SearchView
                     android:id="@+id/searchoperacionesDB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:background="#EFE1AD" />
-                <Spinner
-                    android:id="@+id/spinnerFiltrosDinamicos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    />
 
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-
-                    android:layout_marginTop="10dp"
-
                     android:layout_marginBottom="10dp"
                     android:background="#D8CDA8">
 

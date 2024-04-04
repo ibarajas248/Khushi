@@ -3,23 +3,33 @@ package com.example.khushi.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -52,7 +62,10 @@ import java.util.Queue;
 public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener,FragmentModificar.OnButtonClickListener {
 
     Switch switch_aparecer;
+
+    boolean visible; //variable para mostrar opciones de agregado
     private Toolbar toolbar1;
+
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
     //Adapter_operaciones_filtrado adapter123;
@@ -60,11 +73,16 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     Adapter_operaciones_filtrado2 adapter1234;
 
 
+    Adapter_operaciones_filtrado2 adapter12345;
+
+
+
 
     SearchView buscarOperacionesDB;
     RequestQueue queue;
     private int idproducto, idsubparte;
     ArrayList<operacionesFiltradas> listOperaciones, listOperacionesDeProducto;
+    ArrayList<operacionesFiltradas> listOperaciones2;
     EditText nombreOperacion, cantidadOperaciones, maquina, precio;
     Button agregarOperacion;
     private boolean switchActivado = false;
@@ -98,6 +116,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
 
+        mostarAgregar();
+
 
 
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
@@ -128,6 +148,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
         listOperaciones = new ArrayList<operacionesFiltradas>();
         listOperacionesDeProducto = new ArrayList<operacionesFiltradas>();
+        listOperaciones2 = new ArrayList<operacionesFiltradas>();
 
       agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
         listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
@@ -171,7 +192,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     }, 3000); // 3000 milisegundos = 3 segundos
 
 
-                    agregarOperacionesRecursivamente(listOperaciones, 0);
+                    agregarOperacionesRecursivamente(listOperaciones2, 0);
                     boolean insercionRealizada = false;
 
                 } else {
@@ -216,6 +237,56 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         });
     }
 
+    private void mostarAgregar() {
+
+        TextView textView = findViewById(R.id.texto_agregarOperacion);
+
+        // Texto que deseas mostrar
+        String texto = "Agregar una operacion nueva   ";
+
+
+        // Calcula el nuevo tamaño del icono (por ejemplo, 24dp x 24dp)
+        int nuevoAncho = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 19, getResources().getDisplayMetrics());
+        int nuevoAlto = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 19, getResources().getDisplayMetrics());
+
+
+        // Obtén el icono de la carpeta drawable
+        Drawable icono = getResources().getDrawable(R.drawable.bajar);
+
+        // Tintar la imagen
+        Drawable tintedIcon = DrawableCompat.wrap(icono);
+        DrawableCompat.setTint(tintedIcon, Color.BLUE);
+
+        // Establece el nuevo tamaño del icono
+        icono.setBounds(0, 0, nuevoAncho, nuevoAlto);
+
+        // Crea un SpannableString con el texto y el icono al final
+        SpannableString spannableString = new SpannableString(texto + " ");
+        ImageSpan imageSpan = new ImageSpan(icono, ImageSpan.ALIGN_BOTTOM);
+        spannableString.setSpan(imageSpan, texto.length(), spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        // Establece el SpannableString en el TextView
+        textView.setText(spannableString);
+
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (visible==false){
+                    LinearLayout layourAgregar= (LinearLayout) findViewById(R.id.LYagregar);
+                    layourAgregar.setVisibility(View.GONE);
+                    visible=true;
+                }else{
+                    LinearLayout layourAgregar= (LinearLayout) findViewById(R.id.LYagregar);
+                    layourAgregar.setVisibility(View.VISIBLE);
+                    visible=false;
+                }
+
+            }
+        });
+
+    }
+
     private void roles() {
         if (ROL.equalsIgnoreCase("ADMIN")){
             LinearLayout layoutAdmin=findViewById(R.id.LayoutparaAdmin);
@@ -252,7 +323,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                listOperaciones.clear(); // Limpiar la lista existente
+                listOperaciones2.clear(); // Limpiar la lista existente
 
 
                 for (int i = 0; i < response.length(); i++) {
@@ -276,7 +347,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         // String data4 = (data1+ data2+data3);
 
 
-                        listOperaciones.add(new operacionesFiltradas(id_producto, id_subparte, id_operaciones,
+                        listOperaciones2.add(new operacionesFiltradas(id_producto, id_subparte, id_operaciones,
                                 producto, subparte, operaciones, maquina, cantidad, precio));
 
 
@@ -284,8 +355,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                 adapter1234 = new Adapter_operaciones_filtrado2(listOperaciones);
-                adapter1234.setOnClickListener(new View.OnClickListener() {
+                 adapter12345 = new Adapter_operaciones_filtrado2(listOperaciones2);
+                adapter12345.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -294,13 +365,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 });
 
 
-                recycler.setAdapter(adapter1234);
+                recycler.setAdapter(adapter12345);
 
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        listOperacionesDeProducto.clear();
+
                         // Limpiar la lista existente
                         listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
                                 + String.valueOf(idproducto) + "&id_subparte=" + String.valueOf(idsubparte));
@@ -777,7 +848,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
     @Override
     public boolean onQueryTextChange(String s) {
-        adapter123.filtrado(s);
+        adapter12345.filtrado(s);
 
         return false;
     }
@@ -799,17 +870,29 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             finish(); // Cierra la actividad actual
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
-        } else if (id == R.id.fragmento2) {
-            // Lanzar la Activity correspondiente al fragmento2
-            //Intent intentFragmento2 = new Intent(this, Home.class);
-            //startActivity(intentFragmento2);
-            Toast.makeText(this, "no disponible", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.fragmento3) {
+        }else if (id == R.id.fragmento2) {
+
+            this.logout();
+
+        }else if (id == R.id.fragmento3) {
 
             Toast.makeText(this, "no diponible", Toast.LENGTH_SHORT).show();
+
+        } else if (item.getItemId() == android.R.id.home) {
+            // Maneja el clic en el botón de retroceso
+            onBackPressed(); // Esto ejecutará el comportamiento predeterminado de retroceder
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void logout() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
+
     }
 
 
