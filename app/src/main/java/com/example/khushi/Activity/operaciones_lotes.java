@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
@@ -69,6 +71,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     private Spinner spinnerFiltrarDinamico;
     private EditText cantidadSublotesEditText;
     private Toolbar toolbar1;
+    Button botonAsignar;
 
 
     SearchView buscarOperacionesDB;
@@ -112,6 +115,10 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         cantLote8 = (EditText) findViewById(R.id.cantidadSublotes8);
         cantLote9 = (EditText) findViewById(R.id.cantidadSublotes9);
         cantLote10 = (EditText) findViewById(R.id.cantidadSublotes10);
+
+
+        botonAsignar=findViewById(R.id.botonAsignar);
+        botonAsignar.setVisibility(View.GONE);
 
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
@@ -398,10 +405,13 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                         //botonDividirLote.setVisibility(View.VISIBLE);
                         //botonEditarCantidad.setVisibility(View.VISIBLE);
                         botonimagendividir.setVisibility(View.VISIBLE);
+                        botonAsignar.setVisibility(View.VISIBLE);
 
                         //layout que contiene el boton de copiar
                         LinearLayout layoutBotonCopiar=(findViewById(R.id.LayoutImageButtonCopiar));
                         layoutBotonCopiar.setVisibility(View.VISIBLE);
+                        LinearLayout layoutspinner=findViewById(R.id.layoutSpinner);
+                        layoutspinner.setVisibility(View.GONE);
 
                         LayoutImageButtondividirManual.setVisibility(View.VISIBLE);
                         LayoutImageButtondividirAutomatico.setVisibility(View.VISIBLE);
@@ -433,7 +443,17 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                        // recycler.setVisibility(View.GONE);
 
 
+
                         ImageButton botonImagenCopiar=(ImageButton) findViewById(R.id.imageButtonCopiar);
+
+                        botonAsignar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                int idPasar= asignacion.getId_lotes_operaciones();
+                                alertDialoghabilitar(idPasar);
+                            }
+                        });
 
                         botonImagenCopiar.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -541,6 +561,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                         buscarOperacionesDB.setVisibility(View.VISIBLE);
                                         contenedorRecycler.setVisibility(View.VISIBLE);
                                         recycler.setVisibility(View.VISIBLE);
+                                        LinearLayout layoutspinner=findViewById(R.id.layoutSpinner);
+                                        layoutspinner.setVisibility(View.VISIBLE);
 
                                         //----------------------------------
 
@@ -1314,6 +1336,121 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                 Log.i("d",String.valueOf(id_producto_subparte_operacion)+"/"+String.valueOf(id_producto_oc)+"/"+String.valueOf(cantidad)+"/"+String.valueOf(lote));
 
 
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
+    }
+
+    private void alertDialoghabilitar(int idPasar) {
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("¿Desea habilitar operación?");
+        builder.setMessage("solo puede habilitar una operación a la vez ");
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                habilitarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/editar_habilitado.php",idPasar);
+
+
+
+
+                Handler handler = new Handler();
+                //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Llama al primer método aquí
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+
+
+                    }
+                }, 100); // Retraso de 5000 milisegundos (5 segundos)
+
+
+                LayoutImageButtonEditar.setVisibility(View.GONE);
+                LayoutImageButtonEditar.setVisibility(View.GONE);
+                botonDividirLote.setVisibility(View.GONE);
+                LayoutImageButtondividirManual.setVisibility(View.GONE);
+                LayoutImageButtondividirAutomatico.setVisibility(View.GONE);
+                botonDividirManual.setVisibility(View.GONE);
+                spinnerFiltrarDinamico.setVisibility(View.GONE);
+                LinearLayout layoucopiar=findViewById(R.id.LayoutImageButtonCopiar);
+                layoucopiar.setVisibility(View.GONE);
+                linearLayoutFicha.setVisibility(View.GONE);
+
+                spinnerFiltrar.setVisibility(View.VISIBLE);
+                buscarOperacionesDB.setVisibility(View.VISIBLE);
+                contenedorRecycler.setVisibility(View.VISIBLE);
+                recycler.setVisibility(View.VISIBLE);
+                LinearLayout layoutspinner=findViewById(R.id.layoutSpinner);
+                layoutspinner.setVisibility(View.VISIBLE);
+                botonAsignar.setVisibility(View.GONE);
+
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        // Agregar botón negativo (por ejemplo, "Cancelar")
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                dialog.dismiss(); // Cierra el diálogo
+            }
+        });
+
+        // Mostrar el diálogo
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    private void habilitarOperacion(String URL, int idPasar){
+
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Toast.makeText(operaciones_lotes.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                botonAsignar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(operaciones_lotes.this, error.toString(),Toast.LENGTH_SHORT).show();
+                botonAsignar.setVisibility(View.GONE);
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+
+                //aca se deben poner los parametros para hacer un update..
+                parametros.put("id_lotes_operaciones", String.valueOf(idPasar));
+                parametros.put("habilitado","si");
 
                 return parametros;
             }

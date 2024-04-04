@@ -115,6 +115,7 @@
                     android:layout_height="match_parent"
                     android:background="#FFFFFF">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -123,6 +124,9 @@
                         android:orientation="horizontal"
 
                         >
+
+
+
 
                         <LinearLayout
                             android:id="@+id/LayoutImageButtondividir"
@@ -223,6 +227,15 @@
 
                     </LinearLayout>
                 </HorizontalScrollView>
+                <Button
+                    android:id="@+id/botonAsignar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="asignar"
+                    android:backgroundTint="#011336"
+                    android:textColor="#FFCE17"
+                    />
 
 
                 <LinearLayout
@@ -522,6 +535,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layoutSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"

@@ -213,8 +213,20 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFE82900);
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.spinner.setAdapter(selectedSpinnerAdapter);//configuro el color del spinnr
-
             holder.completado.setBackgroundColor(0xFFE82900);
+
+           //letra
+
+            holder.producto.setTextColor(0xFFFFFFFF);
+            holder.subparte.setTextColor(0xFFFFFFFF);
+            holder.operaciones.setTextColor(0xFFFFFFFF);
+            holder.idLotesOperaciones.setTextColor(0xFFFFFFFF);
+            holder.cantidad.setTextColor(0xFFFFFFFF);
+            holder.empleado.setTextColor(0xFFFFFFFF);
+            holder.id_operaciones_subparte_producto.setTextColor(0xFFFFFFFF);
+            holder.lote.setTextColor(0xFFFFFFFF);
+            holder.completado.setTextColor(0xFFFFFFFF);
+
 
             if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
@@ -249,6 +261,16 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         } else {
+
+            holder.producto.setTextColor(0xFF000000);
+            holder.subparte.setTextColor(0xFF000000);
+            holder.operaciones.setTextColor(0xFF000000);
+            holder.idLotesOperaciones.setTextColor(0xFF000000);
+            holder.cantidad.setTextColor(0xFF000000);
+            holder.empleado.setTextColor(0xFF000000);
+            holder.id_operaciones_subparte_producto.setTextColor(0xFF000000);
+            holder.lote.setTextColor(0xFF000000);
+            holder.completado.setTextColor(0xFF000000);
 
             if (position % 2 == 0) {
                 // Si la posición es par
