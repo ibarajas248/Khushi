@@ -42,6 +42,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     boolean validacion=false;
     private String Rol="OPERARIO";
+    private int idPersona;
 
 
     RequestQueue requestQueue;
@@ -96,6 +97,7 @@ public class RegistroActivity extends AppCompatActivity {
                 }
 
 
+
                 agregarusuario("http://khushiconfecciones.com//app_khushi/insertar_empleado.php");
 
 
@@ -129,7 +131,8 @@ public class RegistroActivity extends AppCompatActivity {
 
         Intent intent=new Intent(RegistroActivity.this, validacionContrasenaAvtivity.class);
 
-        intent.putExtra("idpersona",String.valueOf(generarid()).trim());
+        idPersona=generarid();
+        intent.putExtra("idpersona",String.valueOf(idPersona).trim());
         intent.putExtra("nombre", edtnombre.getText().toString().trim());
         intent.putExtra("apellidos", edtApellidos.getText().toString().trim());
         intent.putExtra("correo", edtCorreo.getText().toString().trim());
@@ -188,7 +191,7 @@ public class RegistroActivity extends AppCompatActivity {
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("idpersona",String.valueOf(generarid()));
+                parametros.put("idpersona",String.valueOf(idPersona));
                 parametros.put("edtnombre",edtnombre.getText().toString());
                 parametros.put("edtapellidos",edtApellidos.getText().toString());
                 parametros.put("correo_electronico",edtCorreo.getText().toString());
@@ -218,7 +221,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private int generarid(){
         int idpersona = (int)(Math.random()*500+1);
-        buscaridvalidacion("http://khushiconfecciones.com//app_khushi/buscar_producto.php"+String.valueOf(idpersona));
+        buscaridvalidacion("http://khushiconfecciones.com//app_khushi/buscar_producto.php?id="+String.valueOf(idpersona));
         //si el codigo ya se encuentra en la base de datos
         // entonces vuelve a llamar el metodo
 

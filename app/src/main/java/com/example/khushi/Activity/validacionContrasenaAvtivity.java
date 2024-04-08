@@ -100,7 +100,7 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
 
                 }
 
-                buscaruservalidacion("http://khushiconfecciones.com//app_khushi/buscar_usuario.php"+(user));
+                buscaruservalidacion("http://khushiconfecciones.com//app_khushi/buscar_usuario.php?usuario="+(user));
                 if (validacion==true){
                     return;
                 }
