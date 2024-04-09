@@ -67,8 +67,13 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
         telefono = intent.getStringExtra("telefono");
         celular = intent.getStringExtra("celular");
         EPS = intent.getStringExtra("EPS");
-        anio_vinculacion = intent.getStringExtra("anio_vinculacion");
+        //anio_vinculacion = intent.getStringExtra("anio_vinculacion");
         Rol=intent.getStringExtra("Rol");
+
+
+
+
+        Toast.makeText(this, "el id es "+idpersona, Toast.LENGTH_LONG).show();
 
 
 
@@ -104,12 +109,8 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
                 if (validacion==true){
                     return;
                 }
-                agregarusuario("http://khushiconfecciones.com//app_khushi/insertar_empleado.php");
-                Toast.makeText(validacionContrasenaAvtivity.this, "Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+                agregarusuario("http://khushiconfecciones.com//app_khushi/editar_user.php");
+
 
             }
         });
@@ -124,11 +125,11 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Este método se llama cuando la solicitud es exitosa
-                // response contiene la respuesta del servidor en formato de cadena
-
-                Log.d("Response", response);
-                //Toast.makeText(validacionContrasenaAvtivity.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(validacionContrasenaAvtivity.this, "Usuario creado satisfactoriamente", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
 
             }
         }, new Response.ErrorListener() {
@@ -141,7 +142,7 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
                 //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
 
                 //Toast.makeText(validacionContrasenaAvtivity.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
-                Log.e("Error", "Error en la solicitud: " + error.toString());
+                Toast.makeText(validacionContrasenaAvtivity.this, "hay algún error ", Toast.LENGTH_SHORT).show();
             }
         }){
 
@@ -167,15 +168,15 @@ public class validacionContrasenaAvtivity extends AppCompatActivity {
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("idpersona",String.valueOf(idpersona));
-                parametros.put("edtnombre",nombre);
-                parametros.put("edtapellidos",apellidos);
-                parametros.put("correo_electronico",correo);
-                parametros.put("edtfijo",telefono);
-                parametros.put("edtcelular",celular);
-                parametros.put("edtEPS",EPS);
-                parametros.put("anio_vinculacion",anio_vinculacion);
-                parametros.put("Rol",Rol);
+                parametros.put("id",String.valueOf(idpersona));
+                //parametros.put("edtnombre",nombre);
+                //parametros.put("edtapellidos",apellidos);
+                //parametros.put("correo_electronico",correo);
+                //parametros.put("edtfijo",telefono);
+                //parametros.put("edtcelular",celular);
+                //parametros.put("edtEPS",EPS);
+                //parametros.put("anio_vinculacion",anio_vinculacion);
+                //parametros.put("Rol",Rol);
                 parametros.put("usuario",user);
                 parametros.put("contrasenia",contrasenia);
 

@@ -373,6 +373,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         //asignacion.getNombre(); --- asi es como obtengo los valores estos los debo pasar al metodo
 
 
+
                         if (operaciones_completadas.equalsIgnoreCase("si")){
                             Toast.makeText(consultar_tareas_asignadas.this, "no disponible", Toast.LENGTH_SHORT).show();
                         }else{
@@ -567,65 +568,64 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
                     @Override
                     public void onItemLongClick(operaciones_lotes_clase asignacion) {
-                       idParaUpdate= asignacion.getId_lotes_operaciones();
-
-                        botonCompletaOperacion.setVisibility(View.VISIBLE);
-                        buscarOperacionesDB.setVisibility(View.GONE);
-                        spinnerFiltrar.setVisibility(View.GONE);
-
-                        Button botonHabilitar=findViewById(R.id.buttonHabilitar);
-                        botonHabilitar.setVisibility(View.VISIBLE);
-
-                        //asigna los valores a la tarjeta
-                        productTextView.setText(asignacion.getProducto());
-                        sectionTextView.setText(asignacion.getSubparte());
-                        operationTextView.setText(asignacion.getOperaciones());
-                        quantityTextView.setText(String.valueOf(asignacion.getCantidad()));
-                        nameTextView.setText(asignacion.getNombre());
-                        lastNameTextView.setText(asignacion.getApellido());
-                        TextView tvHabilitado=findViewById(R.id.tvhabilitado);
-                        tvHabilitado.setText("habilitado: "+asignacion.getHabilitado());
-                        //-------
-                        //el recycler desaparece
-                        //recycler.setVisibility(View.GONE);
-                        Contenedor_Recycler.setVisibility(View.GONE);
-                        // la tarjeta se hace visible
-                        linearLayoutFicha.setVisibility(View.VISIBLE);
-
-                        //guardo el valor del id de la opracion adignada
-                        Operacion_asignada=  asignacion.getId_lotes_operaciones();
+                       if(!ROL.equalsIgnoreCase("OPERARIO")) {
 
 
-                        botonHabilitar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                           idParaUpdate = asignacion.getId_lotes_operaciones();
 
-                                int idPasar = asignacion.getId_lotes_operaciones();
-                                if (habilitados.contains(asignacion.getEmpleado())){
-                                    Toast.makeText(consultar_tareas_asignadas.this, "este empleado ya tiene una operacion en curso", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    alertDialoghabilitar(idPasar);
-                                }
+                           botonCompletaOperacion.setVisibility(View.VISIBLE);
+                           buscarOperacionesDB.setVisibility(View.GONE);
+                           spinnerFiltrar.setVisibility(View.GONE);
 
-                                botonHabilitar.setVisibility(View.GONE);
-                                botonCompletaOperacion.setVisibility(View.GONE);
-                                linearLayoutFicha.setVisibility(View.GONE);
-                                buscarOperacionesDB.setVisibility(View.VISIBLE);
-                                Contenedor_Recycler.setVisibility(View.VISIBLE);
-                                spinnerFiltrar.setVisibility(View.VISIBLE);
+                           Button botonHabilitar = findViewById(R.id.buttonHabilitar);
+                           botonHabilitar.setVisibility(View.VISIBLE);
+
+                           //asigna los valores a la tarjeta
+                           productTextView.setText(asignacion.getProducto());
+                           sectionTextView.setText(asignacion.getSubparte());
+                           operationTextView.setText(asignacion.getOperaciones());
+                           quantityTextView.setText(String.valueOf(asignacion.getCantidad()));
+                           nameTextView.setText(asignacion.getNombre());
+                           lastNameTextView.setText(asignacion.getApellido());
+                           TextView tvHabilitado = findViewById(R.id.tvhabilitado);
+                           tvHabilitado.setText("habilitado: " + asignacion.getHabilitado());
+                           //-------
+                           //el recycler desaparece
+                           //recycler.setVisibility(View.GONE);
+                           Contenedor_Recycler.setVisibility(View.GONE);
+                           // la tarjeta se hace visible
+                           linearLayoutFicha.setVisibility(View.VISIBLE);
+
+                           //guardo el valor del id de la opracion adignada
+                           Operacion_asignada = asignacion.getId_lotes_operaciones();
 
 
+                           botonHabilitar.setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View v) {
 
-                            }
+                                   int idPasar = asignacion.getId_lotes_operaciones();
+                                   if (habilitados.contains(asignacion.getEmpleado())) {
+                                       Toast.makeText(consultar_tareas_asignadas.this, "este empleado ya tiene una operacion en curso", Toast.LENGTH_SHORT).show();
+                                   } else {
+                                       alertDialoghabilitar(idPasar);
+                                   }
+
+                                   botonHabilitar.setVisibility(View.GONE);
+                                   botonCompletaOperacion.setVisibility(View.GONE);
+                                   linearLayoutFicha.setVisibility(View.GONE);
+                                   buscarOperacionesDB.setVisibility(View.VISIBLE);
+                                   Contenedor_Recycler.setVisibility(View.VISIBLE);
+                                   spinnerFiltrar.setVisibility(View.VISIBLE);
 
 
+                               }
 
 
-                        });
+                           });
 
 
-
-
+                       }
                     }
                 });
                 recycler.setAdapter(adapter123);
@@ -849,13 +849,27 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                 //vuelvo a cargar el Recycler
                 linearLayoutFicha.setVisibility(View.GONE);
                 botonCompletaOperacion.setVisibility(View.GONE);
+                Button botonHabilitar=findViewById(R.id.buttonHabilitar);
+                botonHabilitar.setVisibility(View.GONE);
 
 
                 //esta  accion va despues del alertdialog
 
                 tareaCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/marcar_tarea_completada.php",idCompleta);
                 operacionCompletada("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operacion_completada.php",idCompleta);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Llama al primer método aquí
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+
+                    }
+                }, 3000); // Retraso de 5000 milisegundos (5 segundos)
+
+
                 botonCompletaOperacion.setVisibility(View.GONE);
+
 
                 recyclerHabilitado.setVisibility(View.GONE);
 

@@ -232,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="asignar"
+                    android:text="Habilitar"
                     android:backgroundTint="#011336"
                     android:textColor="#FFCE17"
                     />
@@ -535,59 +535,73 @@
 
 
                 <LinearLayout
-                    android:id="@+id/layoutSpinner"
+                    android:id="@+id/layout_Spinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginBottom="2dp"
                     android:background="#011336"
 
-                     >
 
-                    <Spinner
-                        android:id="@+id/spinnerFiltrar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="20dp"
+
+
+                >
+                    <LinearLayout
+                        android:id="@+id/layoutSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="2dp"
                         android:background="#011336"
 
-                        />
+                         >
 
-                    <ImageView
-                        android:id="@+id/flechAbajo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/arrow_down_float"
-                        android:layout_marginTop="8dp"
+                        <Spinner
+                            android:id="@+id/spinnerFiltrar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginRight="20dp"
+                            android:background="#011336"
 
-                        />
+                            />
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/flechAbajo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/arrow_down_float"
+                            android:layout_marginTop="8dp"
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="2dp"
-                    android:background="#011336">
-                    <Spinner
-                        android:id="@+id/spinnerFiltrosDinamicos"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="20dp"
-                        android:background="#011336"
-                        />
+                            />
 
-                    <ImageView
-                        android:id="@+id/flechAbajoDos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/arrow_down_float"
-                        android:layout_marginTop="8dp"
+                    </LinearLayout>
 
-                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="2dp"
+                        android:background="#011336">
+                        <Spinner
+                            android:id="@+id/spinnerFiltrosDinamicos"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginRight="20dp"
+                            android:background="#011336"
+                            />
+
+                        <ImageView
+                            android:id="@+id/flechAbajoDos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/arrow_down_float"
+                            android:layout_marginTop="8dp"
+
+                            />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <SearchView

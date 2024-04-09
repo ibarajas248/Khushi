@@ -26,6 +26,7 @@ public class Adapter_operaciones_filtrado2 extends RecyclerView.Adapter<Adapter_
 
     public Adapter_operaciones_filtrado2(ArrayList<operacionesFiltradas> listOperacionesFiltradas) {
         this.listOperacionesFiltradas = listOperacionesFiltradas;
+        this.buscador = new ArrayList<>(listOperacionesFiltradas);
     }
 
     @Override

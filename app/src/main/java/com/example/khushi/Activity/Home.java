@@ -160,13 +160,12 @@ public class Home extends AppCompatActivity {
             listaMenu.add(new menuClase("Orden de compra",R.drawable.oc));
             listaMenu.add(new menuClase("Operaciones asignadas",R.drawable.asignar));
             listaMenu.add(new menuClase("Operaciones completadas",R.drawable.tarea));
-            listaMenu.add(new menuClase("Estadísticas",R.drawable.estadisticas));
-            listaMenu.add(new menuClase("Clientes",R.drawable.clientes));
-            listaMenu.add(new menuClase("Informar un problema",R.drawable.advertencia));
-            listaMenu.add(new menuClase("Novedades",R.drawable.nuevo));
-            listaMenu.add(new menuClase("Proveedores",R.drawable.provedores));
-
-            listaMenu.add(new menuClase("Perfil",R.drawable.perfil));
+            //listaMenu.add(new menuClase("Estadísticas",R.drawable.estadisticas));
+            //listaMenu.add(new menuClase("Clientes",R.drawable.clientes));
+            //listaMenu.add(new menuClase("Informar un problema",R.drawable.advertencia));
+            //listaMenu.add(new menuClase("Novedades",R.drawable.nuevo));
+            //listaMenu.add(new menuClase("Proveedores",R.drawable.provedores));
+            //listaMenu.add(new menuClase("Perfil",R.drawable.perfil));
         }
 
 

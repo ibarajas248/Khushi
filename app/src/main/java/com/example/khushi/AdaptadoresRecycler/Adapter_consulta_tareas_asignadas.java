@@ -145,6 +145,19 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             holder.lote.setTextColor(0xFFFFFFFF);
             holder.completado.setTextColor(0xFFFFFFFF);
         } else {
+
+                holder.habilitada.setTextColor(0xFF000000);
+                holder.producto.setTextColor(0xFF000000);
+                holder.subparte.setTextColor(0xFF000000);
+                holder.operaciones.setTextColor(0xFF000000);
+                holder.idLotesOperaciones.setTextColor(0xFF000000);
+                holder.cantidad.setTextColor(0xFF000000);
+                holder.empleado.setTextColor(0xFF000000);
+                holder.id_operaciones_subparte_producto.setTextColor(0xFF000000);
+                holder.nombre.setTextColor(0xFF000000);
+                holder.apellidos.setTextColor(0xFF000000);
+                holder.lote.setTextColor(0xFF000000);
+                holder.completado.setTextColor(0xFF000000);
             if (position % 2 == 0){
                 holder.habilitada.setBackgroundColor(0xFFD9D9D9);
                 holder.producto.setBackgroundColor(0xFFD9D9D9);

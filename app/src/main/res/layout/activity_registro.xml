@@ -118,6 +118,7 @@
                 android:inputType="number"
                 android:textSize="20dp" />
 
+
             <TextView
                 android:id="@+id/tvtelefonocelular"
                 android:layout_width="wrap_content"
@@ -135,6 +136,41 @@
                 android:ems="10"
                 android:hint="3001234569"
                 android:inputType="number"
+                android:textSize="20dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Escriba su numero de whatsapp: "
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/edtcelularWhatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="30412345d9"
+                android:inputType="number"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/tvdireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Dirección de residencia:"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edDireccion1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="carrera 54a # 46-32 sur"
+                android:inputType="text"
                 android:textSize="20dp" />
 
             <TextView
@@ -155,6 +191,7 @@
                 android:hint="miSalud"
                 android:inputType="text"
                 android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/fondoPension"
                 android:layout_width="wrap_content"
@@ -174,6 +211,79 @@
                 android:textSize="20dp" />
 
             <TextView
+
+                android:id="@+id/fechaNacimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Fecha de nacimiento "
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edtFechaNacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="AAAA-MM-DD"
+                android:inputType="text"
+                android:textSize="20dp" />
+            <TextView
+
+                android:id="@+id/fechavinculacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Fecha de vinculación "
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/edtFechaVinculacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="AAAA-MM-DD"
+                android:inputType="text"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvContactoEmergencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Contacto de emergencia:  "
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edtContacto_emergencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="Pedro Figueroa"
+                android:inputType="text"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/tvnumeroEmergencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="7dp"
+                android:text="Numero de Emergencia: "
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/edtNumero_emergencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="10"
+                android:hint="3003072035"
+                android:inputType="number"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/aniovinculacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,14 +292,6 @@
                 android:text="En qué año se vinculó a la empresa: "
                 android:textSize="20dp" />
 
-            <Spinner
-                android:id="@+id/spaniovinculado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="7dp"
-
-                />
 
 
             <CheckBox

@@ -410,8 +410,12 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                         //layout que contiene el boton de copiar
                         LinearLayout layoutBotonCopiar=(findViewById(R.id.LayoutImageButtonCopiar));
                         layoutBotonCopiar.setVisibility(View.VISIBLE);
-                        LinearLayout layoutspinner=findViewById(R.id.layoutSpinner);
+
+                        //layout spinner filtradores
+                        LinearLayout layoutspinner=findViewById(R.id.layout_Spinner);
                         layoutspinner.setVisibility(View.GONE);
+                        //--------
+
 
                         LayoutImageButtondividirManual.setVisibility(View.VISIBLE);
                         LayoutImageButtondividirAutomatico.setVisibility(View.VISIBLE);
@@ -436,7 +440,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                         //esconde el recycler
-                        spinnerFiltrar.setVisibility(View.GONE);
+                        layoutspinner.setVisibility(View.GONE);
                         buscarOperacionesDB.setVisibility(View.GONE);
                         contenedorRecycler.setVisibility(View.GONE);
                         spinnerFiltrarDinamico.setVisibility(View.GONE);
@@ -469,6 +473,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 layoutBotonCopiar.setVisibility(View.GONE);
                                 linearLayoutFicha.setVisibility(View.GONE);
                                 spinnerFiltrarDinamico.setVisibility(View.GONE);
+                                botonAsignar.setVisibility(View.GONE);
 
                                 botonCopiar.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -489,7 +494,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                         buscarOperacionesDB.setVisibility(View.GONE);
                                         contenedorRecycler.setVisibility(View.GONE);
 
-                                        spinnerFiltrar.setVisibility(View.VISIBLE);
+                                        layoutspinner.setVisibility(View.VISIBLE);
                                         buscarOperacionesDB.setVisibility(View.VISIBLE);
                                         contenedorRecycler.setVisibility(View.VISIBLE);
                                         recycler.setVisibility(View.VISIBLE);
@@ -564,6 +569,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                         LinearLayout layoutspinner=findViewById(R.id.layoutSpinner);
                                         layoutspinner.setVisibility(View.VISIBLE);
 
+
                                         //----------------------------------
 
                                         //-------desaparece la tarjeta-------------------//
@@ -625,6 +631,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                     buscarOperacionesDB.setVisibility(View.VISIBLE);
                                     contenedorRecycler.setVisibility(View.VISIBLE);
                                     recycler.setVisibility(View.VISIBLE);
+                                    layoutspinner.setVisibility(View.VISIBLE);
 
                                     //----------------------------------
 
@@ -659,7 +666,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                         });
-
+                        //boton dividir manua click
                         botonimagendividir.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -672,6 +679,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 LayoutImageButtondividirManual.setVisibility(View.GONE);
                                 botonEditarCantidad.setVisibility(View.GONE);
                                 LayoutImageButtondividirAutomatico.setVisibility(View.GONE);
+                                botonAsignar.setVisibility(View.GONE);
 
 
                             }
@@ -683,11 +691,6 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 return false;
                             }
                         });
-
-
-
-
-
 
 
                         botonDividirManual.setOnClickListener(new View.OnClickListener() {
@@ -765,12 +768,16 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                             botonDividirManualConfirmar.setVisibility(View.GONE);
                                             cantidadSublotesEditText.setVisibility(View.GONE);
                                             linearLayoutFicha.setVisibility(View.GONE);
+                                            botonAsignar.setVisibility(View.GONE);
 
                                                //recycler.setVisibility(View.VISIBLE);
                                             contenedorRecycler.setVisibility(View.VISIBLE);
                                             spinnerFiltrar.setVisibility(View.VISIBLE);
                                             buscarOperacionesDB.setVisibility(View.VISIBLE);
                                             spinnerFiltrarDinamico.setVisibility(View.VISIBLE);
+                                            layoutspinner.setVisibility(View.VISIBLE);
+
+
 
 
 
@@ -821,6 +828,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 LayoutImageButtondividirManual.setVisibility(View.GONE);
                                 layoutBotonCopiar.setVisibility(View.GONE);
                                 spinnerFiltrarDinamico.setVisibility(View.GONE);
+                                botonAsignar.setVisibility(View.GONE);
 
 
                             }
@@ -878,6 +886,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                         contenedorRecycler.setVisibility(View.VISIBLE);
                                         recycler.setVisibility(View.VISIBLE);
                                         spinnerFiltrarDinamico.setVisibility(View.VISIBLE);
+                                        layoutspinner.setVisibility(View.VISIBLE);
 
                                         //----------------------------------
 
@@ -923,6 +932,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 botonDividirManual.setVisibility(View.GONE);
                                 layoutBotonCopiar.setVisibility(View.GONE);
                                 spinnerFiltrarDinamico.setVisibility(View.GONE);
+                                botonAsignar.setVisibility(View.GONE);
 
                                 cantidadSublotesEditText.setHint("Cantidad");
                                 cantidadSublotesEditText.setVisibility(View.VISIBLE);
@@ -962,6 +972,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                         contenedorRecycler.setVisibility(View.VISIBLE);
                                         spinnerFiltrarDinamico.setVisibility(View.VISIBLE);
                                         linearLayoutFicha.setVisibility(View.GONE);
+                                        layoutspinner.setVisibility(View.VISIBLE);
                                         // recycler.setVisibility(View.GONE);
 
 
@@ -1358,6 +1369,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 habilitarOperacion("http://khushiconfecciones.com//app_khushi/consultas_lotes/editar_habilitado.php",idPasar);
+
 
 
 
