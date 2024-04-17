@@ -254,6 +254,7 @@ public class RegistroActivity extends AppCompatActivity {
                 parametros.put("telefono_emergencia",edtNumeroEmergencia.getText().toString());
                 parametros.put("fecha_de_nacimiento",edtFecha_Nacimiento.getText().toString());
                 parametros.put("whatsapp",edtcelularWhatsapp.getText().toString());
+                //parametros.put("Rol","OPERARIO");
 
 
 

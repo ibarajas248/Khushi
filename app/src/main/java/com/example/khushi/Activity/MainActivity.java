@@ -1,9 +1,11 @@
 package com.example.khushi.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,18 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_lotes;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Usuario;
-import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,11 +32,7 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         btniniciosesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //getLocation();
+
                 //accion al presionar el boton
                 validacionSoftware("http://khushiconfecciones.com//app_khushi/informacion_software/buscar_version_software.php");
 
@@ -259,6 +258,30 @@ public class MainActivity extends AppCompatActivity {
         );
         requestQueue=Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+    // Método para obtener la ubicación actual
+    // Método para obtener la ubicación actual
+    private void getLocation() {
+        // Verificar los permisos de ubicación nuevamente antes de solicitar la ubicación
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "No se han concedido permisos de ubicación", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Obtener la última ubicación conocida del proveedor de ubicación
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        // Mostrar la ubicación actual en un Toast
+        if (lastKnownLocation != null) {
+            double latitude = lastKnownLocation.getLatitude();
+            double longitude = lastKnownLocation.getLongitude();
+            String coordinates = "Latitud: " + latitude + ", Longitud: " + longitude;
+            Toast.makeText(this, coordinates, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Ubicación no disponible", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
