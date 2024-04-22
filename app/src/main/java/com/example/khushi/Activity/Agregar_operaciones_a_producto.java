@@ -592,7 +592,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     parametros.put("precio", String.valueOf(precioGlobal));
                 }
 
-
+                //ggg
 
 
 
