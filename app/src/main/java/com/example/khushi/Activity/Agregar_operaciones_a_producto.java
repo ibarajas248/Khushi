@@ -93,6 +93,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
     FragmentModificar fragmentmodificar;
 
+    String guardaPrecio;
+
 
 
 
@@ -178,6 +180,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         agregarOperacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                guardaPrecio=precio.getText().toString();
                 if (switchActivado == true) {
 
                     new Handler().postDelayed(new Runnable() {
@@ -580,8 +583,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 parametros.put("id_operacion", String.valueOf(idProductoAgregado));
                 parametros.put("id_subparte", String.valueOf(idsubparte));
                 parametros.put("id_producto", String.valueOf(idproducto));
-                if (switchActivado==false){
-                    parametros.put("precio", precio.getText().toString());
+                //parametros.put("precio", "123");
+
+
+                if (!switchActivado==true){
+                    parametros.put("precio", guardaPrecio);
                 } else if (switchActivado == true) {
                     parametros.put("precio", String.valueOf(precioGlobal));
                 }
