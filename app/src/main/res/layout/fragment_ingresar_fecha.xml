@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="30dp"
+    android:background="#97000000"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/esquinas_curvas_blanco"
+        android:layout_gravity="center_vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de inicio"
+            android:textSize="22sp"/>
+
+        <EditText
+            android:id="@+id/fecha_inicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de inicio"
+            android:textSize="20sp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+
+        <EditText
+            android:id="@+id/fecha_final"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha final"
+            android:textSize="20sp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+
+        <Button
+            android:id="@+id/BtnAceptar"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aceptar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#011336"
+            android:textColor="#FFCE17" />
+        <Button
+            android:id="@+id/BtnCancelar"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#011336"
+            android:textColor="#FFCE17" />
+
+    </LinearLayout>
+
+</FrameLayout>

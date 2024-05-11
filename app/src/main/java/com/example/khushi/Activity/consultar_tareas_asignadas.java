@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +17,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.Adapter_Operaciones_Habilitadas;
 import com.example.khushi.AdaptadoresRecycler.Adapter_consulta_tareas_asignadas;
+import com.example.khushi.Fragments.Fragment_ingresar_fecha;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
@@ -45,12 +47,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener, Fragment_ingresar_fecha.OnConfirmarClickListener{
     ArrayList<Empleado_clase> listaEmpleados;
     ArrayList<operaciones_lotes_clase> listOperaciones;
 
@@ -89,6 +95,18 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
     String operacionCOmpletadaActivity;
 
+    private ImageButton calendarButton;
+
+    private Date startDate;
+    private Date endDate;
+
+    private String fechaInicial,fechaFinal;
+    private SimpleDateFormat dateFormat;
+
+    Fragment_ingresar_fecha fragmentIngresarFecha;
+    Handler handler = new Handler();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,10 +138,49 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         //-----------
 
+
+
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
+        //botoncalendario del toolbar
+
+        // Inicializar los elementos de la interfaz de usuario
+        calendarButton = findViewById(R.id.calendar_button);
+
+
+        // Inicializar el formato de fecha
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        // Configurar el clic del botón de calendario
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+               // showDatePickerDialog();
+
+                fragmentIngresarFecha= Fragment_ingresar_fecha.newInstance(fechaInicial,fechaFinal);
+                // Agregar el fragmento al contenedor de fragmentos
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.contenedor_fragments_fecha, fragmentIngresarFecha); // R.id.fragment_container es el ID del contenedor de fragmentos en tu layout de actividad
+                transaction.commit();*/
+
+                // Establecer el listener para el botón de confirmación
+                fragmentIngresarFecha.setOnConfirmarClickListener(consultar_tareas_asignadas.this);
+
+                // Agregar el fragmento al contenedor
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedor_fragments_fecha, fragmentIngresarFecha)
+                        .commit();
+
+
+            }
+        });
+
 
         spinnerFiltrar=(Spinner)findViewById(R.id.spinnerFiltrar);
         spinnerEmpleado = findViewById(R.id.spinnerFiltrar_empleado);
@@ -136,7 +193,6 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         recyclerHabilitado.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         queue = Volley.newRequestQueue(this);
-        Handler handler = new Handler();
         listOperaciones = new ArrayList<operaciones_lotes_clase>();
         listOperacionesHabilitadas = new ArrayList<operaciones_lotes_clase>();
 
@@ -164,47 +220,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
 
+        llenarRecycler();
 
-        if (ROL.equalsIgnoreCase("OPERARIO")){
-        spinnerFiltrar.setVisibility(View.GONE);
-        buscarOperacionesDB.setVisibility(View.GONE);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Llama al primer método aquí
-
-                  if (operaciones_completadas.equalsIgnoreCase("no")){
-                      agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php?empleado="+idEmpleado);
-                      agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php?empleado="+idEmpleado);
-
-                  }else if(operaciones_completadas.equalsIgnoreCase("si")){
-                      agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php?empleado="+idEmpleado);
-
-                  }
-
-
-            }
-        }, 1000); // Retraso de 5000 milisegundos (5 segundos)
-
-    }else{
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Llama al primer método aquí
-                    if (operaciones_completadas.equalsIgnoreCase("no")) {
-                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
-                        agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php");
-
-
-                    }else if(operaciones_completadas.equalsIgnoreCase("si")){
-                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php");
-
-                    };
-
-                }
-            }, 1000); // Retraso de 5000 milisegundos (5 segundos)
-
-        }
 
 
 
@@ -266,6 +283,62 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
             }
         });
+    }
+
+    private void llenarRecycler() {
+        if (ROL.equalsIgnoreCase("OPERARIO")){
+            spinnerFiltrar.setVisibility(View.GONE);
+            buscarOperacionesDB.setVisibility(View.GONE);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Llama al primer método aquí
+
+                    if (operaciones_completadas.equalsIgnoreCase("no")){
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php?empleado="+idEmpleado);
+                        agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php?empleado="+idEmpleado);
+
+                    }else if(operaciones_completadas.equalsIgnoreCase("si")){
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php?empleado="+idEmpleado);
+
+                    }
+
+
+                }
+            }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+
+        }else{
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Llama al primer método aquí
+                    if (operaciones_completadas.equalsIgnoreCase("no")) {
+                        if (fechaFinal!= null && fechaInicial!=null){
+                            agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php?"+"fecha_inicial="+fechaInicial+"&fecha_final="+fechaFinal);
+                        }else{
+                            agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_todas_tareas_asignadas.php");
+                        }
+
+                        agregarListaOperacion_Habilitada("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_habilitadas.php");
+
+
+
+                    }else if(operaciones_completadas.equalsIgnoreCase("si")){
+
+                        if (fechaFinal!= null && fechaInicial!=null){
+                            agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php?"+"fecha_inicial="+fechaInicial+"&fecha_final="+fechaFinal);
+
+                        }else{
+                            agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_asignadas_completadas.php");
+                        }
+
+
+                    };
+
+                }
+            }, 1000); // Retraso de 5000 milisegundos (5 segundos)
+
+        }
     }
 
     private void permisosUsuario() {
@@ -499,6 +572,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     try {
                         jsonObject = response.getJSONObject(i);
 
+
+
+
                         String producto = jsonObject.getString("producto");
                         String subparte = jsonObject.getString("subparte");
                         String operaciones = jsonObject.getString("operaciones");
@@ -637,6 +713,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
             }
         });
+
+
 
         queue.add(jsonArrayRequest);
     }
@@ -992,4 +1070,55 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         return super.onOptionsItemSelected(item);
     }
 
+    private void showDatePickerDialog() {
+        // Obtener la fecha actual
+        final Calendar calendar = Calendar.getInstance();
+
+        // Crear un DatePickerDialog y mostrarlo
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    // Configurar la fecha seleccionada
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.set(year, monthOfYear, dayOfMonth);
+                    if (startDate == null) {
+                        startDate = selectedDate.getTime();
+                    } else {
+                        endDate = selectedDate.getTime();
+                    }
+                    // Actualizar el título de la Toolbar
+                    updateToolbarTitle();
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+
+        // Mostrar el DatePickerDialog
+        datePickerDialog.show();
+    }
+
+    private void updateToolbarTitle() {
+        StringBuilder title = new StringBuilder();
+        if (startDate != null) {
+            title.append("Inicio: ").append(dateFormat.format(startDate));
+        }
+        if (endDate != null) {
+            title.append(" Fin: ").append(dateFormat.format(endDate));
+        }
+        //toolbar.setTitle(title.toString());
+    }
+
+
+    @Override
+    public void onConfirmarClick(String fechaInicio, String fechaFin) {
+        // Aquí puedes hacer lo que quieras con las fechas seleccionadas,
+        // como mostrarlas en un TextView o realizar alguna otra acción.
+        // Por ejemplo:
+
+        fechaInicial=fechaInicio;
+        fechaFinal=fechaFin;
+        Toast.makeText(this, "Fechas seleccionadas: " + fechaInicio + " - " + fechaFin, Toast.LENGTH_SHORT).show();
+        llenarRecycler();
+    }
 }

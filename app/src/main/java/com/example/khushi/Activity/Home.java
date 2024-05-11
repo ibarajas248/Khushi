@@ -55,7 +55,7 @@ public class Home extends AppCompatActivity {
         
 
 
-        abrirEnlaceExterno("https://www.google.com");
+        //abrirEnlaceExterno("https://www.google.com");
 
         listaMenu = new ArrayList<>();
 

@@ -524,7 +524,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 cantidad, empleado, id_operaciones_subparte_producto,
                 lote,id_producto_oc, completado ;
         Spinner spinner;
-        String dato="holesa";
+
 
 
 

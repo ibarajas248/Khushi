@@ -37,11 +37,10 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="Producto"
-
         android:textSize="18sp"
-
         android:padding="8dp"
-        android:background="#1E88E5" />
+        android:background="#1E88E5"
+        />
 
     <TextView
         android:id="@+id/operaciones"

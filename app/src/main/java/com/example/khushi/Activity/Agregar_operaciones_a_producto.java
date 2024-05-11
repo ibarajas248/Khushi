@@ -2,9 +2,7 @@ package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,10 +22,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,11 +37,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.khushi.AdaptadoresRecycler.AdapterOperaciones;
-import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_filtrado;
 import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_filtrado2;
+import com.example.khushi.Fragments.FragmentModificar;
 import com.example.khushi.R;
-import com.example.khushi.clasesinfo.nuevaOperacion;
 import com.example.khushi.clasesinfo.operacionesFiltradas;
 
 import org.json.JSONArray;
@@ -54,12 +48,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener,FragmentModificar.OnButtonClickListener {
+public class Agregar_operaciones_a_producto extends AppCompatActivity implements SearchView.OnQueryTextListener, FragmentModificar.OnButtonClickListener {
 
     Switch switch_aparecer;
 
