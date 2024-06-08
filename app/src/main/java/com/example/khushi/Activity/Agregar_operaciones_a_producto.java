@@ -88,6 +88,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
     String guardaPrecio;
 
+    //buscar producto en una oc
+    private String id_productoOC,id_oc;
+    private List<String[]> productoOCList;  // Lista para almacenar pares de valores
+
+
+
 
 
 
@@ -113,6 +119,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
         mostarAgregar();
 
+        productoOCList = new ArrayList<>();
 
 
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
@@ -192,6 +199,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     boolean insercionRealizada = false;
 
                 } else {
+                    //verificar si el producto se encuentra vinculado a una oc
+
                     agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
                     //listOperaciones.clear(); // Limpiar la lista existente
 
@@ -898,5 +907,44 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     @Override
     public void onButtonClicked() {
         agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
+    }
+    private void buscarProductoenOC (String URL){
+        // Crear una solicitud JSON (JsonArrayRequest) con un método GET
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                // Este método se llama cuando la solicitud es exitosa y recibe un JSONArray como respuesta
+                JSONObject jsonObject=null;
+                for(int i=0;i<response.length();i++){
+                    try{
+                        jsonObject=response.getJSONObject(i);
+                        // Extraer datos del objeto JSON y mostrarlos en los campos de texto
+
+                        id_productoOC=(jsonObject.getString("id"));
+                        id_oc=(jsonObject.getString("id_oc"));
+                        String[] productoOC = {id_productoOC, id_oc};  // Crear un array con los dos valores
+                        productoOCList.add(productoOC);  // Agregar el array a la lista
+
+
+
+                    }catch (JSONException e){
+                        // Capturar y mostrar cualquier error JSON que ocurra
+                        Toast.makeText(getApplicationContext(),e.getMessage() , Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error de conexion", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+
+            }
+        }
+        );
+        queue=Volley.newRequestQueue(this);
+        queue.add(jsonArrayRequest);
     }
 }
