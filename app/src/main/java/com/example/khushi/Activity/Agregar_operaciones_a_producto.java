@@ -59,6 +59,9 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     boolean visible; //variable para mostrar opciones de agregado
     private Toolbar toolbar1;
 
+    // se llama cuando se agrega una nueva operacion, para que verifique si esta se ha asignado a haguna OC
+    private String URLBuscarProductoEnOC="https://khushiconfecciones.com//app_khushi/buscar_producto_en_oc.php?id_producto=";
+
     private boolean visibilidadModificar;
     RecyclerView recycler, recycler_operaciones_de_producto;
     //Adapter_operaciones_filtrado adapter123;
@@ -89,8 +92,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     String guardaPrecio;
 
     //buscar producto en una oc
-    private String id_productoOC,id_oc;
+    String id_productoOC,id_oc,numeroLotes,cantidadProductos;
     private List<String[]> productoOCList;  // Lista para almacenar pares de valores
+
+    boolean respuestaProductoEnOc=false;
+    int idProductoSubparteOperacion; //recoge el id de el producto asociado al producto
 
 
 
@@ -181,7 +187,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 guardaPrecio=precio.getText().toString();
-                if (switchActivado == true) {
+
+                if (switchActivado == true) { // Para agregar desde inventario
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -198,10 +205,15 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                     agregarOperacionesRecursivamente(listOperaciones2, 0);
                     boolean insercionRealizada = false;
 
-                } else {
-                    //verificar si el producto se encuentra vinculado a una oc
+                } else { //agregar operación que no exista en el inventario.
+
+
 
                     agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
+
+                    //verificar si el producto se encuentra vinculado a una oc
+                   // buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
+
                     //listOperaciones.clear(); // Limpiar la lista existente
 
                     //espera 3 segundos y luego busca el id del ultimo registro
@@ -216,6 +228,21 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                             precio.setText("");
                         }
                     }, 3000); // 6000 milisegundos = 6 segundos
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                           // buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
+
+
+                        }
+                    }, 3000); // 6000 milisegundos = 6 segundos
+
+                    //si el producto esta en alguna oc consultar buscar_ultima_operacion_producto_subparte.php para obtener el ultimo registro de la operacion agregada
+
+
+
 
                 }
 
@@ -240,6 +267,55 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
         });
+    }
+
+    private void buscar_ultima_operacion_producto_subparte(String URL) {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Busca el último registro y asigna el id
+
+                            idProductoSubparteOperacion= Integer.parseInt(response.getString("id"));
+
+                            for (String[] producto : productoOCList) { //itera sobre la lista
+                               int moduloCantidad=(Integer.parseInt(cantidadProductos) %Integer.parseInt(numeroLotes));
+
+                                cantidadProductos= String.valueOf(Integer.parseInt(cantidadProductos) /Integer.parseInt(numeroLotes));
+                                for (int i=0;i<Integer.parseInt(numeroLotes);i++){
+
+                                    if (i==Integer.parseInt(numeroLotes)-1){
+                                        //si es la ultima iteración entonces  le sumo el modulo a la cantidad
+                                        cantidadProductos= String.valueOf(Integer.parseInt(cantidadProductos)+moduloCantidad);
+
+                                    }
+                                    //el segundo paramatro induca el numero de lote
+                                    insertNuevaOperacionEnOCCreadas("http://khushiconfecciones.com//app_khushi/agregar_operacion_a_OC_existente.php",i+1);
+
+                                }
+
+                                Log.d("ProductoOCsilaba", "ID Productolalalala: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
+
     }
 
     private void mostarAgregar() {
@@ -793,11 +869,18 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         try {
                             // Busca el último registro y asigna el id
                             idProductoAgregado = Integer.parseInt(response.getString("id_operaciones"));
+                            //rastrear el producto vinculados a ordenes de compra
+                            buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
                             Toast.makeText(Agregar_operaciones_a_producto.this, response.getString("id_operaciones"), Toast.LENGTH_SHORT).show();
 
                             if (switchActivado == false) {
                                 agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
                                 agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
+                                //buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
+
+
+
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -922,8 +1005,13 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                         id_productoOC=(jsonObject.getString("id"));
                         id_oc=(jsonObject.getString("id_oc"));
-                        String[] productoOC = {id_productoOC, id_oc};  // Crear un array con los dos valores
+                        numeroLotes=jsonObject.getString("lotes");
+                        cantidadProductos=jsonObject.getString("cantidad_de_productos");
+
+                        String[] productoOC = {id_productoOC, id_oc,numeroLotes,cantidadProductos};  // Crear un array con los dos valores
                         productoOCList.add(productoOC);  // Agregar el array a la lista
+
+
 
 
 
@@ -932,8 +1020,19 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         Toast.makeText(getApplicationContext(),e.getMessage() , Toast.LENGTH_SHORT).show();
 
                     }
+
+                    // Registrar la lista de arrays al finalizar la iteración
+                    for (String[] producto : productoOCList) { //itera sobre la lista
+                        Log.d("ProductoOC", "ID Producto: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
+                    }
                 }
+                //producto vinculado a OC
+                respuestaProductoEnOc=true;
+
+                buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
+
             }
+
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -946,5 +1045,56 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         );
         queue=Volley.newRequestQueue(this);
         queue.add(jsonArrayRequest);
+    }
+
+    private void insertNuevaOperacionEnOCCreadas(String URL, int loteCorrespondiente){
+
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        //holi
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                //Toast.makeText(MainActivity.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(A.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("id_producto_subparte_operacion", String.valueOf(idProductoSubparteOperacion));
+                parametros.put("id_producto_oc",id_productoOC);
+
+                parametros.put("cantidad",cantidadProductos);
+                parametros.put("lotes", String.valueOf(loteCorrespondiente));
+                //poner lotes
+
+               // parametros.put("fabricante",edtFabricante.getText().toString());
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
     }
 }
