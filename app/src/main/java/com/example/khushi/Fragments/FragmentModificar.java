@@ -32,14 +32,20 @@ import java.util.Map;import android.content.Context;
  */
 public class FragmentModificar extends Fragment {
 
-    RequestQueue requestQueue;
+    RequestQueue requestQueue; // Declaración de la cola de solicitudes de Volley
+
+    // Declaración de una interfaz para manejar eventos de clic en botones
     private OnButtonClickListener mListener;
     // Declara una variable para almacenar el contexto de la actividad
+
+    // Declaración de una variable para almacenar el contexto de la actividad
     private Context mContext;
 
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    // Constantes para los nombres de los parámetros de inicialización del fragmento
     private static final String ARG_PARAM1 = "producto";
     private static final String ARG_PARAM2 = "subparte";
     private static final String ARG_PARAM3 = "operaciones";
@@ -94,7 +100,9 @@ public class FragmentModificar extends Fragment {
 
 
 
-
+    /**
+     * Método factory para crear una nueva instancia del fragmento con todos los parámetros.
+     */
 
     public static FragmentModificar newInstance(String producto, String subparte,String operaciones, String maquina, float cantidad,float precio, int id_precio,int id_asignacion_operacion) {
         FragmentModificar fragment = new FragmentModificar();
@@ -116,6 +124,7 @@ public class FragmentModificar extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
+            // Obtención de los valores de los argumentos y asignación a las variables correspondientes
             producto = getArguments().getString(ARG_PARAM1);
             subparte = getArguments().getString(ARG_PARAM2);
            operaciones = getArguments().getString(ARG_PARAM3);

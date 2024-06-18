@@ -92,10 +92,6 @@ public class agregar_producto_oc extends AppCompatActivity {
 
 
 
-
-
-
-
         permisosRol();
 
         spinnerproducto=(Spinner) findViewById(R.id.spinnerselecproducto);
@@ -335,6 +331,8 @@ public class agregar_producto_oc extends AppCompatActivity {
                             // Pasar el id a la siguiente actividad mediante Intent
                             Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
                             intent.putExtra("id", String.valueOf(idProductoOC));
+
+                            intent.putExtra("id_producto", clickedItem.getIdProducto());
                             startActivity(intent);
                         }
 

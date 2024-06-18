@@ -2,6 +2,7 @@ package com.example.khushi.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.Adapter_operaciones_lotes;
+import com.example.khushi.Fragments.FragmentModificar;
+import com.example.khushi.Fragments.Fragment_agregar_operacion_desde_op;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
@@ -79,6 +82,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     ScrollView scrollView;
     //editText para modificar cantidad de nuevos lotes
     private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
+
+    private String id_producto;
 
 
 
@@ -237,6 +242,9 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         String variableRecibida_idproducto_oc = null;
         if (intent != null) {
             variableRecibida_idproducto_oc = intent.getStringExtra("id");
+            id_producto= (intent.getStringExtra("id_producto"));
+
+
             // Utiliza la variable recibida como necesites
         }
 
@@ -1513,7 +1521,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu1, menu);
+        getMenuInflater().inflate(R.menu.menu_operaciones_lotes_en_oc, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -1530,12 +1538,27 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             finish(); // Cierra la actividad actual
             return true;  // Importante agregar esta línea para indicar que el evento ha sido manejado
 
-        } else if (id == R.id.fragmento2) {
+        }else if (id == R.id.agregaOperacion) {
+
+
+            // Si el fragmento necesita argumentos, puedes configurarlos aquí
+            // Bundle args = new Bundle();
+            // args.putString("key", "value");
+            // fragment.setArguments(args);
+
+            // Agregar el fragmento a 'fragment_container'
+            Fragment_agregar_operacion_desde_op fragmentAgregarOp;
+            fragmentAgregarOp=new Fragment_agregar_operacion_desde_op(Integer.parseInt(id_producto));
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contenedor_fragments, fragmentAgregarOp).commit();
+
+        } else if (id == R.id.cierra_sesion) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
-        }else if (id == R.id.fragmento3) {
+        }else if (id == R.id.ayuda) {
             // Lanzar la Activity correspondiente al fragmento2
             //Intent intentFragmento2 = new Intent(this, Home.class);
             //startActivity(intentFragmento2);

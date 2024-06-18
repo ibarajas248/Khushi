@@ -41,6 +41,7 @@ import com.example.khushi.AdaptadoresRecycler.Adapter_consulta_tareas_asignadas;
 import com.example.khushi.Fragments.Fragment_ingresar_fecha;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
+import com.example.khushi.clasesinfo.nuevaSubParte;
 import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
 import org.json.JSONArray;
@@ -59,6 +60,8 @@ import java.util.Map;
 public class consultar_tareas_asignadas extends AppCompatActivity implements SearchView.OnQueryTextListener, Fragment_ingresar_fecha.OnConfirmarClickListener{
     ArrayList<Empleado_clase> listaEmpleados;
     ArrayList<operaciones_lotes_clase> listOperaciones;
+
+
 
     private int selectedItem = RecyclerView.NO_POSITION;//almacena la posicion del elemento seleccionado
     ArrayList<operaciones_lotes_clase> listOperacionesHabilitadas;
@@ -107,6 +110,11 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     Handler handler = new Handler();
 
 
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +130,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
         //---------fin de valores recibidos en el intent
+
+
+
 
         if (operaciones_completadas.equalsIgnoreCase("si")){
             TextView textoDescriptivo= findViewById(R.id.texto_desriptivo);

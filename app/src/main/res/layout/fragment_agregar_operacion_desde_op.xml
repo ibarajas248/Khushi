@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Fragments.Fragment_agregar_operacion_desde_op">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar operacion en OC"
+        android:textColor="#FFCE17"
+        android:background="#011336"
+        android:gravity="center"
+        android:enabled="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/operacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Operacion"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+
+        <Spinner
+            android:id="@+id/spinnerSubparte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cantidad"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp" />
+
+        <Button
+            android:id="@+id/buttonagregaroperacion_OC"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AgragarOperacion"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#011336"
+            android:textColor="#FFCE17" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

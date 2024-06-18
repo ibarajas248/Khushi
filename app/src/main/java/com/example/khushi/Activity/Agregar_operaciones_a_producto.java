@@ -285,12 +285,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                             for (String[] producto : productoOCList) { //itera sobre la lista
                                int moduloCantidad=(Integer.parseInt(cantidadProductos) %Integer.parseInt(numeroLotes));
 
-                                cantidadProductos= String.valueOf(Integer.parseInt(cantidadProductos) /Integer.parseInt(numeroLotes));
+                                cantidadProductos= String.valueOf((Integer.parseInt(cantidadProductos) /Integer.parseInt(numeroLotes))*Integer.parseInt(cantidadOperaciones.getText().toString()));
                                 for (int i=0;i<Integer.parseInt(numeroLotes);i++){
 
                                     if (i==Integer.parseInt(numeroLotes)-1){
                                         //si es la ultima iteración entonces  le sumo el modulo a la cantidad
-                                        cantidadProductos= String.valueOf(Integer.parseInt(cantidadProductos)+moduloCantidad);
+                                        cantidadProductos= String.valueOf((Integer.parseInt(cantidadProductos)+moduloCantidad)*Integer.parseInt(cantidadOperaciones.getText().toString()));
 
                                     }
                                     //el segundo paramatro induca el numero de lote

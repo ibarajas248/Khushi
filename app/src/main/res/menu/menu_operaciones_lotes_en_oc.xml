@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuPrincipal"
+        android:title="Menú Principal" />
+    <item
+        android:id="@+id/agregaOperacion"
+        android:title="Agregar Operación" />
+
+    <item
+        android:id="@+id/cierra_sesion"
+        android:title="Cerrar sesión" />
+
+    <item
+        android:id="@+id/ayuda"
+        android:title="Ayuda" />
+
+
+</menu>
