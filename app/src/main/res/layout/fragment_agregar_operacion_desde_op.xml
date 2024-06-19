@@ -24,9 +24,8 @@
             android:id="@+id/operacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Operacion"
+            android:hint="Operacion"
             android:textSize="20dp"
-            android:enabled="false"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp" />
 
@@ -38,9 +37,17 @@
             android:id="@+id/cantidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="cantidad"
+            android:hint="cantidad"
             android:textSize="20dp"
-            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:inputType="number"/>
+        <EditText
+            android:id="@+id/Maquina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Maquina"
+            android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp" />
 
@@ -49,7 +56,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AgragarOperacion"
+            android:text="Agragar Operacion"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:backgroundTint="#011336"

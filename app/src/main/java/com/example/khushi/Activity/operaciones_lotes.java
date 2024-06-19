@@ -83,7 +83,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     //editText para modificar cantidad de nuevos lotes
     private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
 
-    private String id_producto;
+    String id_producto;
 
 
 
@@ -245,7 +245,6 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             id_producto= (intent.getStringExtra("id_producto"));
 
 
-            // Utiliza la variable recibida como necesites
         }
 
 

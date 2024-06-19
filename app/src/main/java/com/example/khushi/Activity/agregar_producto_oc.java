@@ -69,6 +69,7 @@ public class agregar_producto_oc extends AppCompatActivity {
 
     private String ROL, idEmpleado;// recibe el intent
     private boolean isMethodRunning = true;
+    int id_producto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,7 +300,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                         idPtoductoOC=id;
 
                         int id_oc =Integer.parseInt(jsonObject.getString("id_oc"));
-                        int id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
+                        id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
                         String ordenCompra=jsonObject.getString("ordenCompra");
                         String producto=jsonObject.getString("producto");
                         int lotes =Integer.parseInt(jsonObject.getString("lotes"));
@@ -331,8 +332,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                             // Pasar el id a la siguiente actividad mediante Intent
                             Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
                             intent.putExtra("id", String.valueOf(idProductoOC));
-
-                            intent.putExtra("id_producto", clickedItem.getIdProducto());
+                            intent.putExtra("id_producto", String.valueOf(id_producto));
                             startActivity(intent);
                         }
 

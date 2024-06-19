@@ -4,19 +4,26 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.khushi.Activity.Agregar_operaciones_a_producto;
 import com.example.khushi.Activity.mostrar_agregar_subparte;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevaSubParte;
@@ -26,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +48,8 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_id_producto="id_producto";
+    private static final String ARG_producto="producto";
+
 
 
 
@@ -52,6 +63,18 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
     private ArrayList<nuevaSubParte> listsubparte = new ArrayList<>();
     private ArrayList<nuevaSubParte> listSubparteSpinner = new ArrayList<>();
     private Spinner spinnersubparte;
+
+    //valores para agregar operacion
+    String operacion, maquina;
+    int cantidad;
+
+    EditText etOperacion,etCantidad,etMaquina;
+    Button agregarOperacion;
+
+
+
+
+
 
 
     public Fragment_agregar_operacion_desde_op() {
@@ -79,10 +102,11 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         return fragment;
     }
 
-    public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto) {
+    public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto, String operacion) {
         Fragment_agregar_operacion_desde_op fragment = new Fragment_agregar_operacion_desde_op();
         Bundle args = new Bundle();
         args.putString(ARG_id_producto, String.valueOf(id_Producto));
+        args.putString(ARG_producto,operacion);
 
         fragment.setArguments(args);
         return fragment;
@@ -98,8 +122,6 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
             listSubparteSpinner= new ArrayList<nuevaSubParte>();
 
 
-
-
         }
     }
 
@@ -110,16 +132,39 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agregar_operacion_desde_op, container, false);
 
-// Initialize the Spinner
+        // Initialize the Spinner
         spinnersubparte = view.findViewById(R.id.spinnerSubparte);
         queue = Volley.newRequestQueue(requireContext());
         Spinnersubparte("http://khushiconfecciones.com/app_khushi/spinner_subparte.php");
+
+        etOperacion=view.findViewById(R.id.operacion);
+        etCantidad=view.findViewById(R.id.cantidad);
+        etMaquina=view.findViewById(R.id.Maquina);
+
+        operacion=etOperacion.getText().toString();
+       // cantidad= Integer.parseInt(etCantidad.getText().toString());
+        maquina=etMaquina.getText().toString();
+
+        agregarOperacion=view.findViewById(R.id.buttonagregaroperacion_OC);
+
+        agregarOperacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingresarOperacion( operacion,cantidad,maquina);
+
+            }
+        });
 
         return view;
 
     }
 
+    private void ingresarOperacion(String operacion, int cantidad, String maquina) {
+        agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
 
+    }
+
+    //trae los valores desde el Spinner
     private void Spinnersubparte (String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -191,6 +236,56 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         queue.add(jsonArrayRequest);
 
 
+
+    }
+
+    private void agregarOperacion(String URL) {
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", response);
+                Toast.makeText(getContext(), "Se ha ingresado el producto", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //mensaje si no se registra el producto satisfactoriamente
+                Toast.makeText(getContext(), "No se ha podido ingresar el producto " + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+                Map<String, String> parametros = new HashMap<String, String>();
+                // parametros.put("id_producto", String.valueOf(idproducto));
+                //parametros.put("id_subparte",String.valueOf(idsubparte));
+                parametros.put("operaciones", etOperacion.getText().toString());
+                parametros.put("cantidad", etCantidad.getText().toString());
+                parametros.put("maquina", etMaquina.getText().toString());
+
+                /*if (visibilidadModificar==true){
+                    parametros.put("id_producto",String.valueOf(idProducto));
+                }*/
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
 
     }
 }
