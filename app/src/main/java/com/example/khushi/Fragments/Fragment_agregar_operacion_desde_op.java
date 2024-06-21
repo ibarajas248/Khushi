@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.Activity.Agregar_operaciones_a_producto;
@@ -67,6 +69,8 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
     //valores para agregar operacion
     String operacion, maquina;
     int cantidad;
+
+    int idOperacionAgregado;//busca el ultimo registro ingresado en operacion
 
     EditText etOperacion,etCantidad,etMaquina;
     Button agregarOperacion;
@@ -161,6 +165,16 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
     private void ingresarOperacion(String operacion, int cantidad, String maquina) {
         agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
+
+        //espera 3 segundos y luego busca el id del ultimo registro
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                obtenerUltimaOperacion();
+
+            }
+        }, 3000); // 6000 milisegundos = 6 segundos
 
     }
 
@@ -285,6 +299,102 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
         // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
+    }
+    private void obtenerUltimaOperacion() {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion.php"; // Reemplaza con tu URL
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Busca el último registro y asigna el id
+                            idOperacionAgregado = Integer.parseInt(response.getString("id_operaciones"));
+                            //rastrear el producto vinculados a ordenes de compra
+                            //buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
+                            agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
+                            agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
+
+
+    }
+    private void agregarPrecio(String URL) {
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", response);
+                Toast.makeText(getContext(), "Precio asignado", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error en la solicitud: " + error.toString());
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+                Map<String, String> parametros = new HashMap<String, String>();
+                // parametros.put("id_producto", String.valueOf(idproducto));
+                //parametros.put("id_subparte",String.valueOf(idsubparte));
+                parametros.put("id_operacion", String.valueOf(idOperacionAgregado));
+                parametros.put("id_subparte", String.valueOf(idSubparteSeleccionada));
+                parametros.put("id_producto", String.valueOf(idproducto));
+                //parametros.put("precio", "123");
+
+
+                if (!switchActivado==true){
+                    parametros.put("precio", guardaPrecio);
+                } else if (switchActivado == true) {
+                    parametros.put("precio", String.valueOf(precioGlobal));
+                }
+
+                //ggg
+
+
+
+                /*if (visibilidadModificar==true){
+                    parametros.put("id_producto",String.valueOf(idProducto));
+                }*/
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
     }
