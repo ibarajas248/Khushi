@@ -351,6 +351,7 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 // Este método se llama si hay un error en la solicitud
                 // error contiene detalles del error, como un mensaje de error
+                //ff
 
                 //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
 
