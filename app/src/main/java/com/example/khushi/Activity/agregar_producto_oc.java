@@ -333,6 +333,9 @@ public class agregar_producto_oc extends AppCompatActivity {
                             Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
                             intent.putExtra("id", String.valueOf(idProductoOC));
                             intent.putExtra("id_producto", String.valueOf(id_producto));
+                            intent.putExtra("ROL", String.valueOf(ROL));
+                            intent.putExtra("idEmpleado", String.valueOf(idEmpleado));
+
                             startActivity(intent);
                         }
 

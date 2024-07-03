@@ -76,6 +76,8 @@ public class FragmentModificar extends Fragment {
 
 
     EditText etProducto, etSubparte, etOperaciones, etMaquina, etCantidad, etPrecio, etId_precio;
+
+
     public FragmentModificar() {
         // Required empty public constructor
     }

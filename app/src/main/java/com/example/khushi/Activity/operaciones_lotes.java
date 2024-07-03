@@ -54,7 +54,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class operaciones_lotes extends AppCompatActivity  implements SearchView.OnQueryTextListener{
+public class operaciones_lotes extends AppCompatActivity  implements SearchView.OnQueryTextListener, Fragment_agregar_operacion_desde_op.OnOperacionAgregadaListener{
 
     ArrayList<operaciones_lotes_clase> listOperaciones;
     ArrayList<String>listEmpleados;
@@ -84,6 +84,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     private EditText cantLote1,cantLote2,cantLote3,cantLote4,cantLote5,cantLote6,cantLote7,cantLote8,cantLote9,cantLote10;
 
     String id_producto;
+
+    String ROL,idEmpleado; //recupera de la activity anterior
 
 
 
@@ -243,6 +245,9 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         if (intent != null) {
             variableRecibida_idproducto_oc = intent.getStringExtra("id");
             id_producto= (intent.getStringExtra("id_producto"));
+            ROL=(intent.getStringExtra("ROL"));
+            idEmpleado=(intent.getStringExtra("idEmpleado"));
+
 
 
         }
@@ -1548,7 +1553,9 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             // Crear el fragmento usando el método newInstance
             //Fragment_agregar_operacion_desde_op fragmentAgregarOp = Fragment_agregar_operacion_desde_op.newInstance(Integer.parseInt(id_producto, Integer.parseInt(finalVariableRecibida_idproducto_oc)));
             //Toast.makeText(this, "holiiiii"+ finalVariableRecibida_idproducto_oc, Toast.LENGTH_SHORT).show();
-            Fragment_agregar_operacion_desde_op fragmentAgregarOp = Fragment_agregar_operacion_desde_op.newInstance(Integer.parseInt(String.valueOf(id_producto)), String.valueOf(finalVariableRecibida_idproducto_oc));
+            Fragment_agregar_operacion_desde_op fragmentAgregarOp = Fragment_agregar_operacion_desde_op.newInstance
+                    (Integer.parseInt(String.valueOf(id_producto)), Integer.parseInt((finalVariableRecibida_idproducto_oc)),
+                            ROL);
 
             // Agregar el fragmento a 'fragment_container'
             /*Fragment_agregar_operacion_desde_op fragmentAgregarOp;
@@ -1579,7 +1586,10 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     }
 
 
+    @Override
+    public void onOperacionAgregada() {
 
+    }
 }
 
 

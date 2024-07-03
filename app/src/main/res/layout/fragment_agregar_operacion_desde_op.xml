@@ -17,8 +17,17 @@
         android:enabled="false" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escriba el nombre de la operación: "
+            android:paddingLeft="10dp"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/operacion"
@@ -27,12 +36,22 @@
             android:hint="Operacion"
             android:textSize="20dp"
             android:paddingLeft="10dp"
-            android:layout_marginTop="15dp" />
+            />
+
+
 
         <Spinner
             android:id="@+id/spinnerSubparte"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escriba la cantidad de operaciones x unidad, Ejemplo, si son aletas la cantidad es 2 "
+            android:paddingLeft="10dp"
+            />
         <EditText
             android:id="@+id/cantidad"
             android:layout_width="match_parent"
@@ -42,14 +61,30 @@
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp"
             android:inputType="number"/>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escriba la máquina a utilizar"
+            android:paddingLeft="10dp"
+            />
         <EditText
             android:id="@+id/Maquina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Maquina"
+            android:hint="Plana"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escriba precio, si es supervisor no escriba nada"
+            android:paddingLeft="10dp"
+            />
         <EditText
             android:id="@+id/precio"
             android:layout_width="match_parent"
@@ -60,24 +95,42 @@
             android:layout_marginTop="15dp"
             android:inputType="numberDecimal"/>
 
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero de lote asignado"
+            android:paddingLeft="10dp"
+            />
+
         <EditText
             android:id="@+id/numLote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="escriba el lote correspondiente "
+            android:hint="1"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp"
             android:inputType="number"/>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de operaciones asignadas al lote"
+            android:paddingLeft="10dp"
+            />
+
         <EditText
             android:id="@+id/cantidadlote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cantidad en lote "
+            android:hint="250"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp"
             android:inputType="number"/>
+
 
         <Button
             android:id="@+id/buttonagregaroperacion_OC"

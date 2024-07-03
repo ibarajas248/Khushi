@@ -1,7 +1,9 @@
 package com.example.khushi.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -53,6 +55,9 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
     private static final String ARG_producto="producto";
     private static final String ARG_idproducto_oc="idproducto_oc";
 
+    private static final String ARG_ROL="ROL";
+    private OnOperacionAgregadaListener callback;
+
 
 
 
@@ -60,6 +65,7 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String ROL;
     RequestQueue queue;
     private int idSubparteSeleccionada; //id cuando seleccion subpñarte del Spinner
 
@@ -95,18 +101,11 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_agregar_operacion_desde_op.
-     */
+
     // TODO: Rename and change types and number of parameters
 
 
-    public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto, String operacion) {
+    /*public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto, String operacion) {
         Fragment_agregar_operacion_desde_op fragment = new Fragment_agregar_operacion_desde_op();
         Bundle args = new Bundle();
         args.putString(ARG_id_producto, String.valueOf(id_Producto));
@@ -114,12 +113,13 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
         fragment.setArguments(args);
         return fragment;
-    }
-    public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto, int idproducto_oc ) {
+    }*/
+    public static Fragment_agregar_operacion_desde_op newInstance(int id_Producto, int idproducto_oc,String ROL) {
         Fragment_agregar_operacion_desde_op fragment = new Fragment_agregar_operacion_desde_op();
         Bundle args = new Bundle();
         args.putString(ARG_id_producto, String.valueOf(id_Producto));
         args.putString(ARG_idproducto_oc, String.valueOf(idproducto_oc));
+        args.putString(ARG_ROL, ROL);
 
         fragment.setArguments(args);
         return fragment;
@@ -134,8 +134,27 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            idProducto = Integer.parseInt(getArguments().getString(ARG_id_producto)); // Recupera el id_producto
+            //idProducto = Integer.parseInt(getArguments().getString(ARG_id_producto)); // Recupera el id_producto
             //idproducto_oc= Integer.parseInt(String.valueOf( getArguments().get(ARG_idproducto_oc)));
+
+            String idProductoString = getArguments().getString(ARG_id_producto);
+            String idProductoOcString = getArguments().getString(ARG_idproducto_oc);
+            ROL=getArguments().getString(ARG_ROL);
+
+            if (idProductoString != null) {
+                idProducto = Integer.parseInt(idProductoString);
+            } else {
+                Log.e("Fragment_agregar_operacion_desde_op", "idProducto is null");
+                // Manejar el caso de valor nulo según corresponda, por ejemplo, lanzar una excepción o asignar un valor predeterminado
+            }
+
+            if (idProductoOcString != null) {
+                idproducto_oc = Integer.parseInt(idProductoOcString);
+            } else {
+                Log.e("Fragment_agregar_operacion_desde_op", "idProductoOc is null");
+                // Manejar el caso de valor nulo según corresponda
+            }
+
 
 
             listsubparte= new ArrayList<nuevaSubParte>();
@@ -162,7 +181,17 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         etMaquina=view.findViewById(R.id.Maquina);
         etPrecio=view.findViewById(R.id.precio);
         etCantidad_OP_Lote=view.findViewById(R.id.cantidadlote);
+
+        // si es un supervisor no se puede modifixar el precio.
+
+        if (ROL.equalsIgnoreCase("SUPERVISOR")){
+            etPrecio.setText("0");
+            etPrecio.setEnabled(false);
+            etPrecio.setClickable(false);
+        }
         etNumLote=view.findViewById(R.id.numLote);
+
+        Toast.makeText(getContext(), "el Rol es "+ROL, Toast.LENGTH_SHORT).show();
 
 
         operacion=etOperacion.getText().toString();
@@ -183,6 +212,15 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
 
                     ingresarOperacion( operacion,cantidad,maquina);
+
+                    // Cerrar el fragment después de agregar la operación
+
+                    // Llama al método de la actividad a través de la interfaz
+                   /* callback.onOperacionAgregada();
+
+                    // Cierra el fragmento después de agregar la operación
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(Fragment_agregar_operacion_desde_op.this).commit();
+                    */
                 }else {
                     Toast.makeText(getContext(), "Hay campos vacíos ", Toast.LENGTH_SHORT).show();
                 }
@@ -322,6 +360,7 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
                 parametros.put("operaciones", etOperacion.getText().toString());
                 parametros.put("cantidad", etCantidad.getText().toString());
                 parametros.put("maquina", etMaquina.getText().toString());
+                parametros.put("op_inventario", "no");
 
                 /*if (visibilidadModificar==true){
                     parametros.put("id_producto",String.valueOf(idProducto));
@@ -338,6 +377,7 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
     }
     private void obtenerUltimaOperacion() {
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String url = "http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion.php"; // Reemplaza con tu URL
 
@@ -365,14 +405,21 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
                                 }
                             }, 3000); // 6000 milisegundos = 6 segundos
 
-                            new Handler().postDelayed(new Runnable() {
+/*
+
+
+
+
+
+
+                            /*new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
 
                                     agregarOperacion_OC("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php");
 
                                 }
-                            }, 3000); // 6000 milisegundos = 6 segundos
+                            }, 3000); // 6000 milisegundos = 6 segundos*/
 
 
 
@@ -509,6 +556,26 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
                 Log.d("Response", response);
                 Toast.makeText(getContext(), "se ha agregado la op a la OC", Toast.LENGTH_SHORT).show();
 
+                // Construir el mensaje para el Toast
+                /*
+                 --------------Toast de ejemplo de verificación------------
+
+                String mensaje = "Parametros:\n" +
+                        "id_producto_oc: " + String.valueOf(idproducto_oc) + "\n" +
+                        "id_producto_subparte_operacion: " + String.valueOf(id_op_subparte_producto) + "\n" +
+                        "cantidad: " + String.valueOf(etCantidad_OP_Lote.getText().toString()) + "\n" +
+                        "lotes: " + etNumLote.getText().toString();
+
+
+
+                // Mostrar el Toast con los parámetros
+                Toast.makeText(getContext(), mensaje, Toast.LENGTH_LONG).show();
+
+
+                ----------------------------------------------------------------
+
+                 */
+
             }
         }, new Response.ErrorListener() {
 
@@ -518,6 +585,8 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
 
                 Toast.makeText(getContext(), "No se ha Agregado el precio: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
+
+
             }
         }) {
 
@@ -534,7 +603,6 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
                 parametros.put("id_producto_subparte_operacion", String.valueOf(id_op_subparte_producto));
                 parametros.put("cantidad", String.valueOf(etCantidad_OP_Lote.getText().toString()));
                 parametros.put("lotes", etNumLote.getText().toString());
-
 
 
 
@@ -558,6 +626,7 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
                         try {
                             // Busca el último registro y asigna el id
                             id_op_subparte_producto = Integer.parseInt(response.getString("id"));
+                            agregarOperacion_OC("http://khushiconfecciones.com//app_khushi/consultas_lotes/agregar_operaciones_lotes.php");
 
 
 
@@ -577,6 +646,28 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         queue.add(jsonObjectRequest);
 
 
+    }
+
+    public interface OnOperacionAgregadaListener {
+        void onOperacionAgregada();
+    }
+
+    // Método para vincular el fragmento con la actividad
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnOperacionAgregadaListener) {
+            callback = (OnOperacionAgregadaListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnOperacionAgregadaListener");
+        }
+    }
+
+    // Método para desvincular el fragmento de la actividad
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callback = null;
     }
 
 
