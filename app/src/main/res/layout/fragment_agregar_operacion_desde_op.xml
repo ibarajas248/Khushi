@@ -37,7 +37,7 @@
             android:id="@+id/cantidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="cantidad"
+            android:hint="cantidad por unidad/producto"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp"
@@ -50,17 +50,47 @@
             android:textSize="20dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="15dp" />
+        <EditText
+            android:id="@+id/precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/numLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="escriba el lote correspondiente "
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:inputType="number"/>
+        <EditText
+            android:id="@+id/cantidadlote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad en lote "
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:inputType="number"/>
 
         <Button
             android:id="@+id/buttonagregaroperacion_OC"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agragar Operacion"
+            android:text="Agregar Operacion"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:backgroundTint="#011336"
             android:textColor="#FFCE17" />
+
+
 
 
     </LinearLayout>

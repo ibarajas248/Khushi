@@ -1545,10 +1545,15 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             // args.putString("key", "value");
             // fragment.setArguments(args);
 
-            // Agregar el fragmento a 'fragment_container'
-            Fragment_agregar_operacion_desde_op fragmentAgregarOp;
-            fragmentAgregarOp=new Fragment_agregar_operacion_desde_op(Integer.parseInt(id_producto));
+            // Crear el fragmento usando el método newInstance
+            //Fragment_agregar_operacion_desde_op fragmentAgregarOp = Fragment_agregar_operacion_desde_op.newInstance(Integer.parseInt(id_producto, Integer.parseInt(finalVariableRecibida_idproducto_oc)));
+            //Toast.makeText(this, "holiiiii"+ finalVariableRecibida_idproducto_oc, Toast.LENGTH_SHORT).show();
+            Fragment_agregar_operacion_desde_op fragmentAgregarOp = Fragment_agregar_operacion_desde_op.newInstance(Integer.parseInt(String.valueOf(id_producto)), String.valueOf(finalVariableRecibida_idproducto_oc));
 
+            // Agregar el fragmento a 'fragment_container'
+            /*Fragment_agregar_operacion_desde_op fragmentAgregarOp;
+            fragmentAgregarOp=new Fragment_agregar_operacion_desde_op(Integer.parseInt(id_producto));
+            */
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contenedor_fragments, fragmentAgregarOp).commit();
 
