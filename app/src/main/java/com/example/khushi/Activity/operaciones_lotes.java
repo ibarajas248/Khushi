@@ -1557,10 +1557,6 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                     (Integer.parseInt(String.valueOf(id_producto)), Integer.parseInt((finalVariableRecibida_idproducto_oc)),
                             ROL);
 
-            // Agregar el fragmento a 'fragment_container'
-            /*Fragment_agregar_operacion_desde_op fragmentAgregarOp;
-            fragmentAgregarOp=new Fragment_agregar_operacion_desde_op(Integer.parseInt(id_producto));
-            */
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contenedor_fragments, fragmentAgregarOp).commit();
 

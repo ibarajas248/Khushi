@@ -341,13 +341,6 @@ public class agregar_producto_oc extends AppCompatActivity {
 
                     }
                 });
-               /* adapter123.setOnItemLongClickListener(new AdapterDatos.OnItemLongClickListener() {
-                    @Override
-                    public void onItemLongClick(nuevoProducto p) {
-                        // evento para el onitemlongclick...
-
-                    }
-                });*/
 
 
 

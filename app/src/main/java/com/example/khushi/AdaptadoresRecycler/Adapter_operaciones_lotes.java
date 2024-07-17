@@ -230,12 +230,14 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
             if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
+                holder.spinner.setEnabled(true);
 
 
             } else {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
                 // Toma el valor de la celda
                 String empleado = listOperaciones.get(position).getEmpleado();
+
 
 
                 int posicionPredeterminada = 0;
@@ -330,6 +332,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(Spinner_Blanco);
+                    holder.spinner.setEnabled(true);
 
 
                 } else {
@@ -378,12 +381,15 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFA6E196);
                 holder.lote.setBackgroundColor(0xFFA6E196);
                 holder.spinner.setAdapter(completoSpinnerAdapter);//configuro el color del spinnr
+                holder.spinner.setEnabled(false); // Deshabilitar el Spinner
                 holder.completado.setBackgroundColor(0xFFA6E196);
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
+                    holder.spinner.setEnabled(true); // Deshabilitar el Spinner
                 } else {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
+                    holder.spinner.setEnabled(false); // Deshabilitar el Spinner
                     // Toma el valor de la celda
                     String empleado = listOperaciones.get(position).getEmpleado();
                     int posicionPredeterminada = 0;
@@ -420,11 +426,14 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.lote.setBackgroundColor(0xFFE6A712);
                 holder.spinner.setAdapter(Spinner_opHabilitado);//configuro el color del spinnr
                 holder.completado.setBackgroundColor(0xFFE6A712);
+               holder.spinner.setEnabled(true);
                if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                        holder.spinner.setAdapter(Spinner_opHabilitado);
+                   holder.spinner.setEnabled(true);
                } else {
                    holder.spinner.setAdapter(Spinner_opHabilitado);
                    // Toma el valor de la celda
+                   holder.spinner.setEnabled(true);
                    String empleado = listOperaciones.get(position).getEmpleado();
                    int posicionPredeterminada = 0;
                    // Iterar a través de la lista de empleados

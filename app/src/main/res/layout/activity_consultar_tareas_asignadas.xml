@@ -145,7 +145,51 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/operaciones_filtrado"
+                            android:layout_width="400dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="operaciones"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
+
+
+                        <TextView
+                            android:id="@+id/cantidad"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="cantidad"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/lote"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="Lote"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                            />
+                        <TextView
+                            android:id="@+id/edtcompletado"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="completo"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:background="#011336"
+                            />
                         <TextView
                             android:id="@+id/tvHabilitado"
                             android:layout_width="100dp"
@@ -170,6 +214,7 @@
 
                             />
 
+
                         <TextView
                             android:id="@+id/subparte"
                             android:layout_width="100dp"
@@ -181,27 +226,9 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/operaciones_filtrado"
-                            android:layout_width="400dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="operaciones"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/cantidad"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:background="#011336"
-                            android:padding="8dp"
-                            android:text="cantidad"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+
+
 
                         <TextView
                             android:id="@+id/empleado"
@@ -224,17 +251,7 @@
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
                             android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/lote"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:text="Lote"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            />
+
 
                         <TextView
                             android:id="@+id/maquina_filtrado"
@@ -250,17 +267,7 @@
                             android:visibility="gone"/>
 
 
-                        <TextView
-                            android:id="@+id/edtcompletado"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:text="completo"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:padding="8dp"
-                            android:background="#011336"
-                            />
+
 
 
                     </LinearLayout>

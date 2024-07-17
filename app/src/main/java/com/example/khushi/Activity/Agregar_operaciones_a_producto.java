@@ -92,7 +92,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     String guardaPrecio;
 
     //buscar producto en una oc
-    String id_productoOC,id_oc,numeroLotes,cantidadProductos;
+    String id_productoOC,id_oc,numeroLotes;
+    String cantidadProductos;
     private List<String[]> productoOCList;  // Lista para almacenar pares de valores
 
     boolean respuestaProductoEnOc=false;
@@ -222,10 +223,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         public void run() {
 
                             obtenerUltimaOperacion();
-                            nombreOperacion.setText("");
+                            /*nombreOperacion.setText("");
                             cantidadOperaciones.setText("");
                             maquina.setText("");
-                            precio.setText("");
+                            precio.setText("");*/
                         }
                     }, 3000); // 6000 milisegundos = 6 segundos
 
@@ -233,7 +234,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         @Override
                         public void run() {
 
-                           // buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
+                           //buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
 
 
                         }
@@ -280,25 +281,48 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         try {
                             // Busca el último registro y asigna el id
 
+                            Toast.makeText(Agregar_operaciones_a_producto.this, "buscar_ultima_operacion_producto_subparte", Toast.LENGTH_SHORT).show();
+
                             idProductoSubparteOperacion= Integer.parseInt(response.getString("id"));
 
-                            for (String[] producto : productoOCList) { //itera sobre la lista
-                               int moduloCantidad=(Integer.parseInt(cantidadProductos) %Integer.parseInt(numeroLotes));
 
-                                cantidadProductos= String.valueOf((Integer.parseInt(cantidadProductos) /Integer.parseInt(numeroLotes))*Integer.parseInt(cantidadOperaciones.getText().toString()));
-                                for (int i=0;i<Integer.parseInt(numeroLotes);i++){
+                            for (int i=0;  i< productoOCList.size();i++) { //itera sobre la lista
 
-                                    if (i==Integer.parseInt(numeroLotes)-1){
+                                // Obtener el arreglo de cadenas en la posición i
+                                String[] producto = productoOCList.get(i);
+
+                                int moduloCantidad=(Integer.parseInt(producto[3]) %Integer.parseInt(producto[2]));
+
+                                cantidadProductos= String.valueOf((Integer.parseInt(producto[3]) /Integer.parseInt(producto[2]))*Integer.parseInt(cantidadOperaciones.getText().toString()));
+                                id_productoOC=producto[0];
+
+                                Log.d("ProductoOCsilaba2", "ID Productolalalala: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
+
+
+                                int numero_iteracion=0;
+                                for (int num_lotes=0;num_lotes<Integer.parseInt(producto[2]);num_lotes++){
+                                    if(num_lotes == Integer.parseInt(producto[2]) - 1){
+                                        cantidadProductos= String.valueOf(Integer.parseInt(cantidadProductos)+moduloCantidad);
+                                    }
+                                    insertNuevaOperacionEnOCCreadas("http://khushiconfecciones.com//app_khushi/agregar_operacion_a_OC_existente.php", producto, String.valueOf(idProductoSubparteOperacion),cantidadProductos,numero_iteracion+1);
+                                   Log.d("ProductoOCsilaba4", "numero iteracion:"+String.valueOf(numero_iteracion)+"ID Productooc: " + id_productoOC + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+cantidadProductos);
+                                   numero_iteracion=numero_iteracion+1;
+                                }
+                                numero_iteracion=0;
+                               // productoOCList.clear();
+
+
+                                /*if (i==Integer.parseInt(producto[2])-1){ //numero de lotes ultimo
                                         //si es la ultima iteración entonces  le sumo el modulo a la cantidad
                                         cantidadProductos= String.valueOf((Integer.parseInt(cantidadProductos)+moduloCantidad)*Integer.parseInt(cantidadOperaciones.getText().toString()));
 
-                                    }
+                                    }*/
                                     //el segundo paramatro induca el numero de lote
-                                    insertNuevaOperacionEnOCCreadas("http://khushiconfecciones.com//app_khushi/agregar_operacion_a_OC_existente.php",i+1);
+                                   // insertNuevaOperacionEnOCCreadas("http://khushiconfecciones.com//app_khushi/agregar_operacion_a_OC_existente.php", Integer.parseInt(producto[2]));
 
-                                }
 
-                                Log.d("ProductoOCsilaba", "ID Productolalalala: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
+
+                                //Log.d("ProductoOCsilaba1", "ID Productolalalala: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
                             }
 
                         } catch (JSONException e) {
@@ -578,7 +602,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(Agregar_operaciones_a_producto.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Agregar_operaciones_a_producto.this, "Operación Agregada", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -632,7 +656,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(Agregar_operaciones_a_producto.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Agregar_operaciones_a_producto.this, "Precio agregado", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -698,7 +722,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(Agregar_operaciones_a_producto.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Agregar_operaciones_a_producto.this, "operacion asociada a producto", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -869,16 +893,17 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         try {
                             // Busca el último registro y asigna el id
                             idProductoAgregado = Integer.parseInt(response.getString("id_operaciones"));
-                            //rastrear el producto vinculados a ordenes de compra
-                            buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
-                            Toast.makeText(Agregar_operaciones_a_producto.this, response.getString("id_operaciones"), Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(Agregar_operaciones_a_producto.this,"ultima operación: "+ response.getString("id_operaciones"), Toast.LENGTH_SHORT).show();
+                            //buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
 
                             if (switchActivado == false) {
                                 agregarPrecio("http://khushiconfecciones.com//app_khushi/insertar_precio_operacion.php");
                                 agregarOperacion_Producto("http://khushiconfecciones.com//app_khushi/insert_operacion_a_producto.php");
                                 //buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
-
-
+                                //rastrear el producto vinculados a ordenes de compra
+                                buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
+                                productoOCList.clear();
 
 
                             }
@@ -1007,10 +1032,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         id_oc=(jsonObject.getString("id_oc"));
                         numeroLotes=jsonObject.getString("lotes");
                         cantidadProductos=jsonObject.getString("cantidad_de_productos");
+                        //Toast.makeText(Agregar_operaciones_a_producto.this, "este est "+cantidadProductos, Toast.LENGTH_SHORT).show();
 
                         String[] productoOC = {id_productoOC, id_oc,numeroLotes,cantidadProductos};  // Crear un array con los dos valores
                         productoOCList.add(productoOC);  // Agregar el array a la lista
-
+                        //buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
 
 
 
@@ -1021,13 +1047,19 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                     }
 
-                    // Registrar la lista de arrays al finalizar la iteración
-                    for (String[] producto : productoOCList) { //itera sobre la lista
-                        Log.d("ProductoOC", "ID Producto: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
-                    }
+
+
+
                 }
                 //producto vinculado a OC
                 respuestaProductoEnOc=true;
+                // Registrar la lista de arrays al finalizar la iteración
+                for (String[] producto : productoOCList) { //itera sobre la lista
+                    Log.d("ProductoOClog+++", "ID Producto_oc: " + producto[0] + ", ID OC: " + producto[1]+"numero de lotes: "+producto[2]+"cantidad: "+producto[3]);
+                   // buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
+                }
+                //productoOCList.clear();
+                respuestaProductoEnOc=false;
 
                 buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
 
@@ -1047,7 +1079,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         queue.add(jsonArrayRequest);
     }
 
-    private void insertNuevaOperacionEnOCCreadas(String URL, int loteCorrespondiente){
+    private void insertNuevaOperacionEnOCCreadas(String URL, String[] ArrayInfo, String idoperacionAsociada, String cantProduct, int loteCorrespondiente1){
 
         // Crear una solicitud de cadena (StringRequest) con un método POST
         //holi
@@ -1057,7 +1089,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 // Este método se llama cuando la solicitud es exitosa
                 // response contiene la respuesta del servidor en formato de cadena
 
-                //Toast.makeText(MainActivity.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Agregar_operaciones_a_producto.this, "se está llamando este insertNuevaOperacionEnOCCreadas", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -1067,7 +1099,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 // Este método se llama si hay un error en la solicitud
                 // error contiene detalles del error, como un mensaje de error
 
-                //Toast.makeText(A.this, error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Agregar_operaciones_a_producto.this, error.toString(),Toast.LENGTH_SHORT).show();
             }
         }){
 
@@ -1079,14 +1111,18 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
                 Map<String, String> parametros= new HashMap<String, String>();
-                parametros.put("id_producto_subparte_operacion", String.valueOf(idProductoSubparteOperacion));
-                parametros.put("id_producto_oc",id_productoOC);
+                parametros.put("id_producto_subparte_operacion", String.valueOf(idoperacionAsociada));
+                parametros.put("id_producto_oc",ArrayInfo[0]);
 
-                parametros.put("cantidad",cantidadProductos);
-                parametros.put("lotes", String.valueOf(loteCorrespondiente));
+                parametros.put("cantidad", cantProduct);
+                parametros.put("lotes", String.valueOf(loteCorrespondiente1));
+                Log.d("Prueba insert", "ID Productooc: " + ArrayInfo[0] +" idproductosubpatre:"+String.valueOf(idoperacionAsociada)+"cantidad: "+ cantProduct+" lotes: "+loteCorrespondiente1);
+
                 //poner lotes
 
                // parametros.put("fabricante",edtFabricante.getText().toString());
+
+                Log.d("kkkkkkk",String.valueOf(idProductoSubparteOperacion)+"+"+id_productoOC+"+"+cantidadProductos+"+"+loteCorrespondiente1);
 
                 return parametros;
             }

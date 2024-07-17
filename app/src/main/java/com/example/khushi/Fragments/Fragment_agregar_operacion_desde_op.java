@@ -176,6 +176,8 @@ public class Fragment_agregar_operacion_desde_op extends Fragment {
         queue = Volley.newRequestQueue(requireContext());
         Spinnersubparte("http://khushiconfecciones.com/app_khushi/spinner_subparte.php");
 
+
+
         etOperacion=view.findViewById(R.id.operacion);
         etCantidad=view.findViewById(R.id.cantidad);
         etMaquina=view.findViewById(R.id.Maquina);
