@@ -115,12 +115,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
         holder.habilitado.setVisibility(View.GONE);
-
-
         holder.producto.setText(listOperaciones.get(position).getProducto());
-
         holder.subparte.setText(listOperaciones.get(position).getSubparte());
-
         holder.operaciones.setText(listOperaciones.get(position).getOperaciones());
         holder.idLotesOperaciones.setText(String.valueOf(listOperaciones.get(position).getId_lotes_operaciones()));
         holder.cantidad.setText(String.valueOf(listOperaciones.get(position).getCantidad()));
@@ -128,23 +124,17 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.id_operaciones_subparte_producto.setText(String.valueOf(listOperaciones.get(position).getId_operacione_subparte_producto()));
         holder.lote.setText(String.valueOf(listOperaciones.get(position).getLotes()));
         holder.id_producto_oc.setText(String.valueOf(listOperaciones.get(position).getId_producto_oc()));
-
-        //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
-                R.layout.spinner_gris, spinnerDataList);
-        ArrayAdapter<String> selectedSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
-                R.layout.spinner_rojo, spinnerDataList);
-        ArrayAdapter<String> completoSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),
-                R.layout.spinner_verde, spinnerDataList);
-
-        ArrayAdapter<String> Spinner_opHabilitado  = new ArrayAdapter<String>(holder.itemView.getContext(),
-                R.layout.spinner_amarillo, spinnerDataList);
-        ArrayAdapter<String> Spinner_Blanco  = new ArrayAdapter<String>(holder.itemView.getContext(),
-                R.layout.spinner_blanco, spinnerDataList);
-
         holder.completado.setText(listOperaciones.get(position).getCompletado());
 
-        int operacionPosition = holder.getAdapterPosition();
+
+        //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(),R.layout.spinner_gris, spinnerDataList);
+        ArrayAdapter<String> selectedSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_rojo, spinnerDataList);
+        ArrayAdapter<String> completoSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_verde, spinnerDataList);
+        ArrayAdapter<String> Spinner_opHabilitado  = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_amarillo, spinnerDataList);
+        ArrayAdapter<String> Spinner_Blanco  = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_blanco, spinnerDataList);
+
+
 
 
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -228,16 +218,16 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.completado.setTextColor(0xFFFFFFFF);
 
 
+
+
             if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
-                holder.spinner.setEnabled(true);
 
 
             } else {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
                 // Toma el valor de la celda
                 String empleado = listOperaciones.get(position).getEmpleado();
-
 
 
                 int posicionPredeterminada = 0;
@@ -252,6 +242,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
                         // Realizar las acciones necesarias aquí
                         // ...
                         holder.spinner.setSelection(posicionPredeterminada+1);
+
+
                         break; // Puedes salir del bucle si encuentras una coincidencia, si lo deseas.
                     }
                     posicionPredeterminada=posicionPredeterminada+1;
@@ -259,7 +251,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
 
-            }
+
+
+            }//////////
 
 
         } else {
@@ -408,6 +402,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                         }
                         posicionPredeterminada=posicionPredeterminada+1;
                     }
+
 
                 }
             }
@@ -712,13 +707,6 @@ public class Adapter_operaciones_lotes extends RecyclerView
     public interface OnItemLongClickListener {
         void onItemLongClick(operaciones_lotes_clase asignacion);
     }
-
-
-
-
-
-
-
 
 
 }
