@@ -477,6 +477,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                                 cantidadSublotesEditText.setVisibility(View.VISIBLE);
                                 cantidadSublotesEditText.setText("");
                                 cantidadSublotesEditText.setHint("cantidad");
+                                cantidadSublotesEditText.setHint("cantidad");
                                 Button botonCopiar=(Button)findViewById(R.id.boton_copiar);
                                 botonCopiar.setVisibility(View.VISIBLE);
                                 LayoutImageButtonEditar.setVisibility(View.GONE);
