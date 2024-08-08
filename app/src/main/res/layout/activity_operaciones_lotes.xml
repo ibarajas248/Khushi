@@ -17,6 +17,25 @@
         app:titleTextColor="#000000"
         >
 
+        <!-- LinearLayout para contener el botón al final -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_gravity="end">
+
+            <!-- Aquí agregamos el botón con la imagen -->
+            <ImageButton
+                android:id="@+id/candadoBoton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/candado"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="Botón de Calendario"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
 
 
    </androidx.appcompat.widget.Toolbar>

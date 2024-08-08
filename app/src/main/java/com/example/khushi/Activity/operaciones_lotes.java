@@ -75,6 +75,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
     private EditText cantidadSublotesEditText;
     private Toolbar toolbar1;
     Button botonAsignar;
+    private boolean isLocked = false; // Estado inicial del !candado
 
 
     SearchView buscarOperacionesDB;
@@ -93,6 +94,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
     ImageButton botonimagendividir,botonimagendividirAutomatico,botonImagenEditar;
+    ImageButton candadoBoton;
+    private ImageView candadoImageView;
     Button botonDividirLote, botonEditarCantidad,botonDividirManual,botonPartirLote,botonDividirManualConfirmar, botonPartirPartesIguales;
 
 
@@ -112,6 +115,20 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaciones_lotes);
 
+        Intent intent = getIntent();
+
+        String variableRecibida_idproducto_oc = null;
+        if (intent != null) {
+            variableRecibida_idproducto_oc = intent.getStringExtra("id");
+            finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+            id_producto= (intent.getStringExtra("id_producto"));
+            ROL=(intent.getStringExtra("ROL"));
+            idEmpleado=(intent.getStringExtra("idEmpleado"));
+
+
+
+        }
+
         cantLote1 = (EditText) findViewById(R.id.cantidadSublotes1);
         cantLote2 = (EditText) findViewById(R.id.cantidadSublotes2);
         cantLote3 = (EditText) findViewById(R.id.cantidadSublotes3);
@@ -126,6 +143,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
         botonAsignar=findViewById(R.id.botonAsignar);
         botonAsignar.setVisibility(View.GONE);
+        candadoBoton=findViewById(R.id.candadoBoton);
 
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
@@ -141,6 +159,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                 R.layout.spinner_filtrar_en_lotes_operaciones, opcionesFiltrado);
 
         spinnerFiltrarDinamico.setAdapter(adapterSpinnerDinamico);
+        ImageView candadoImageView = findViewById(R.id.candadoBoton);
 
 
         ImageView imageView = findViewById(R.id.flechAbajo);
@@ -202,6 +221,33 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
         botonDividirManual=(Button)findViewById(R.id.botonDividirManual);
 
+        candadoBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isLocked==true) {
+                    candadoImageView.setImageResource(R.drawable.candado);
+                } else {
+                    candadoImageView.setImageResource(R.drawable.candado_abierto);
+                }
+                isLocked = !isLocked; // Cambia el estado del candado
+
+
+                /*Handler handler = new Handler();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Llama al primer método aquí
+                        agregarListaOperacion_Lote("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_operaciones_por_lote.php?id_producto_orden_compra="+finalVariableRecibida_idproducto_oc);
+
+
+                    }
+                }, 100); // Retraso de 5000 milisegundos (5 segundos)*/
+
+            }
+        });
+
 
 
         // array para opciones del Spinner
@@ -239,18 +285,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
 
-        Intent intent = getIntent();
 
-        String variableRecibida_idproducto_oc = null;
-        if (intent != null) {
-            variableRecibida_idproducto_oc = intent.getStringExtra("id");
-            id_producto= (intent.getStringExtra("id_producto"));
-            ROL=(intent.getStringExtra("ROL"));
-            idEmpleado=(intent.getStringExtra("idEmpleado"));
-
-
-
-        }
 
 
         recycler = (RecyclerView) findViewById(R.id.recyclerviewoperaciones);
@@ -276,6 +311,10 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
             }
         }, 100); // Retraso de 5000 milisegundos (5 segundos)
+
+
+
+
 
 
         //spinnersubparte.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -398,7 +437,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                adapter123 = new Adapter_operaciones_lotes(operaciones_lotes.this,listOperaciones,nombres,idsEmpleados,listaEmpleados);
+                adapter123 = new Adapter_operaciones_lotes(operaciones_lotes.this,listOperaciones,nombres,idsEmpleados,listaEmpleados,isLocked);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

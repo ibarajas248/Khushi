@@ -23,7 +23,11 @@
     import androidx.recyclerview.widget.RecyclerView;
 
 
+    import com.android.volley.Response;
     import com.bumptech.glide.request.target.Target;
+    import com.example.khushi.Activity.Home;
+    import com.example.khushi.Activity.consultar_tareas_asignadas;
+    import com.example.khushi.Activity.imagen_producto;
     import com.example.khushi.R;
     import com.example.khushi.clasesinfo.nuevoProducto;
 
@@ -34,7 +38,9 @@
     import java.util.ArrayList;
     import com.bumptech.glide.Glide;
     import com.bumptech.glide.request.RequestOptions;
-    
+
+    import org.json.JSONArray;
+
     public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos>implements View.OnClickListener {
         private static final int CODIGO_RESULTADO_CAMARA = 1; // Definir el código de resultado para la cámara
         private static final int CODIGO_DE_SOLICITUD_DE_CAMARA = 2; // Definir el código de solicitud de permisos de la cámara
@@ -42,8 +48,11 @@
         private View.OnClickListener listener;
         private OnItemLongClickListener itemLongClickListener;
         private String ROL;
-    
-    
+        private Context context; // Añadir un campo de Context
+
+
+
+
         public interface OnItemLongClickListener {
             void onItemLongClick(nuevoProducto producto);
         }
@@ -58,13 +67,18 @@
             this.listDatos = listDatos;
             this.ROL=ROL;
         }
+        public AdapterDatos(Context context,ArrayList<nuevoProducto> listDatos, String ROL) {
+            this.context = context; // Inicializar el campo de Context
+            this.listDatos = listDatos;
+            this.ROL=ROL;
+        }
     
         @NonNull
         @Override
         public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     
             //Context context = parent.getContext(); // Obtén el contexto desde el ViewGroup
-            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto,null,false);
+            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto,parent,false);
 
     
             // escucha el evento de seleccion
@@ -110,13 +124,14 @@
             holder.imagenProducto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    abrirCamara(holder.itemView.getContext(), listDatos.get(holder.getAdapterPosition()));
-    
-    
+                   // abrirCamara(holder.itemView.getContext(), listDatos.get(holder.getAdapterPosition()));
+
+                    Intent intent = new Intent(v.getContext(), imagen_producto.class);
+                    intent.putExtra("id_producto",String.valueOf(listDatos.get(position).getId_producto()));
+                    //intent.putExtra("id_producto",String.valueOf(listDatos.get(recycler.getChildAdapterPosition(v)).getId_producto()));
+                    v.getContext().startActivity(intent);
                 }
             });
-
-
 
             // Cargar imagen desde Internet usando Glide y redimensionar
             String imageUrl = listDatos.get(position).getFoto();

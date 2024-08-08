@@ -75,6 +75,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
     int id_lotes_operaciones;
     private Context context;
+    private boolean isLocked;
 
 
 
@@ -82,12 +83,13 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
     public Adapter_operaciones_lotes(Context context, ArrayList<operaciones_lotes_clase> listOperaciones,
-                                     List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados) {
+                                     List<String> spinnerDataList, List<Integer> spinnerIdsList, ArrayList<Empleado_clase> listaEmpleados,  boolean isLocked) {
         this.context = context;
         this.listOperaciones = listOperaciones;
         this.spinnerDataList = spinnerDataList; // Inicializar la lista para el Spinner
         this.spinnerIdsList = spinnerIdsList; // Inicializa la lista de IDs
         this.listaEmpleados = listaEmpleados; //inicializa el objeto empleados
+        this.isLocked = isLocked;
         this.id_lotes_operaciones = -1;
 
         //inicializo el buscador
@@ -216,12 +218,14 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setTextColor(0xFFFFFFFF);
             holder.lote.setTextColor(0xFFFFFFFF);
             holder.completado.setTextColor(0xFFFFFFFF);
+            holder.spinner.setEnabled(isLocked);
 
 
 
 
             if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                 holder.spinner.setAdapter(selectedSpinnerAdapter);
+
 
 
             } else {
@@ -282,12 +286,15 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(spinnerAdapter);
+                    holder.spinner.setEnabled(isLocked);
+
 
 
                 } else {
                     holder.spinner.setAdapter(spinnerAdapter);
                     // Toma el valor de la celda
                     String empleado = listOperaciones.get(position).getEmpleado();
+                    holder.spinner.setEnabled(isLocked);
 
 
                     int posicionPredeterminada = 0;
@@ -321,16 +328,18 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFFFFFFF); // Otro color
                 holder.lote.setBackgroundColor(0xFFFFFFFF); // Otro color
                 holder.completado.setBackgroundColor(0xFFFFFFFF); // Otro color
+                holder.spinner.setEnabled(isLocked);
 
 
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(Spinner_Blanco);
-                    holder.spinner.setEnabled(true);
+                    holder.spinner.setEnabled(isLocked);
 
 
                 } else {
                     holder.spinner.setAdapter(Spinner_Blanco);
+                    holder.spinner.setEnabled(isLocked);
                     // Toma el valor de la celda
                     String empleado = listOperaciones.get(position).getEmpleado();
 
@@ -347,6 +356,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                             // Realizar las acciones necesarias aquí
                             // ...
                             holder.spinner.setSelection(posicionPredeterminada+1);
+                            holder.spinner.setEnabled(isLocked);
                             break; // Puedes salir del bucle si encuentras una coincidencia, si lo deseas.
                         }
                         posicionPredeterminada=posicionPredeterminada+1;
@@ -380,7 +390,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
-                    holder.spinner.setEnabled(true); // Deshabilitar el Spinner
+                    holder.spinner.setEnabled(true);
                 } else {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
                     holder.spinner.setEnabled(false); // Deshabilitar el Spinner
@@ -421,14 +431,14 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.lote.setBackgroundColor(0xFFE6A712);
                 holder.spinner.setAdapter(Spinner_opHabilitado);//configuro el color del spinnr
                 holder.completado.setBackgroundColor(0xFFE6A712);
-               holder.spinner.setEnabled(true);
+               holder.spinner.setEnabled(isLocked);
                if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                        holder.spinner.setAdapter(Spinner_opHabilitado);
-                   holder.spinner.setEnabled(true);
+                   holder.spinner.setEnabled(isLocked);
                } else {
                    holder.spinner.setAdapter(Spinner_opHabilitado);
                    // Toma el valor de la celda
-                   holder.spinner.setEnabled(true);
+                   holder.spinner.setEnabled(isLocked);
                    String empleado = listOperaciones.get(position).getEmpleado();
                    int posicionPredeterminada = 0;
                    // Iterar a través de la lista de empleados
