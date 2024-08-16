@@ -233,7 +233,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                 isLocked = !isLocked; // Cambia el estado del candado
 
 
-                /*Handler handler = new Handler();
+                Handler handler = new Handler();
 
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -243,7 +243,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
 
                     }
-                }, 100); // Retraso de 5000 milisegundos (5 segundos)*/
+                }, 1000); // Retraso de 5000 milisegundos (5 segundos)*/
 
             }
         });

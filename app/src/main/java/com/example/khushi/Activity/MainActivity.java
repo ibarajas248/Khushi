@@ -137,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
         btnregistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this, RegistroActivity.class);
+                //Intent intent= new Intent(MainActivity.this, RegistroActivity.class);
+                Intent intent= new Intent(MainActivity.this, codigo_activacion.class);
+
                 startActivity(intent);
             }
         });

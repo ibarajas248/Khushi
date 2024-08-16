@@ -34,17 +34,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Escriba su nombre: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/editnombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
                 android:hint="Juan"
                 android:inputType="text"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp"/>
 
 
             <TextView
@@ -53,33 +58,43 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="Escriba sus apellidos: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/editApellidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="Pérez Rodriguez"
+                android:hint="Doe"
                 android:inputType="text"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp"/>
             <TextView
                 android:id="@+id/cedula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="Número de cédula "
-                android:textSize="20dp" />
+                android:text="Número de cédula: "
+                android:textSize="16dp" />
             <EditText
                 android:id="@+id/edtcedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="12345687921"
+                android:hint="123456789"
                 android:inputType="number"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp" />
 
 
             <TextView
@@ -88,17 +103,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="Escriba su correo electrónico "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edtcorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="juanperez@micorreo.com"
+                android:hint="juandoe@ejemplo.com"
                 android:inputType="textEmailAddress"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp"/>
 
             <TextView
                 android:id="@+id/tvtelefonofijo"
@@ -106,17 +126,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:text="Escriba su teléfono fijo, si tiene: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/editTextfijo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="3102456858"
+                android:hint="31659486521"
                 android:inputType="number"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp" />
 
 
             <TextView
@@ -126,35 +151,45 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Escriba su teléfono celular: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edtcelular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="3001234569"
+                android:hint="20612345"
                 android:inputType="number"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp" />
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
-                android:text="Escriba su numero de whatsapp: "
-                android:textSize="20dp" />
+                android:text="Escriba su numero con el que usa whatsapp: "
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edtcelularWhatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:background="@drawable/input_casilla_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:ems="10"
-                android:hint="30412345d9"
+                android:hint="31659486521"
                 android:inputType="number"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="12dp"/>
             <TextView
                 android:id="@+id/tvdireccion"
                 android:layout_width="wrap_content"
@@ -162,7 +197,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Dirección de residencia:"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
             <EditText
                 android:id="@+id/edDireccion1"
                 android:layout_width="match_parent"
