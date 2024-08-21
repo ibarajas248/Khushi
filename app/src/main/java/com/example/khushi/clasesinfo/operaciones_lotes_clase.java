@@ -25,7 +25,7 @@ public class operaciones_lotes_clase {
 
     public operaciones_lotes_clase(String producto, String subparte, String operaciones, int idLotesOperaciones,
                                    int cantidad, String empleado, int idOperacionesSubparteProducto, int lote,
-                                   int idProductoOc,  String completado, String nombre, String Apellido, String habilitado) {
+                                   int idProductoOc,  String completado, String nombre, String Apellido, String habilitado, String fecha) {
         this.producto = producto;
         this.subparte = subparte;
         this.operaciones = operaciones;
@@ -39,6 +39,7 @@ public class operaciones_lotes_clase {
         this.nombre=nombre;
         this.apellido=Apellido;
         this.habilitado=habilitado;
+        this.fecha=fecha;
 
     }
 

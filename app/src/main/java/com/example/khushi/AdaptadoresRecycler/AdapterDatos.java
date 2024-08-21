@@ -160,7 +160,7 @@
         @Override
         public int getItemCount() {
             //return listDatos.size();
-            return listDatosFiltered.size(); // Cambia para usar la lista filtrada
+            return listDatos.size(); // Cambia para usar la lista filtrada
         }
     
         public void setOnClickListener(View.OnClickListener listener){
@@ -232,22 +232,20 @@
         }
 
 
-        public void filtradoHabilitado(String txtBuscar) {
+        public void filtrado(String txtBuscar) {
             int longitud = txtBuscar.length();
             if (longitud == 0) {
                 listDatos.clear();
                 listDatos.addAll(listDatosFiltered);
             } else {
                 List<nuevoProducto> coleccion = listDatos.stream().filter
-                        (i ->
-                                i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+                        (i ->i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
 
                 listDatos.clear();
                 listDatos.addAll(coleccion);
             }
+            notifyDataSetChanged();
         }
-
-
 
 
     }

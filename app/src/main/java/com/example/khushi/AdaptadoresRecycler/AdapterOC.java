@@ -49,12 +49,12 @@ public class AdapterOC extends RecyclerView.Adapter<AdapterOC.ViewHolderDatos> i
         holder.ordenCompra.setText(String.valueOf(listOC.get(position).getOrdendeCompra()));
         if (position % 2 == 0) {
             // Para posiciones pares, cambia el color de fondo o el color del texto
-            holder.itemView.setBackgroundColor(0xFFCCCCCC);
+            holder.itemView.setBackgroundColor(0xFFD9D9D9);
 
                     holder.ordenCompra.setTextColor(0xFF000000);
         } else {
             // Para posiciones impares, otro color diferente
-            holder.itemView.setBackgroundColor(0xFFEFE1AD);
+            holder.itemView.setBackgroundColor(0xFFFFFFFF);
                     // o
                     holder.ordenCompra.setTextColor(0xFF000000);
         };

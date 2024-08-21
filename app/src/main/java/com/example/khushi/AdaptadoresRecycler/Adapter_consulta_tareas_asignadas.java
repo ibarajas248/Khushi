@@ -106,6 +106,8 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
         holder.apellidos.setVisibility(View.VISIBLE); //apellidos visible
         holder.lote.setText(String.valueOf(listOperaciones.get(position).getLotes()));
         holder.completado.setText(listOperaciones.get(position).getCompletado());
+        holder.fecha.setText(listOperaciones.get(position).getFecha());
+
 
 
 
@@ -127,6 +129,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             holder.apellidos.setBackgroundColor(0xFFE82900);
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.completado.setBackgroundColor(0xFFE82900);
+            holder.fecha.setBackgroundColor(0xFFE82900);
 
 
             //cambiarCOlorLetra
@@ -144,7 +147,8 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             holder.apellidos.setTextColor(0xFFFFFFFF);
             holder.lote.setTextColor(0xFFFFFFFF);
             holder.completado.setTextColor(0xFFFFFFFF);
-        } else {
+            holder.fecha.setTextColor(0xFFFFFFFF);
+        } else { //si no está seleccionado
 
                 holder.habilitada.setTextColor(0xFF000000);
                 holder.producto.setTextColor(0xFF000000);
@@ -158,6 +162,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
                 holder.apellidos.setTextColor(0xFF000000);
                 holder.lote.setTextColor(0xFF000000);
                 holder.completado.setTextColor(0xFF000000);
+                holder.fecha.setTextColor(0xFF000000);
             if (position % 2 == 0){
                 holder.habilitada.setBackgroundColor(0xFFD9D9D9);
                 holder.producto.setBackgroundColor(0xFFD9D9D9);
@@ -171,6 +176,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
                 holder.apellidos.setBackgroundColor(0xFFD9D9D9);
                 holder.lote.setBackgroundColor(0xFFD9D9D9);
                 holder.completado.setBackgroundColor(0xFFD9D9D9);
+                holder.fecha.setBackgroundColor(0xFFD9D9D9);
             }else{
 
                 holder.habilitada.setBackgroundColor(0xFFFFFFFF);
@@ -185,6 +191,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
                 holder.apellidos.setBackgroundColor(0xFFFFFFFF);
                 holder.lote.setBackgroundColor(0xFFFFFFFF);
                 holder.completado.setBackgroundColor(0xFFFFFFFF);
+                holder.fecha.setBackgroundColor(0xFFFFFFFF);
 
             }
         }
@@ -215,7 +222,7 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
     public class ViewHolderTareasAsignadas extends RecyclerView.ViewHolder {
         TextView habilitada, producto, subparte, operaciones, idLotesOperaciones,
                 cantidad, empleado, id_operaciones_subparte_producto,
-                nombre, apellidos, lote, completado ;
+                nombre, apellidos, lote, completado, fecha ;
 
 
         public ViewHolderTareasAsignadas(@NonNull View itemView) {
@@ -234,6 +241,8 @@ public class Adapter_consulta_tareas_asignadas extends RecyclerView.Adapter<Adap
             apellidos=itemView.findViewById(R.id.apellido);
             lote= itemView.findViewById(R.id.edtlote);
             completado= itemView.findViewById(R.id.edtcompletado);
+            fecha= itemView.findViewById(R.id.fecha);
+
 
         }
 

@@ -29,9 +29,11 @@
             android:id="@+id/LayoutAgregarOC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:background="@drawable/input_casilla_1"
             android:orientation="vertical"
-            android:layout_marginEnd="16dp"
+
             android:layout_marginTop="8dp">
 
             <EditText
@@ -61,7 +63,7 @@
 
             <Button
                 android:id="@+id/buttonagregaroc"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Agregar OC"
                 android:backgroundTint="#011336"
@@ -75,6 +77,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerordedecompra"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

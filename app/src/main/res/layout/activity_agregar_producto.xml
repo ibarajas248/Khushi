@@ -15,8 +15,12 @@
         android:layout_height="wrap_content"
         android:background="#A3A3A3"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-         />
+        android:theme="?attr/actionBarTheme">
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
 
 
 
@@ -30,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
 
             >
 
@@ -68,8 +73,12 @@
                 <SearchView
                     android:id="@+id/buscar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFFFFF" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_casilla_1"
+                    android:iconifiedByDefault="false"
+
+                    android:queryHint="Buscar..." />
             </LinearLayout>
 
 

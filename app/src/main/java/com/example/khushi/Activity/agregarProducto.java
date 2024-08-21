@@ -498,7 +498,7 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapter123.filtradoHabilitado(newText);
+        adapter123.filtrado(newText);
         return false;
     }
 }

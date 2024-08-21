@@ -294,7 +294,8 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
         //metodo para llenar las listas del spinner...
 
 
-        nombres.add("--------");
+        //nombres.add("--------");
+        nombres.add("sin asignar");
         idsEmpleados.add(0);
         llenarListaSpinner("http://khushiconfecciones.com//app_khushi/consultas_lotes/buscar_empleados_spinner.php");
 
@@ -398,6 +399,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
                         String nombre= jsonObject.getString("nombre");
                         String Apellidos= jsonObject.getString("Apellidos");
                         String habilitado=jsonObject.getString("habilitado");
+                        String fecha=jsonObject.getString("fecha");
 
 
 
@@ -426,7 +428,7 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
 
                         //String producto, String subparte, String operaciones, String empleado, String nombre, String apellido, int id_lotes_operaciones, int cantidad, int id_operacione_subparte_producto, int lotes, int id_producto_oc
                         listOperaciones.add(new operaciones_lotes_clase(producto,subparte,operaciones,id_lotes_operaciones,
-                                        cantidad,empleado,id_operaciones_subparte_producto, lote, id_producto_oc,completado,nombre,Apellidos,habilitado));
+                                        cantidad,empleado,id_operaciones_subparte_producto, lote, id_producto_oc,completado,nombre,Apellidos,habilitado,fecha));
 
                         //hacer que el Spinner se llene con una consulta sql a la tabla de empleados...llamar un metedo
                         listEmpleados.add(String.valueOf(empleado));

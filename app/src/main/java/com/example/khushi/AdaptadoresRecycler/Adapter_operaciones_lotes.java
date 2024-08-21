@@ -113,7 +113,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
     @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderOperacionesLotes holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderOperacionesLotes holder, @SuppressLint("RecyclerView") int position) {
 
 
         holder.habilitado.setVisibility(View.GONE);
@@ -127,6 +127,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.lote.setText(String.valueOf(listOperaciones.get(position).getLotes()));
         holder.id_producto_oc.setText(String.valueOf(listOperaciones.get(position).getId_producto_oc()));
         holder.completado.setText(listOperaciones.get(position).getCompletado());
+        holder.fecha.setText(listOperaciones.get(position).getFecha());
 
 
         //para cambiar de color tendria que hacere otra referenca distinta custom_spinner_item
@@ -135,9 +136,6 @@ public class Adapter_operaciones_lotes extends RecyclerView
         ArrayAdapter<String> completoSpinnerAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_verde, spinnerDataList);
         ArrayAdapter<String> Spinner_opHabilitado  = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_amarillo, spinnerDataList);
         ArrayAdapter<String> Spinner_Blanco  = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.spinner_blanco, spinnerDataList);
-
-
-
 
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -193,7 +191,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
 
 
-
+        //si se selecciona el item cambia a rojo
         if (position == selectedPosition) {
             //holder.habilitado.setBackgroundColor(0xFFE82900);
             holder.producto.setBackgroundColor(0xFFE82900);
@@ -206,6 +204,8 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.lote.setBackgroundColor(0xFFE82900);
             holder.spinner.setAdapter(selectedSpinnerAdapter);//configuro el color del spinnr
             holder.completado.setBackgroundColor(0xFFE82900);
+            holder.fecha.setBackgroundColor(0xFFE82900);
+
 
            //letra
 
@@ -219,6 +219,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.lote.setTextColor(0xFFFFFFFF);
             holder.completado.setTextColor(0xFFFFFFFF);
             holder.spinner.setEnabled(isLocked);
+            holder.fecha.setTextColor(0xFFFFFFFF);
 
 
 
@@ -260,7 +261,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
             }//////////
 
 
-        } else {
+        } else { // si no está seleccionados
+
+            // por defecto configura blanco los items
 
             holder.producto.setTextColor(0xFF000000);
             holder.subparte.setTextColor(0xFF000000);
@@ -271,6 +274,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
             holder.id_operaciones_subparte_producto.setTextColor(0xFF000000);
             holder.lote.setTextColor(0xFF000000);
             holder.completado.setTextColor(0xFF000000);
+            holder.fecha.setTextColor(0xFF000000);
 
             if (position % 2 == 0) {
                 // Si la posición es par
@@ -283,6 +287,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.id_operaciones_subparte_producto.setBackgroundColor(0xFFD9D9D9); // Gris
                 holder.lote.setBackgroundColor(0xFFD9D9D9); // Gris
                 holder.completado.setBackgroundColor(0xFFD9D9D9); // Gris
+                holder.fecha.setBackgroundColor(0xFFD9D9D9);
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(spinnerAdapter);
@@ -329,6 +334,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.lote.setBackgroundColor(0xFFFFFFFF); // Otro color
                 holder.completado.setBackgroundColor(0xFFFFFFFF); // Otro color
                 holder.spinner.setEnabled(isLocked);
+                holder.fecha.setBackgroundColor(0xFFFFFFFF);
 
 
 
@@ -387,6 +393,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.spinner.setAdapter(completoSpinnerAdapter);//configuro el color del spinnr
                 holder.spinner.setEnabled(false); // Deshabilitar el Spinner
                 holder.completado.setBackgroundColor(0xFFA6E196);
+                holder.fecha.setBackgroundColor(0xFFA6E196);
 
                 if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                     holder.spinner.setAdapter(completoSpinnerAdapter);
@@ -432,6 +439,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
                 holder.spinner.setAdapter(Spinner_opHabilitado);//configuro el color del spinnr
                 holder.completado.setBackgroundColor(0xFFE6A712);
                holder.spinner.setEnabled(isLocked);
+               holder.fecha.setBackgroundColor(0xFFE6A712);
                if ("no asignado".equals(listOperaciones.get(position).getEmpleado())) {
                        holder.spinner.setAdapter(Spinner_opHabilitado);
                    holder.spinner.setEnabled(isLocked);
@@ -531,7 +539,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
 
         TextView habilitado, producto,subparte, operaciones,idLotesOperaciones,
                 cantidad, empleado, id_operaciones_subparte_producto,
-                lote,id_producto_oc, completado ;
+                lote,id_producto_oc, completado,fecha ;
         Spinner spinner;
 
 
@@ -553,8 +561,7 @@ public class Adapter_operaciones_lotes extends RecyclerView
             lote= itemView.findViewById(R.id.edtlote);
             id_producto_oc= itemView.findViewById(R.id.id_producto_oc);
             completado= itemView.findViewById(R.id.edtcompletado);
-
-
+            fecha = itemView.findViewById(R.id.fecha);
 
         }
     }

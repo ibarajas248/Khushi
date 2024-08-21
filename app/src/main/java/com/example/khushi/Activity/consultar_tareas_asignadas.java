@@ -88,7 +88,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     HorizontalScrollView Contenedor_Recycler;
 //variable para tarjeta cuando se selecciona una operacion
     LinearLayout linearLayoutFicha;
-    TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView;
+    TextView productTextView, sectionTextView, operationTextView, quantityTextView, nameTextView, lastNameTextView,textViewFecha;
 
     //------------
     private String ROL, idEmpleado, operaciones_completadas; //variable que recibe del intent
@@ -256,6 +256,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
         quantityTextView = findViewById(R.id.tvQuantity);
         nameTextView = findViewById(R.id.tvName);
         lastNameTextView = findViewById(R.id.tvLastName);
+
 
 
         //-----------------------------------------------------------------------------
@@ -599,6 +600,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                         String completado= jsonObject.getString("completado");
                         String habilitado= jsonObject.getString("habilitado");
                         String fecha= jsonObject.getString("fecha");
+
                         String empleado=StringEmpleado;
 
 
