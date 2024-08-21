@@ -10,13 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,14 +44,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class agregarProducto extends AppCompatActivity {
+public class agregarProducto extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private boolean isMethodRunning = true;
-
+    private boolean desplegaropcion= false;
+    AdapterDatos adapter123;
     private boolean visibilidadModificar= false;
+    LinearLayout LayoutIngresaProducto;
     ArrayList<nuevoProducto> listDatos;
     RecyclerView recycler;
     RequestQueue queue;
+    ImageButton desplegar;
     private Toolbar toolbar1;
     EditText producto;
     Button registrarProducto, modificarProducto, eliminarProducto;
@@ -59,7 +66,7 @@ public class agregarProducto extends AppCompatActivity {
     int idProducto;
 
     private String ROL, idEmpleado;// recibe el intent
-
+    SearchView searchView;
 
 
 
@@ -84,6 +91,12 @@ public class agregarProducto extends AppCompatActivity {
         registrarProducto=(Button)findViewById(R.id.registrarproductos);
         modificarProducto=(Button)findViewById(R.id.boton_modificarproducto);
         eliminarProducto=(Button)findViewById(R.id.button_eliminar_producto);
+        desplegar=(ImageButton)findViewById(R.id.desplegar);
+        LayoutIngresaProducto=(LinearLayout)findViewById(R.id.LayoutIngresaProducto);
+        searchView = findViewById(R.id.buscar);
+        searchView.setOnQueryTextListener(this);
+
+
 
         precio=(EditText)findViewById(R.id.editTextprecio);
 
@@ -98,6 +111,23 @@ public class agregarProducto extends AppCompatActivity {
         idEmpleado= intent.getStringExtra("idEmpleado");
 
         roles_de_usuario();
+
+
+
+
+        desplegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                desplegaropcion=!desplegaropcion;
+                if (desplegaropcion==true){
+                    LayoutIngresaProducto.setVisibility(View.VISIBLE);
+
+                }else {
+                    LayoutIngresaProducto.setVisibility(View.GONE);
+                }
+
+            }
+        });
 
 
         modificarProducto.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +235,9 @@ public class agregarProducto extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                AdapterDatos adapter123 = new AdapterDatos(listDatos,ROL);
+                adapter123 = new AdapterDatos(listDatos,ROL);
+
+
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -248,12 +280,15 @@ public class agregarProducto extends AppCompatActivity {
 
 
                 recycler.setAdapter(adapter123);
+                adapter123.notifyDataSetChanged(); // Notificar cambios en el adaptador
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-                isMethodRunning = true; // reiniciar la bandera en c
+                isMethodRunning = true; // reiniciar la bandera en
+                TextView vacio=findViewById(R.id.vacio);
+                vacio.setVisibility(View.VISIBLE);
             }
         });
 
@@ -456,7 +491,14 @@ public class agregarProducto extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
-
-
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter123.filtradoHabilitado(newText);
+        return false;
+    }
 }

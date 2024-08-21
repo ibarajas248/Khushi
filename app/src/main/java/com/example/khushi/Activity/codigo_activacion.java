@@ -54,6 +54,7 @@ public class codigo_activacion extends AppCompatActivity {
                 // Este método se llama cuando la solicitud es exitosa y recibe un JSONArray como respuesta
                 JSONObject jsonObject=null;
                 for(int i=0;i<response.length();i++){
+
                     try{
                         jsonObject=response.getJSONObject(i);
                         // Extraer datos del objeto JSON y mostrarlos en los campos de texto

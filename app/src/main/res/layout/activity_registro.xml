@@ -40,16 +40,16 @@
                 android:id="@+id/editnombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="Juan"
                 android:inputType="text"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp"/>
+                android:textSize="20dp" />
 
 
             <TextView
@@ -64,16 +64,17 @@
                 android:id="@+id/editApellidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="Doe"
                 android:inputType="text"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp"/>
+                android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/cedula"
                 android:layout_width="wrap_content"
@@ -81,20 +82,21 @@
                 android:layout_marginTop="7dp"
                 android:text="Número de cédula: "
                 android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edtcedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="123456789"
                 android:inputType="number"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp" />
+                android:textSize="20dp" />
 
 
             <TextView
@@ -109,16 +111,16 @@
                 android:id="@+id/edtcorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="juandoe@ejemplo.com"
                 android:inputType="textEmailAddress"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp"/>
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tvtelefonofijo"
@@ -132,16 +134,16 @@
                 android:id="@+id/editTextfijo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="31659486521"
                 android:inputType="number"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp" />
+                android:textSize="20dp" />
 
 
             <TextView
@@ -157,16 +159,17 @@
                 android:id="@+id/edtcelular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="20612345"
                 android:inputType="number"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp" />
+                android:textSize="20dp" />
+
             <TextView
 
                 android:layout_width="wrap_content"
@@ -180,16 +183,17 @@
                 android:id="@+id/edtcelularWhatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_casilla_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="31659486521"
                 android:inputType="number"
-                android:textSize="20dp"
+                android:paddingStart="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingStart="12dp"/>
+                android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/tvdireccion"
                 android:layout_width="wrap_content"
@@ -198,14 +202,20 @@
                 android:layout_marginTop="7dp"
                 android:text="Dirección de residencia:"
                 android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edDireccion1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
-                android:hint="carrera 54a # 46-32 sur"
+                android:hint="Carrera 54A# 46-32-sur"
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
 
             <TextView
@@ -215,16 +225,21 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="EPS:"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edEPS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
-                android:hint="miSalud"
+                android:hint="salud"
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
 
             <TextView
@@ -234,15 +249,21 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="fondo de pensiones:"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edtPeniones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
-                android:hint="miPensión"
+                android:hint="pensión "
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
 
             <TextView
@@ -253,16 +274,23 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Fecha de nacimiento "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edtFechaNacimiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="AAAA-MM-DD"
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
+
             <TextView
 
                 android:id="@+id/fechavinculacion"
@@ -271,16 +299,21 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Fecha de vinculación "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edtFechaVinculacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
                 android:hint="AAAA-MM-DD"
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
 
             <TextView
@@ -290,16 +323,23 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Contacto de emergencia:  "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edtContacto_emergencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
-                android:hint="Pedro Figueroa"
+                android:hint="Nombre"
                 android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/tvnumeroEmergencia"
                 android:layout_width="wrap_content"
@@ -307,26 +347,22 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="7dp"
                 android:text="Numero de Emergencia: "
-                android:textSize="20dp" />
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/edtNumero_emergencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
                 android:ems="10"
-                android:hint="3003072035"
+                android:hint="1256345895"
                 android:inputType="number"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/aniovinculacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="7dp"
-                android:text="En qué año se vinculó a la empresa: "
-                android:textSize="20dp" />
-
 
 
             <CheckBox
@@ -342,11 +378,16 @@
                 android:id="@+id/edtcontrasenasupervisor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="20"
-                android:enabled="false"
-                android:hint="Digite clave de validación "
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_casilla_1"
+                android:ems="10"
+                android:hint="Digite clave de supervisor"
                 android:inputType="textPassword"
-                android:textSize="20sp"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20dp"
                 android:visibility="gone" />
 
 

@@ -469,15 +469,10 @@ public class Adapter_operaciones_lotes extends RecyclerView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 // Restaurar el color de fondo del elemento previamente seleccionado
                 notifyItemChanged(selectedPosition);
-
                 // Actualizar la posición seleccionada
                 selectedPosition = position;
-
                 // Cambiar el color de fondo del elemento seleccionado
                 notifyItemChanged(selectedPosition);
 

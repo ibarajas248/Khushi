@@ -21,21 +21,37 @@
 
         <EditText
             android:id="@+id/edtusuario"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/input_casilla_1"
             android:ems="10"
             android:hint="Usuario"
-            android:inputType="text" />
+            android:drawablePadding="12dp"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="20dp"/>
 
         <EditText
             android:id="@+id/edtContraseniapp1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
+            android:background="@drawable/input_casilla_1"
             android:ems="10"
+            android:drawableStart="@drawable/custom_lock_icon"
             android:hint="Contraseña"
-            android:inputType="textPassword" />
+            android:drawablePadding="12dp"
+            android:inputType="textPassword"
+            android:paddingStart="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/btniniciarsesion"

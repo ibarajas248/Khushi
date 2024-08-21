@@ -30,17 +30,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#011336">
+
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="#011336"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+                <ImageButton
+                    android:id="@+id/desplegar"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="#00000000"
+
+
+                    android:backgroundTint="#73736B"
+                    android:src="@drawable/baseline_add_circle_outline_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="#989898"
+                android:orientation="horizontal">
+
+                <SearchView
+                    android:id="@+id/buscar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/LayoutIngresaProducto"
                 android:layout_width="321dp"
-                android:layout_height="197dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/esquinas_curvas_amarillo_ocre"
                 android:elevation="80dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/editTextTextagregarproducto"
@@ -69,60 +111,69 @@
                     android:hint="digite el precio "
                     android:inputType="numberDecimal"
                     android:padding="12dp" />
+
+                <Button
+                    android:id="@+id/registrarproductos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#FFCE17"
+                    android:text="Registrar producto"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+                <Button
+                    android:id="@+id/boton_modificarproducto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:text="Editar producto"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/button_eliminar_producto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#011336"
+                    android:text="Eliminar producto"
+                    android:textColor="#FFCE17"
+                    android:textSize="20dp"
+                    android:visibility="gone"  />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/registrarproductos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#FFCE17"
-                android:text="Registrar producto"
-                android:textColor="#000000"
-                android:textSize="20dp" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewProductos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="visible" />
+                android:visibility="visible" >
 
-            <Button
-                android:id="@+id/boton_modificarproducto"
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/vacio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:text="Editar producto"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/button_eliminar_producto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#011336"
-                android:text="Eliminar producto"
-                android:textColor="#FFCE17"
-                android:textSize="20dp"
-                android:visibility="gone"  />
-
-
+                android:layout_gravity="center"
+                android:text="¡No se encuentran productos registrados!"
+                android:visibility="gone"/>
 
 
         </LinearLayout>
 
     </ScrollView>
-    
+
 
 
 

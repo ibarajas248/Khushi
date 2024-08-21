@@ -13,6 +13,8 @@
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
+    import android.widget.Filter;
+    import android.widget.Filterable;
     import android.widget.ImageButton;
     import android.widget.TextView;
     import android.widget.Toast;
@@ -36,19 +38,25 @@
     import java.io.FileOutputStream;
     import java.io.IOException;
     import java.util.ArrayList;
+    import java.util.List;
+    import java.util.stream.Collectors;
+
     import com.bumptech.glide.Glide;
     import com.bumptech.glide.request.RequestOptions;
+    import com.example.khushi.clasesinfo.operaciones_lotes_clase;
 
     import org.json.JSONArray;
 
-    public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos>implements View.OnClickListener {
+    public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos>implements View.OnClickListener{
         private static final int CODIGO_RESULTADO_CAMARA = 1; // Definir el código de resultado para la cámara
         private static final int CODIGO_DE_SOLICITUD_DE_CAMARA = 2; // Definir el código de solicitud de permisos de la cámara
         ArrayList<nuevoProducto> listDatos;
+         ArrayList<nuevoProducto> listDatosFiltered;//Array para el searchView
         private View.OnClickListener listener;
         private OnItemLongClickListener itemLongClickListener;
         private String ROL;
         private Context context; // Añadir un campo de Context
+
 
 
 
@@ -62,16 +70,15 @@
         }
         public AdapterDatos(ArrayList<nuevoProducto> listDatos) {
             this.listDatos = listDatos;
+            this.listDatosFiltered = new ArrayList<>(listDatos); // Inicializa la lista filtrada
         }
         public AdapterDatos(ArrayList<nuevoProducto> listDatos, String ROL) {
             this.listDatos = listDatos;
             this.ROL=ROL;
+            listDatosFiltered = new ArrayList<>(); // Inicializa la lista filtrada
+            listDatosFiltered.addAll(listDatos);
         }
-        public AdapterDatos(Context context,ArrayList<nuevoProducto> listDatos, String ROL) {
-            this.context = context; // Inicializar el campo de Context
-            this.listDatos = listDatos;
-            this.ROL=ROL;
-        }
+
     
         @NonNull
         @Override
@@ -86,10 +93,10 @@
             return new ViewHolderDatos(view);
     
         }
-    
+
         @Override
         public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
-    
+
 
             holder.id_producto.setText(String.valueOf(listDatos.get(position).getId_producto()));
             holder.producto.setText(listDatos.get(position).getProducto());
@@ -100,16 +107,16 @@
             // Verificar si la posición es par o impar
             if (position % 2 == 0) {
                 // Para posiciones pares, cambia el color de fondo o el color del texto
-                holder.itemView.setBackgroundColor(0xFFACA89C);
-    
+                holder.itemView.setBackgroundColor(0xFFFFFFFF);
+
                 holder.producto.setTextColor(0xFF000000);
             } else {
                 // Para posiciones impares, otro color diferente
-                holder.itemView.setBackgroundColor(0xFFEFE1AD);
+                holder.itemView.setBackgroundColor(0xFFFFFFFF);
                 // o
                 holder.producto.setTextColor(0xFF000000);
             };
-    
+
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -120,7 +127,7 @@
                     return false;
                 }
             });
-    
+
             holder.imagenProducto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,10 +156,11 @@
 
 
         }
-    
+
         @Override
         public int getItemCount() {
-            return listDatos.size();
+            //return listDatos.size();
+            return listDatosFiltered.size(); // Cambia para usar la lista filtrada
         }
     
         public void setOnClickListener(View.OnClickListener listener){
@@ -222,6 +230,24 @@
                 //enviarImagenAlServidor(imageFile);
             }
         }
+
+
+        public void filtradoHabilitado(String txtBuscar) {
+            int longitud = txtBuscar.length();
+            if (longitud == 0) {
+                listDatos.clear();
+                listDatos.addAll(listDatosFiltered);
+            } else {
+                List<nuevoProducto> coleccion = listDatos.stream().filter
+                        (i ->
+                                i.getProducto().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+
+                listDatos.clear();
+                listDatos.addAll(coleccion);
+            }
+        }
+
+
 
 
     }
