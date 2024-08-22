@@ -105,7 +105,7 @@ public class agregar_operacion extends AppCompatActivity {
             public void onClick(View v) {
                 agregarNuevaOperacion("http://khushiconfecciones.com//app_khushi/editar_operaciones.php");
 
-
+//gtgt
                 listOperaciones.clear(); // Limpiar la lista existente
                 new Handler().postDelayed(new Runnable() {
                     @Override
