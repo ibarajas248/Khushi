@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/id_producto_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1976D2"
+        android:padding="8dp"
+        android:text="ID:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/id_oc_producto_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#2196F3"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/id_producto_producto_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre Operación"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1E88E5"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/ordenCompra_p_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="orden de compra"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2"/>
+
+    <TextView
+        android:id="@+id/producto_p_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="producto"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1E88E5"/>
+
+    <TextView
+        android:id="@+id/lotes_producto_oc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Máquina"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2"/>
+
+    <TextView
+        android:id="@+id/cantidadProductos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cantidad productos"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:background="#1976D2"/>
+
+    <!-- Agregar más TextViews para los nuevos campos -->
+
+</LinearLayout>

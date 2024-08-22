@@ -195,7 +195,28 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerproducto_ordedecompra"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerproducto_ordedecompra_do"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
             </LinearLayout>
         </HorizontalScrollView>
 
