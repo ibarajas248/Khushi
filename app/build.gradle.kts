@@ -55,5 +55,14 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    // Dependencia para JUnit 5
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
+    // Si estás usando JUnit 4, puedes usar JUnit Vintage para ejecutar pruebas escritas en JUnit 4
+    //testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0'
+
+    // Dependencia para Assertions
+    testImplementation ("org.junit.jupiter:junit-jupiter-params:5.10.0")
 
 }
