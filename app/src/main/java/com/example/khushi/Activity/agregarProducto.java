@@ -260,6 +260,12 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
                     @Override
                     public void onItemLongClick(nuevoProducto p) {
 
+                        desplegaropcion=true;
+
+                        LayoutIngresaProducto.setVisibility(View.VISIBLE);
+
+
+
 
 
                         if (ROL.equalsIgnoreCase("ADMIN")){
@@ -269,7 +275,7 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
                             modificarProducto.setVisibility(View.VISIBLE);
                             eliminarProducto.setVisibility(View.VISIBLE);
                             visibilidadModificar=true;
-                            recycler.setVisibility(View.GONE);
+                            //recycler.setVisibility(View.GONE);
                             registrarProducto.setVisibility(View.GONE);
 
                         }

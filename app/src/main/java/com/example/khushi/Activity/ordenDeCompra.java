@@ -51,7 +51,7 @@ public class ordenDeCompra extends AppCompatActivity {
 
     private ordenDeCompraclase nuevaOC;
 
-    private Button botonEditarOc, botonagregaroc;
+    private Button botonEditarOc, botonagregaroc, botoneliminarOC;
     private String ROL, idEmpleado;// recibe el intent
 
 
@@ -78,6 +78,7 @@ public class ordenDeCompra extends AppCompatActivity {
         escribeOC=findViewById(R.id.edt_orden_de_compra);
         botonEditarOc=findViewById(R.id.btneditar_OC);
         botonagregaroc=findViewById(R.id.buttonagregaroc);
+        botoneliminarOC=findViewById(R.id.btnEliminar);
 
 
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -183,6 +184,7 @@ public class ordenDeCompra extends AppCompatActivity {
                         botonEditarOc.setVisibility(View.VISIBLE);
                         visibilidadModificar=true;
                         botonagregaroc.setVisibility(View.GONE);
+                        botoneliminarOC.setVisibility(View.VISIBLE);
                         //Toast.makeText(ordenDeCompra.this, nuevaOC.getIdOrdenCompra()+nuevaOC.getOrdendeCompra(), Toast.LENGTH_SHORT).show();
 
 
