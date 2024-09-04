@@ -54,6 +54,7 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.3.2")//implementacion recycler
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("com.airbnb.android:lottie:5.2.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     // Dependencia para JUnit 5
     testImplementation ("org.junit.jupiter:junit-jupiter-api:5.10.0")
