@@ -60,6 +60,7 @@ dependencies {
     testImplementation ("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 
+
     // Si estás usando JUnit 4, puedes usar JUnit Vintage para ejecutar pruebas escritas en JUnit 4
     //testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0'
 

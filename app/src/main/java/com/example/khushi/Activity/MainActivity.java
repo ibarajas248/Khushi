@@ -34,6 +34,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
     //variables que paso al intent
 
     private String ROL, idEmpleado;
+    private ALodingDialog aLodingDialog;
+
+
 
 
     @Override
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        aLodingDialog = new ALodingDialog(MainActivity.this);
 
 
         btnregistro=(Button) findViewById(R.id.btnregistro);
@@ -88,9 +93,12 @@ public class MainActivity extends AppCompatActivity {
 
                 Handler handler = new Handler();
                 //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
+
+                aLodingDialog.show();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        aLodingDialog.cancel();
                         if ((!user.getText().toString().isEmpty() || !contrasenia.getText().toString().isEmpty())&&permisoInisioSesion==true) {
                             String contraseniaEncriptada;
                             contraseniaEncriptada = encryptPassword(contrasenia.getText().toString());
@@ -100,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
                         } else if(permisoInisioSesion==false){
 
                             Toast.makeText(MainActivity.this, "Debe actualizar el software", Toast.LENGTH_SHORT).show();
-
+                            aLodingDialog.show();
                             Handler handler = new Handler();
                             //finalVariableRecibida_idproducto_oc = variableRecibida_idproducto_oc;
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     // Llama al primer método aquí
+                                    aLodingDialog.cancel();
 
                                     if (linkDescargaSoftware.equalsIgnoreCase("mantenimiento")){
                                         Intent intent= new Intent(MainActivity.this, Mantenimiento.class);

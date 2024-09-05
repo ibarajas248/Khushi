@@ -160,7 +160,6 @@ public class ordenDeCompra extends AppCompatActivity {
                     public void onClick(View v) {
 
                         Intent intent= new Intent(ordenDeCompra.this, agregar_producto_oc.class);
-
                         intent.putExtra("id_oc",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getIdOrdenCompra()));
                         intent.putExtra("orden_de_compra",String.valueOf(listOC.get(recycler.getChildAdapterPosition(v)).getOrdendeCompra()));
                         intent.putExtra("Rol",String.valueOf(ROL));
