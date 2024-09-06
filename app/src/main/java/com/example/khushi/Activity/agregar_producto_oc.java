@@ -50,6 +50,7 @@ import java.util.Map;
 public class agregar_producto_oc extends AppCompatActivity {
 
     RecyclerView recycler;
+    RecyclerView recyclercard;
 
     private Toolbar toolbar1;
     private int idproductoSeleccionado, idoc, idPtoductoOC;
@@ -63,7 +64,7 @@ public class agregar_producto_oc extends AppCompatActivity {
 
     ArrayList<String[]> dataArrayList;
 
-    Boolean encabezado= false;
+    Boolean encabezado= true;
 
     private EditText cantidadLote, cantidadProductos;
     Button agregarProductoOc;
@@ -105,9 +106,11 @@ public class agregar_producto_oc extends AppCompatActivity {
         cantidadProductos=(EditText)findViewById(R.id.editTextnumero_productos);
         agregarProductoOc=(Button)findViewById(R.id.btnasignar_boton_a_oc);
         recycler = findViewById(R.id.recyclerproducto_ordedecompra);
+        recyclercard=findViewById(R.id.recyclerproducto_ordendecompra_dos);
         encabezadolayout=(LinearLayout)findViewById(R.id.encabezado);
         encabezadolayout.setVisibility(View.GONE);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclercard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
 
 
@@ -124,6 +127,7 @@ public class agregar_producto_oc extends AppCompatActivity {
         spinnerproducto("http://khushiconfecciones.com/app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
 
         agregarlistaProductoOc("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
+        agregarlistaProductoOcCardview("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
 
         agregarProductoOc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,6 +296,88 @@ public class agregar_producto_oc extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
+                JSONObject jsonObject = null;
+
+                listProductoOrdenCompra.clear(); // Limpiar la lista existente
+
+
+                for (int i = 0; i < response.length(); i++) {
+
+
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+
+                        int id =Integer.parseInt(jsonObject.getString("id"));
+                        idPtoductoOC=id;
+
+                        int id_oc =Integer.parseInt(jsonObject.getString("id_oc"));
+                        id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
+                        String ordenCompra=jsonObject.getString("ordenCompra");
+                        String producto=jsonObject.getString("producto");
+                        int lotes =Integer.parseInt(jsonObject.getString("lotes"));
+                        int cantidad_de_productos =Integer.parseInt(jsonObject.getString("cantidad_de_productos"));
+
+                        listProductoOrdenCompra.add(new nuevoproducto_en_oc(id_oc,ordenCompra,id, id_producto,
+                                lotes, cantidad_de_productos, producto));
+
+
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                Adapter_producto_oc adapter123 = new Adapter_producto_oc(listProductoOrdenCompra,encabezado);
+                adapter123.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!encabezado){
+
+                        }else{
+
+                        }
+                        int position = recycler.getChildAdapterPosition(v);
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            nuevoproducto_en_oc clickedItem = listProductoOrdenCompra.get(position);
+
+                            // Acceder al id del elemento clickeado
+                            int idProductoOC = clickedItem.getId();
+
+                            // Pasar el id a la siguiente actividad mediante Intent
+                            Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
+                            intent.putExtra("id", String.valueOf(idProductoOC));
+                            intent.putExtra("id_producto", String.valueOf(id_producto));
+                            intent.putExtra("ROL", String.valueOf(ROL));
+                            intent.putExtra("idEmpleado", String.valueOf(idEmpleado));
+
+                            startActivity(intent);
+                        }
+
+                    }
+                });
+
+
+
+                recycler.setAdapter(adapter123);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                isMethodRunning = true; // reiniciar la bandera en c
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+    }
+    private void agregarlistaProductoOcCardview(String URL) {
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
                 if (encabezado=false){
                     encabezadolayout.setVisibility(View.GONE);
                 }
@@ -331,8 +417,12 @@ public class agregar_producto_oc extends AppCompatActivity {
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (!encabezado){
 
-                        int position = recycler.getChildAdapterPosition(v);
+                        }else{
+
+                        }
+                        int position = recyclercard.getChildAdapterPosition(v);
 
                         if (position != RecyclerView.NO_POSITION) {
                             nuevoproducto_en_oc clickedItem = listProductoOrdenCompra.get(position);
@@ -355,7 +445,7 @@ public class agregar_producto_oc extends AppCompatActivity {
 
 
 
-                recycler.setAdapter(adapter123);
+                recyclercard.setAdapter(adapter123);
             }
         }, new Response.ErrorListener() {
             @Override
