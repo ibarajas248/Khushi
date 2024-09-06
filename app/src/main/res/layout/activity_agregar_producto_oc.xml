@@ -96,15 +96,17 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/encabezado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
 
                     <TextView
                         android:id="@+id/id_producto_oc"
@@ -195,8 +197,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerproducto_ordedecompra"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -212,7 +213,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerproducto_ordedecompra_do"
+                    android:id="@+id/recyclerproducto_ordedecompra_dos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />

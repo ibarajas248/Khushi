@@ -215,6 +215,7 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
     }
 
     private void agregarlista(String URL) {
+        aLodingDialog.show();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -299,6 +300,7 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
 
                 recycler.setAdapter(adapter123);
                 adapter123.notifyDataSetChanged(); // Notificar cambios en el adaptador
+                aLodingDialog.cancel();
             }
         }, new Response.ErrorListener() {
             @Override

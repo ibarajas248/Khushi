@@ -17,15 +17,27 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
 
     ArrayList<nuevoproducto_en_oc> listoperaciones_oc;
     private View.OnClickListener listener;
+    private boolean useAlternativeLayout; // Booleano que controla qué layout usar
 
-    public Adapter_producto_oc(ArrayList<nuevoproducto_en_oc>listoperaciones_oc){
-        this.listoperaciones_oc= listoperaciones_oc;
+    public Adapter_producto_oc(ArrayList<nuevoproducto_en_oc>listoperaciones_oc, boolean useAlternativeLayout){
+        this.listoperaciones_oc = listoperaciones_oc;
+        this.useAlternativeLayout = useAlternativeLayout;
     }
 
     @NonNull
     @Override
     public Adapter_producto_oc.ViewHolderproducto_oc onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto_oc,null,false);
+        View view;
+
+        // Inflar layout según el booleano
+        if (!useAlternativeLayout) {
+
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto_oc_card, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_producto_oc, parent, false);
+        }
+
+        // Asignar el click listener
         view.setOnClickListener(this);
         return new Adapter_producto_oc.ViewHolderproducto_oc(view);
     }

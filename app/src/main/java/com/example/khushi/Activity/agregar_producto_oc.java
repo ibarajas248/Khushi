@@ -63,6 +63,8 @@ public class agregar_producto_oc extends AppCompatActivity {
 
     ArrayList<String[]> dataArrayList;
 
+    Boolean encabezado= false;
+
     private EditText cantidadLote, cantidadProductos;
     Button agregarProductoOc;
     RequestQueue queue;
@@ -70,6 +72,7 @@ public class agregar_producto_oc extends AppCompatActivity {
     private String ROL, idEmpleado;// recibe el intent
     private boolean isMethodRunning = true;
     int id_producto;
+    LinearLayout encabezadolayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class agregar_producto_oc extends AppCompatActivity {
         ordenDeCompra=intent.getStringExtra("orden_de_compra");
         ROL = intent.getStringExtra("Rol");
         idEmpleado= intent.getStringExtra("idEmpleado");
+
+
 
         //llenar el toolbar-------
         toolbar1=findViewById(R.id.toolbar1);
@@ -100,6 +105,8 @@ public class agregar_producto_oc extends AppCompatActivity {
         cantidadProductos=(EditText)findViewById(R.id.editTextnumero_productos);
         agregarProductoOc=(Button)findViewById(R.id.btnasignar_boton_a_oc);
         recycler = findViewById(R.id.recyclerproducto_ordedecompra);
+        encabezadolayout=(LinearLayout)findViewById(R.id.encabezado);
+        encabezadolayout.setVisibility(View.GONE);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
 
@@ -281,9 +288,13 @@ public class agregar_producto_oc extends AppCompatActivity {
     }
 
     private void agregarlistaProductoOc(String URL) {
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                if (encabezado=false){
+                    encabezadolayout.setVisibility(View.GONE);
+                }
                 JSONObject jsonObject = null;
 
                 listProductoOrdenCompra.clear(); // Limpiar la lista existente
@@ -316,7 +327,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                Adapter_producto_oc adapter123 = new Adapter_producto_oc(listProductoOrdenCompra);
+                Adapter_producto_oc adapter123 = new Adapter_producto_oc(listProductoOrdenCompra,encabezado);
                 adapter123.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
