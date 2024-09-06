@@ -80,6 +80,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
     Spinner spinnerEmpleado;
     Spinner spinnerFiltrar;
     int idParaUpdate;
+    private ALodingDialog aLodingDialog;
 //variable para almacenar el id de la tarea asignada
     private int Operacion_asignada;
 
@@ -130,6 +131,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
         //---------fin de valores recibidos en el intent
+
+        aLodingDialog = new ALodingDialog(consultar_tareas_asignadas.this);
 
 
 
@@ -372,6 +375,7 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
     public void agregarListaOperacion_Habilitada(String URL) {
+        aLodingDialog.show();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -476,11 +480,14 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
 
                 recyclerHabilitado.setAdapter(adapterHabilitada);
+
+                aLodingDialog.cancel();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "No tiene operaciones Asignadas", Toast.LENGTH_SHORT).show();
+                aLodingDialog.cancel();
 
             }
         });
@@ -570,6 +577,9 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
     }
     public void agregarListaOperacion_Lote(String URL) {
+
+        aLodingDialog.show();
+        aLodingDialog.show();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -718,11 +728,15 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
                     }
                 });
                 recycler.setAdapter(adapter123);
+                aLodingDialog.cancel();
+                aLodingDialog.cancel();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                aLodingDialog.cancel();
+                aLodingDialog.cancel();
 
             }
         });

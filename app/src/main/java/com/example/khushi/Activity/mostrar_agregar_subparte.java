@@ -78,12 +78,14 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
     private String subparteSeleccionada;
     private String ROL, idEmpleado;// recibe el intent
+    private ALodingDialog aLodingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_agregar_subparte);
         spinnersubparte=(Spinner) findViewById(R.id.spinner);
+        aLodingDialog = new ALodingDialog(mostrar_agregar_subparte.this);
 
 
         toolbar1=findViewById(R.id.toolbar1);
@@ -121,10 +123,11 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         Spinnersubparte("http://khushiconfecciones.com/app_khushi/spinner_subparte.php"); // Volver a cargar la lista desde el servidor
-
+        aLodingDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                aLodingDialog.cancel();
                 listsubparte.clear();
                 // Limpiar la lista existente
                 agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto="+idproducto);
@@ -176,11 +179,12 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
 
                     listsubparte.clear(); // Limpiar la lista existente
 
-
+                    aLodingDialog.show();
                     //que pasaria si si el insert no se hace pero  obtenerUltimaSubparte(); si se ejecuta....arreglar esa excepcion...
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
                             obtenerUltimaSubparte();
                             Toast.makeText(mostrar_agregar_subparte.this, "id_subparte: " + id_subparte + "id_producto: " + idproducto, Toast.LENGTH_SHORT).show();
                             asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
@@ -188,6 +192,7 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    aLodingDialog.cancel();
                                     agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto=" + idproducto);
 
                                 }
@@ -200,9 +205,11 @@ public class mostrar_agregar_subparte extends AppCompatActivity {
                 }else{
                     asociarProductoSubparte("http://khushiconfecciones.com//app_khushi/asociar_producto_subparte.php");
                     listsubparte.clear(); // Limpiar la lista existente
+                    aLodingDialog.show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            aLodingDialog.cancel();
                             agregarlistaSubParte("http://khushiconfecciones.com//app_khushi/buscar_subparte.php?id_producto=" + idproducto);
 
                         }

@@ -67,6 +67,7 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
 
     private String ROL, idEmpleado;// recibe el intent
     SearchView searchView;
+    private ALodingDialog aLodingDialog;
 
 
 
@@ -83,6 +84,8 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
         //final de llenar toolbar
+
+        aLodingDialog = new ALodingDialog(agregarProducto.this);
 
 
 
@@ -135,9 +138,12 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
             public void onClick(View v) {
                 modificarProducto.setEnabled(false);
                 agregarproducto("http://khushiconfecciones.com//app_khushi/editar_producto.php");
+
+                aLodingDialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        aLodingDialog.cancel();
                         modificarProducto.setVisibility(View.GONE);
                         eliminarProducto.setVisibility(View.GONE);
                         modificarProducto.setEnabled(true);
@@ -155,15 +161,19 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
         registrarProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // Inhabilitar el botón al hacer clic
                 registrarProducto.setEnabled(false);
                 agregarproducto("http://khushiconfecciones.com//app_khushi/insertar_producto.php");
 
 
                 listDatos.clear(); // Limpiar la lista existente
+                aLodingDialog.show();
                 new Handler().postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
+                        aLodingDialog.cancel();
                         registrarProducto.setEnabled(true);
                         listDatos.clear(); // Limpiar la lista existente
                         agregarlista("http://khushiconfecciones.com//app_khushi/recycler.php"); // Volver a cargar la lista desde el servidor
@@ -176,9 +186,11 @@ public class agregarProducto extends AppCompatActivity implements SearchView.OnQ
             public void onClick(View v) {
                 eliminarProducto.setEnabled(false);
                 eliminarProducto("http://khushiconfecciones.com//app_khushi/eliminar_producto.php");
+                aLodingDialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        aLodingDialog.cancel();
                         modificarProducto.setVisibility(View.GONE);
                         eliminarProducto.setVisibility(View.GONE);
                         eliminarProducto.setEnabled(true);

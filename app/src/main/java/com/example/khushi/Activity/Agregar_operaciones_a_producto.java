@@ -98,6 +98,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
     boolean respuestaProductoEnOc=false;
     int idProductoSubparteOperacion; //recoge el id de el producto asociado al producto
+    private ALodingDialog aLodingDialog;
 
 
 
@@ -125,6 +126,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
         mostarAgregar();
+
+        aLodingDialog = new ALodingDialog(Agregar_operaciones_a_producto.this);
 
         productoOCList = new ArrayList<>();
 
@@ -191,9 +194,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                 if (switchActivado == true) { // Para agregar desde inventario
 
+                    aLodingDialog.show();
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            aLodingDialog.cancel();
                             listOperacionesDeProducto.clear();
                              // Limpiar la lista existente
                             listaDosOperacionProducto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_asignadas_a_producto.php?id_producto="
@@ -209,13 +215,15 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                 } else { //agregar operación que no exista en el inventario.
 
 
-
+                    aLodingDialog.show();
                     agregarOperacion("http://khushiconfecciones.com//app_khushi/agregar_operaciones.php");
 
                     //verificar si el producto se encuentra vinculado a una oc
                    // buscarProductoenOC (URLBuscarProductoEnOC+idproducto);
 
                     //listOperaciones.clear(); // Limpiar la lista existente
+
+
 
                     //espera 3 segundos y luego busca el id del ultimo registro
                     new Handler().postDelayed(new Runnable() {
@@ -328,7 +336,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        aLodingDialog.cancel();
 
                     }
                 }, new Response.ErrorListener() {
@@ -424,6 +432,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
     private void agregarListaOperacion_producto(String URL) {
+        aLodingDialog.show();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -483,7 +492,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                     }
                 }, 1000); // 3000 milisegundos = 3 segundos
+
+                aLodingDialog.cancel();
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -496,6 +508,8 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     }
 
     private void listaDosOperacionProducto(String URL) {
+
+        aLodingDialog.show();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -579,7 +593,9 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
                 recycler_operaciones_de_producto.setAdapter(adapter123);
+                aLodingDialog.cancel();
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -594,6 +610,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
     private void agregarOperacion(String URL) {
+        aLodingDialog.show();
         // Crear una solicitud de cadena (StringRequest) con un método POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -603,7 +620,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                 Log.d("Response", response);
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Operación Agregada", Toast.LENGTH_SHORT).show();
-
+               // aLodingDialog.cancel();
             }
         }, new Response.ErrorListener() {
 
@@ -616,6 +633,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
+                aLodingDialog.cancel();
             }
         }) {
 
@@ -648,6 +666,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
     }
 
     private void agregarPrecio(String URL) {
+
         // Crear una solicitud de cadena (StringRequest) con un método POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -670,6 +689,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
+                aLodingDialog.cancel();
             }
         }) {
 
@@ -707,9 +727,12 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             }
         };
 
+
+
         // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
 
     }
 
@@ -736,6 +759,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
                 Toast.makeText(Agregar_operaciones_a_producto.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error en la solicitud: " + error.toString());
+                aLodingDialog.cancel();
             }
         }) {
 
@@ -816,9 +840,11 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
             }
         };
 
+        aLodingDialog.show();
         // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        aLodingDialog.cancel();
 
     }
 
@@ -883,6 +909,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
 
 
     private void obtenerUltimaOperacion() {
+        //aLodingDialog.show();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion.php"; // Reemplaza con tu URL
 
@@ -910,11 +937,15 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        //aLodingDialog.cancel();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Manejar errores de la solicitud
+                        aLodingDialog.cancel();
+
                     }
                 });
 
@@ -1017,7 +1048,10 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
         agregarListaOperacion_producto("http://khushiconfecciones.com//app_khushi/buscar_operaciones_filtrado.php");
     }
     private void buscarProductoenOC (String URL){
+
+        // aLodingDialog.show();
         // Crear una solicitud JSON (JsonArrayRequest) con un método GET
+
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -1039,7 +1073,7 @@ public class Agregar_operaciones_a_producto extends AppCompatActivity implements
                         //buscar_ultima_operacion_producto_subparte("http://khushiconfecciones.com//app_khushi/buscar_ultima_operacion_producto_subparte.php");
 
 
-
+                        aLodingDialog.cancel();
 
                     }catch (JSONException e){
                         // Capturar y mostrar cualquier error JSON que ocurra
