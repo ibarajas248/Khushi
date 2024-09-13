@@ -26,7 +26,7 @@
 
             <!-- Aquí agregamos el botón con la imagen -->
             <ImageButton
-                android:id="@+id/calendar_button"
+                android:id="@+id/barramenuhorizontal"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/barramenuhorizontal"
@@ -55,36 +55,43 @@
             android:orientation="vertical">
 
 
-            <Spinner
-                android:id="@+id/spinnerselecproducto"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="20dp"
-                android:background="#EFE1AD"
-                 />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-            <EditText
-                android:id="@+id/editTextnumero_lotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="#EFE1AD"
-                android:ems="10"
-                android:hint="escriba cantidad de lotes"
-                android:inputType="number"
-                android:padding="12dp" />
+                <Spinner
+                    android:id="@+id/spinnerselecproducto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#EFE1AD" />
 
-            <EditText
-                android:id="@+id/editTextnumero_productos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/editTextnumero_lotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/input_casilla_1"
+                    android:ems="10"
+                    android:hint="escriba cantidad de lotes"
+                    android:inputType="number"
+                    android:padding="12dp" />
 
-                android:background="#EFE1AD"
-                android:ems="10"
-                android:hint="escriba cantidad de productos"
-                android:inputType="number"
-                android:padding="12dp" />
+                <EditText
+                    android:id="@+id/editTextnumero_productos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/input_casilla_1"
+                    android:ems="10"
+                    android:hint="escriba cantidad de productos"
+                    android:inputType="number"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,10 +120,11 @@
 
 
         <HorizontalScrollView
+            android:id="@+id/Scroll_lista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#EFE1AD"
-            android:visibility="gone">
+            >
 
 
             <LinearLayout

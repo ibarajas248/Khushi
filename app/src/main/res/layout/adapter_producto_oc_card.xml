@@ -52,27 +52,55 @@
             android:background="#1E88E5"
             android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/ordenCompra_p_oc"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="orden de compra"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
 
-        <TextView
-            android:id="@+id/producto_p_oc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Orden de compra:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ordenCompra_p_oc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="orden de compra"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="producto"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="producto:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/producto_p_oc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="producto"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                 />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +110,7 @@
                 android:id="@+id/lotes_producto_ocsw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:text="Lotes: "
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -92,23 +120,38 @@
                 android:id="@+id/lotes_producto_oc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:text="lotes"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="" />
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/cantidadProductos"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="cantidad productos"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Cantidad: "
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cantidadProductos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="cantidad productos"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                 />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

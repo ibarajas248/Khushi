@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,6 +55,7 @@ public class agregar_producto_oc extends AppCompatActivity {
     RecyclerView recyclercard;
 
     private Toolbar toolbar1;
+    HorizontalScrollView scrollListPproductosOC;
     private int idproductoSeleccionado, idoc, idPtoductoOC;
     String ordenDeCompra, producto;
     private Spinner spinnerproducto;
@@ -74,6 +77,7 @@ public class agregar_producto_oc extends AppCompatActivity {
     private boolean isMethodRunning = true;
     int id_producto;
     LinearLayout encabezadolayout;
+    ImageButton lista_productos_oc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +112,9 @@ public class agregar_producto_oc extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerproducto_ordedecompra);
         recyclercard=findViewById(R.id.recyclerproducto_ordendecompra_dos);
         encabezadolayout=(LinearLayout)findViewById(R.id.encabezado);
-        encabezadolayout.setVisibility(View.GONE);
+        //encabezadolayout.setVisibility(View.GONE);
+        lista_productos_oc= findViewById(R.id.barramenuhorizontal);
+        scrollListPproductosOC=findViewById(R.id.Scroll_lista);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclercard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
@@ -128,6 +134,15 @@ public class agregar_producto_oc extends AppCompatActivity {
 
         agregarlistaProductoOc("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
         agregarlistaProductoOcCardview("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
+
+
+        lista_productos_oc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollListPproductosOC.setVisibility(View.VISIBLE);
+
+            }
+        });
 
         agregarProductoOc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -378,8 +393,12 @@ public class agregar_producto_oc extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
+
                 if (encabezado=false){
-                    encabezadolayout.setVisibility(View.GONE);
+                    //encabezadolayout.setVisibility(View.GONE);
+                    lista_productos_oc.setVisibility(View.GONE);
+
                 }
                 JSONObject jsonObject = null;
 

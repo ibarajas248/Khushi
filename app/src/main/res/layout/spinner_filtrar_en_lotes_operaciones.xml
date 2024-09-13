@@ -10,4 +10,4 @@
     android:singleLine="true"
     android:textColor="#FFCE17"
     android:textSize="16sp"
-    android:textStyle="bold" />
+    />
