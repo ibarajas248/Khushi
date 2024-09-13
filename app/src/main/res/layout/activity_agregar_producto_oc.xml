@@ -13,7 +13,30 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        />
+        app:titleTextColor="#000000">
+
+
+        <!-- LinearLayout para contener el botón al final -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_gravity="end">
+
+            <!-- Aquí agregamos el botón con la imagen -->
+            <ImageButton
+                android:id="@+id/calendar_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/barramenuhorizontal"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="Botón de Calendario"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,13 +115,15 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EFE1AD">
+            android:background="#EFE1AD"
+            android:visibility="gone">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

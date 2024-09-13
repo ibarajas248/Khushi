@@ -36,6 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 
 public class ordenDeCompra extends AppCompatActivity {
 
@@ -89,7 +92,7 @@ public class ordenDeCompra extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 agregar_oc("http://khushiconfecciones.com//app_khushi/agregar_oc.php");
-                listOC.clear(); // Limpiar la lista existente
+                /*listOC.clear(); // Limpiar la lista existente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -97,15 +100,23 @@ public class ordenDeCompra extends AppCompatActivity {
                         lista_oc("http://khushiconfecciones.com/app_khushi/buscar_oc.php");
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
+
+
+                 */
 
             }
         });
         botonEditarOc.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                agregar_oc("http://khushiconfecciones.com//app_khushi/editar_oc.php?");
+                visibilidadModificar=true;
+
+                editar_oc("http://khushiconfecciones.com//app_khushi/editar_oc.php");
 
                 listOC.clear(); // Limpiar la lista existente
+
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -113,10 +124,51 @@ public class ordenDeCompra extends AppCompatActivity {
                         lista_oc("http://khushiconfecciones.com/app_khushi/buscar_oc.php");
                     }
                 }, 3000); // 3000 milisegundos = 3 segundos
+
+
+                botonEditarOc.setVisibility(View.GONE);
+                visibilidadModificar=false;
+                botonagregaroc.setVisibility(View.VISIBLE);
+                botoneliminarOC.setVisibility(View.GONE);
+            }
+        });
+
+        botoneliminarOC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear el AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(ordenDeCompra.this);
+                builder.setTitle("¿Desea eliminar la orden de compra?");
+                builder.setMessage("Si elimina la OC perderá toda la información asociada, eso incluye productos y producción vinculada.");
+
+                // Botón "Aceptar"
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eliminar_OC("http://khushiconfecciones.com/app_khushi/eliminar_oc.php");
+                        dialog.dismiss();
+
+                    }
+                });
+
+                // Botón "Cancelar"
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Acción al hacer clic en "Cancelar"
+                        dialog.dismiss();
+                    }
+                });
+
+                // Mostrar el dialogo
+                builder.show();
+
             }
         });
 
     }
+
+
 
     private void rolesusuarios() {
 
@@ -222,7 +274,12 @@ public class ordenDeCompra extends AppCompatActivity {
                 // response contiene la respuesta del servidor en formato de cadena
 
                 Log.d("Response", response);
-                Toast.makeText(ordenDeCompra.this, "Operacion Exitosa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ordenDeCompra.this, "orden de compra creada satisfactoriamente", Toast.LENGTH_SHORT).show();
+                listOC.clear(); // Limpiar la lista existente
+                lista_oc("http://khushiconfecciones.com/app_khushi/buscar_oc.php");
+                escribeOC.setText("");
+
+
 
             }
         }, new Response.ErrorListener() {
@@ -258,7 +315,69 @@ public class ordenDeCompra extends AppCompatActivity {
 
                 if (visibilidadModificar==true){
                     parametros.put("idOrdenCompra",String.valueOf(nuevaOC.getIdOrdenCompra()));
+                    Toast.makeText(ordenDeCompra.this, "idOrdenCompra: "+nuevaOC.getIdOrdenCompra(), Toast.LENGTH_SHORT).show();
                 }
+
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+    private void  editar_oc (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Log.d("Response", response);
+                Toast.makeText(ordenDeCompra.this, "orden de compra editada correctamente ", Toast.LENGTH_SHORT).show();
+                listOC.clear(); // Limpiar la lista existente
+                lista_oc("http://khushiconfecciones.com/app_khushi/buscar_oc.php");
+                escribeOC.setText("");
+
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                //Toast.makeText(validacionContrasenaAvtivity.this, error.toString(),Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(ordenDeCompra.this, "Error en la solicitud: " + error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error en la solicitud: " + error.toString());
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+
+                parametros.put("ordendeCompra",escribeOC.getText().toString());
+
+
+                parametros.put("idOrdenCompra",String.valueOf(nuevaOC.getIdOrdenCompra()));
+
 
 
 
@@ -309,6 +428,60 @@ public class ordenDeCompra extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
+
+    }
+
+
+    private void eliminar_OC (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                Toast.makeText(ordenDeCompra.this, "orden de compra eliminada satisfactoriamente ", Toast.LENGTH_SHORT).show();
+                //limpiarFormulario();
+                listOC.clear(); // Limpiar la lista existente
+                lista_oc("http://khushiconfecciones.com/app_khushi/buscar_oc.php");
+                escribeOC.setText("");
+                botoneliminarOC.setVisibility(View.GONE);
+                botonEditarOc.setVisibility(View.GONE);
+                botonagregaroc.setVisibility(View.VISIBLE);
+                visibilidadModificar=false;
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(ordenDeCompra.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                //parametros.put("idOrdenCompra",edtCodigo.getText().toString());
+                parametros.put("idOrdenCompra",String.valueOf(nuevaOC.getIdOrdenCompra()));
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
     }
 }
