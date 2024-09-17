@@ -5,34 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    android:foregroundTint="#FFFFFF"
     tools:context=".Activity.ordenDeCompra">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#011336"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#000000">
+        app:titleTextColor="#FFFFFF"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
         <!-- LinearLayout para contener el botón al final -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_gravity="end"
             android:gravity="end"
-            android:layout_gravity="end">
+            android:orientation="horizontal"
+            >
 
             <!-- Aquí agregamos el botón con la imagen -->
             <ImageButton
                 android:id="@+id/barramenuhorizontal"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/barramenuhorizontal"
+
                 android:background="?attr/selectableItemBackground"
+                android:backgroundTint="#FFFFFF"
                 android:contentDescription="Botón de Calendario"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/barramenuhorizontal"
+                app:tint="#FFFFFF" />
 
         </LinearLayout>
 
@@ -41,8 +49,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/toolbar1">
+        android:layout_below="@id/toolbar1"
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -106,11 +114,11 @@
                     android:id="@+id/btnasignar_boton_a_oc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:backgroundTint="#011336"
                     android:text="Asignar producto a oc "
                     android:textColor="#FFCE17"
                     android:textSize="16sp"
-                    android:layout_marginBottom="15dp"
 
                     />
             </LinearLayout>
@@ -118,22 +126,17 @@
         </LinearLayout>
 
 
-
-
-
         <HorizontalScrollView
             android:id="@+id/Scroll_lista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EFE1AD"
-            >
+            android:background="#EFE1AD">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -240,10 +243,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerproducto_ordendecompra_dos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-
+            android:layout_height="wrap_content" />
 
 
         <Button

@@ -5,14 +5,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,8 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +84,7 @@ public class agregar_producto_oc extends AppCompatActivity {
     int id_producto;
     LinearLayout encabezadolayout;
     ImageButton lista_productos_oc;
+    ArrayList<String> nombresProductos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +105,7 @@ public class agregar_producto_oc extends AppCompatActivity {
         setSupportActionBar(toolbar1);
         getSupportActionBar().setTitle("Khushi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+
 
         //final de llenar toolbar
 
@@ -181,7 +189,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                 JSONObject jsonObject = null;
                 listDatos.clear(); // Limpiar la lista existente
 
-                ArrayList<String> nombresProductos = new ArrayList<>(); // ArrayList para almacenar nombres de productos
+                 nombresProductos = new ArrayList<>(); // ArrayList para almacenar nombres de productos
                 ArrayList<Integer> idsProductos = new ArrayList<>();
 
 
@@ -207,9 +215,12 @@ public class agregar_producto_oc extends AppCompatActivity {
                     }
                 }
                 AdapterDatos adapter123 = new AdapterDatos(listDatos);
-
+                // Crear el adaptador con el diseño personalizado
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(agregar_producto_oc.this, R.layout.spinner_filtrar_en_lotes_operaciones, nombresProductos);
+                // Establecer el diseño del dropdown personalizado
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
                 spinnerproducto.setAdapter(adapter); // Establecer el adaptador en el Spinner
+                //configurarSpinnerConBuscador();
 
 
                 spinnerproducto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -229,6 +240,10 @@ public class agregar_producto_oc extends AppCompatActivity {
                         // Método requerido pero no se utiliza en este caso
                     }
                 });
+
+
+
+
 
             }
         }, new Response.ErrorListener() {
@@ -509,6 +524,101 @@ public class agregar_producto_oc extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void configurarSpinnerConBuscador() {
+        // Mostrar el diálogo con buscador al hacer clic en el Spinner
+        spinnerproducto.setOnTouchListener((v, event) -> {
+            mostrarDialogoConBuscador();
+            return true;  // Evita que el Spinner se expanda normalmente
+        });
+    }
+
+    private void mostrarDialogoConBuscador() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+
+        // Inflar el layout personalizado
+        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_searchable_spinner, null);
+        builder.setView(dialogView);
+
+        EditText editTextBuscar = dialogView.findViewById(R.id.editTextBuscar);
+        ListView listViewOpciones = dialogView.findViewById(R.id.listViewOpciones);
+
+        // Adaptador para el ListView
+        final ArrayAdapter<String> adaptadorListView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nombresProductos);
+        listViewOpciones.setAdapter(adaptadorListView);
+
+        // Filtrar la lista mientras el usuario escribe en el campo de búsqueda
+        editTextBuscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adaptadorListView.getFilter().filter(charSequence);  // Filtrar opciones
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        // Cuando el usuario selecciona una opción
+        listViewOpciones.setOnItemClickListener((parent, view, position, id) -> {
+            String opcionSeleccionada = adaptadorListView.getItem(position);
+            int posicionEnSpinner = nombresProductos.indexOf(opcionSeleccionada);
+            spinnerproducto.setSelection(posicionEnSpinner);  // Seleccionar la opción en el Spinner
+            builder.create().dismiss();  // Cerrar el diálogo
+        });
+
+        // Crear y mostrar el AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void mostrarDialogoConBusqueda(final ArrayList<String> nombresProductos, final ArrayList<Integer> idsProductos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_spinner, null);
+        builder.setView(dialogView);
+
+        final SearchView searchView = dialogView.findViewById(R.id.searchView);
+        final ListView listView = dialogView.findViewById(R.id.listView);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nombresProductos);
+        listView.setAdapter(adapter);
+
+        // Filtrar la lista basada en el texto ingresado en el SearchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        // Configurar el evento de selección en la lista
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String productoSeleccionado = adapter.getItem(position);
+                int idSeleccionado = idsProductos.get(nombresProductos.indexOf(productoSeleccionado));
+
+                // Guardar el ID y producto seleccionados
+                idproductoSeleccionado = idSeleccionado;
+                producto = productoSeleccionado;
+
+                // Cerrar el diálogo
+                //dialog.dismiss();
+            }
+        });
+
+        // Mostrar el diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
