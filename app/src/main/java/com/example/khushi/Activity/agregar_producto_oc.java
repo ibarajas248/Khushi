@@ -152,6 +152,18 @@ public class agregar_producto_oc extends AppCompatActivity {
                 scrollListPproductosOC.setVisibility(View.VISIBLE);
                 lista_productos_oc.setVisibility(View.GONE);
                 botonCardView.setVisibility(View.VISIBLE);
+                recyclercard.setVisibility(View.GONE);
+
+            }
+        });
+
+        botonCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollListPproductosOC.setVisibility(View.GONE);
+                lista_productos_oc.setVisibility(View.VISIBLE);
+                botonCardView.setVisibility(View.GONE);
+                recyclercard.setVisibility(View.VISIBLE);
 
             }
         });
