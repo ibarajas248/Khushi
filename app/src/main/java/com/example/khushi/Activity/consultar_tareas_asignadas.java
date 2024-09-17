@@ -229,6 +229,8 @@ public class consultar_tareas_asignadas extends AppCompatActivity implements Sea
 
         ArrayAdapter<String> adapterSpinner= new ArrayAdapter<String>(this,
                 R.layout.spinner_filtrar_en_lotes_operaciones, opcionesFiltrado);
+        // Establecer el diseño del dropdown personalizado
+        adapterSpinner.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         spinnerFiltrar.setAdapter(adapterSpinner);
 

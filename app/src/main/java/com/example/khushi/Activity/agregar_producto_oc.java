@@ -83,8 +83,9 @@ public class agregar_producto_oc extends AppCompatActivity {
     private boolean isMethodRunning = true;
     int id_producto;
     LinearLayout encabezadolayout;
-    ImageButton lista_productos_oc;
+    ImageButton lista_productos_oc,botonCardView;
     ArrayList<String> nombresProductos;
+    ArrayList<Integer> idsProductos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +104,8 @@ public class agregar_producto_oc extends AppCompatActivity {
         //llenar el toolbar-------
         toolbar1=findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
-        getSupportActionBar().setTitle("Khushi");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
+        getSupportActionBar().setTitle("");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Muestra el botón de retroceso
 
 
         //final de llenar toolbar
@@ -122,10 +123,11 @@ public class agregar_producto_oc extends AppCompatActivity {
         encabezadolayout=(LinearLayout)findViewById(R.id.encabezado);
         //encabezadolayout.setVisibility(View.GONE);
         lista_productos_oc= findViewById(R.id.barramenuhorizontal);
+        botonCardView=findViewById(R.id.cuadricula);
         scrollListPproductosOC=findViewById(R.id.Scroll_lista);
+        scrollListPproductosOC.setVisibility(View.GONE);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclercard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
 
 
 
@@ -148,6 +150,8 @@ public class agregar_producto_oc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 scrollListPproductosOC.setVisibility(View.VISIBLE);
+                lista_productos_oc.setVisibility(View.GONE);
+                botonCardView.setVisibility(View.VISIBLE);
 
             }
         });
@@ -190,7 +194,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                 listDatos.clear(); // Limpiar la lista existente
 
                  nombresProductos = new ArrayList<>(); // ArrayList para almacenar nombres de productos
-                ArrayList<Integer> idsProductos = new ArrayList<>();
+                 idsProductos = new ArrayList<>();
 
 
                 for (int i = 0; i < response.length(); i++) {
@@ -534,16 +538,18 @@ public class agregar_producto_oc extends AppCompatActivity {
     }
 
     private void mostrarDialogoConBuscador() {
+        // Crear el AlertDialog.Builder
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
 
         // Inflar el layout personalizado
         final View dialogView = getLayoutInflater().inflate(R.layout.dialog_searchable_spinner, null);
         builder.setView(dialogView);
 
+        // Referencias a los elementos del layout personalizado
         EditText editTextBuscar = dialogView.findViewById(R.id.editTextBuscar);
         ListView listViewOpciones = dialogView.findViewById(R.id.listViewOpciones);
 
-        // Adaptador para el ListView
+        // Crear y configurar el adaptador para el ListView
         final ArrayAdapter<String> adaptadorListView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nombresProductos);
         listViewOpciones.setAdapter(adaptadorListView);
 
@@ -554,25 +560,51 @@ public class agregar_producto_oc extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adaptadorListView.getFilter().filter(charSequence);  // Filtrar opciones
+                adaptadorListView.getFilter().filter(charSequence);  // Filtrar las opciones del ListView
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {}
         });
 
-        // Cuando el usuario selecciona una opción
+        // Crear el AlertDialog
+        final AlertDialog dialog = builder.create();
+
+        // Manejar la selección de una opción en el ListView
         listViewOpciones.setOnItemClickListener((parent, view, position, id) -> {
+
+           /* @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Obtener el ID seleccionado usando la posición en el ArrayList de IDs
+                idproductoSeleccionado = idsProductos.get(position);
+                producto=nombresProductos.get(position);
+
+                // Guardar el ID en una variable o realizar alguna acción con él
+                // Ejemplo: guardar el ID en una variable global
+                // idSeleccionadoGlobal = idSeleccionado;
+
+                */
+
+
             String opcionSeleccionada = adaptadorListView.getItem(position);
-            int posicionEnSpinner = nombresProductos.indexOf(opcionSeleccionada);
-            spinnerproducto.setSelection(posicionEnSpinner);  // Seleccionar la opción en el Spinner
-            builder.create().dismiss();  // Cerrar el diálogo
+            idproductoSeleccionado = idsProductos.get(position);
+
+
+
+
+            if (opcionSeleccionada != null) {
+                int posicionEnSpinner = nombresProductos.indexOf(opcionSeleccionada);
+
+                spinnerproducto.setSelection(posicionEnSpinner);  // Seleccionar la opción en el Spinner
+            }
+            dialog.dismiss();  // Cerrar el diálogo al seleccionar una opción
         });
 
-        // Crear y mostrar el AlertDialog
-        AlertDialog dialog = builder.create();
+        // Mostrar el diálogo
         dialog.show();
     }
+
 
     private void mostrarDialogoConBusqueda(final ArrayList<String> nombresProductos, final ArrayList<Integer> idsProductos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

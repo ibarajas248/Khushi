@@ -16,9 +16,20 @@
         android:background="#011336"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#FFFFFF"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:titleTextColor="#FFFFFF">
 
+        <!-- ImageButton para la flecha -->
+        <ImageButton
+            android:id="@+id/toolbar_arrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="Botón de Calendario"
+            android:scaleType="fitCenter"
+            android:src="@drawable/volver"
+            app:tint="#FFFFFF" />
 
         <!-- LinearLayout para contener el botón al final -->
         <LinearLayout
@@ -26,234 +37,252 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="end"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <!-- Aquí agregamos el botón con la imagen -->
             <ImageButton
                 android:id="@+id/barramenuhorizontal"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
                 android:background="?attr/selectableItemBackground"
                 android:backgroundTint="#FFFFFF"
                 android:contentDescription="Botón de Calendario"
                 android:scaleType="fitCenter"
                 android:src="@drawable/barramenuhorizontal"
                 app:tint="#FFFFFF" />
+            <ImageButton
+                android:id="@+id/cuadricula"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackground"
+                android:backgroundTint="#FFFFFF"
+                android:contentDescription="Botón de Calendario"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cuadricula"
+                app:tint="#FFFFFF"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar1"
-        android:orientation="vertical">
-
+        android:layout_below="@id/toolbar1">
 
         <LinearLayout
-            android:id="@+id/infoAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
-            android:gravity="end"
             android:orientation="vertical">
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <Spinner
-                    android:id="@+id/spinnerselecproducto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="#EFE1AD" />
-
-                <EditText
-                    android:id="@+id/editTextnumero_lotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/input_casilla_1"
-                    android:ems="10"
-                    android:hint="escriba cantidad de lotes"
-                    android:inputType="number"
-                    android:padding="12dp" />
-
-                <EditText
-                    android:id="@+id/editTextnumero_productos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:background="@drawable/input_casilla_1"
-                    android:ems="10"
-                    android:hint="escriba cantidad de productos"
-                    android:inputType="number"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/infoAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+
+
                 android:gravity="end"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <Button
-                    android:id="@+id/btnasignar_boton_a_oc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="#011336"
-                    android:text="Asignar producto a oc "
-                    android:textColor="#FFCE17"
-                    android:textSize="16sp"
-
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <HorizontalScrollView
-            android:id="@+id/Scroll_lista"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#EFE1AD">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/encabezado"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
+                    <Spinner
+                        android:id="@+id/spinnerselecproducto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#EFE1AD" />
 
-                    <TextView
-                        android:id="@+id/id_producto_oc"
-                        android:layout_width="53dp"
-                        android:layout_height="40dp"
-                        android:background="#1976D2"
-                        android:padding="8dp"
-                        android:text="ID:"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
+                    <EditText
+                        android:id="@+id/editTextnumero_lotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/input_casilla_1"
+                        android:ems="10"
+                        android:hint="escriba cantidad de lotes"
+                        android:inputType="number"
+                        android:padding="12dp" />
 
-                    <TextView
-                        android:id="@+id/id_oc_producto_oc"
-                        android:layout_width="53dp"
-                        android:layout_height="40dp"
-                        android:background="#2196F3"
-                        android:padding="8dp"
-                        android:text=""
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
+                    <EditText
+                        android:id="@+id/editTextnumero_productos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                    <TextView
-                        android:id="@+id/id_producto_producto_oc"
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:background="#1E88E5"
-                        android:padding="8dp"
-                        android:text="Nombre Operación"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/ordenCompra_p_oc"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:background="#011336"
-                        android:padding="8dp"
-                        android:text="orden de compra"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/producto_p_oc"
-                        android:layout_width="400dp"
-                        android:layout_height="40dp"
-                        android:background="#011336"
-                        android:padding="8dp"
-                        android:text="producto"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/lotes_producto_oc"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#011336"
-                        android:padding="8dp"
-                        android:text="lotes"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/cantidadProductos"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#011336"
-                        android:padding="8dp"
-                        android:text="cantidad"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-
-                    <!-- Agregar más TextViews para los nuevos campos -->
-
+                        android:background="@drawable/input_casilla_1"
+                        android:ems="10"
+                        android:hint="escriba cantidad de productos"
+                        android:inputType="number"
+                        android:padding="12dp" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerproducto_ordedecompra"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <Button
+                        android:id="@+id/btnasignar_boton_a_oc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="#011336"
+                        android:text="Asignar producto a oc "
+                        android:textColor="#FFCE17"
+                        android:textSize="16sp"
+
+                        />
+                </LinearLayout>
 
             </LinearLayout>
-        </HorizontalScrollView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerproducto_ordendecompra_dos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
 
-        <Button
-            android:id="@+id/btneditar_OC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar OC"
-            android:visibility="gone" />
+            <HorizontalScrollView
+                android:id="@+id/Scroll_lista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFE1AD">
 
 
-    </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/encabezado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/id_producto_oc"
+                            android:layout_width="53dp"
+                            android:layout_height="40dp"
+                            android:background="#1976D2"
+                            android:padding="8dp"
+                            android:text="ID:"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/id_oc_producto_oc"
+                            android:layout_width="53dp"
+                            android:layout_height="40dp"
+                            android:background="#2196F3"
+                            android:padding="8dp"
+                            android:text=""
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/id_producto_producto_oc"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:background="#1E88E5"
+                            android:padding="8dp"
+                            android:text="Nombre Operación"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/ordenCompra_p_oc"
+                            android:layout_width="200dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="orden de compra"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/producto_p_oc"
+                            android:layout_width="400dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="producto"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lotes_producto_oc"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="lotes"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cantidadProductos"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:background="#011336"
+                            android:padding="8dp"
+                            android:text="cantidad"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <!-- Agregar más TextViews para los nuevos campos -->
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerproducto_ordedecompra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerproducto_ordendecompra_dos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <Button
+                android:id="@+id/btneditar_OC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar OC"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>
