@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -405,6 +406,33 @@ public class agregar_producto_oc extends AppCompatActivity {
                     }
                 });
 
+                adapter123.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(agregar_producto_oc.this);
+                        builder.setTitle("Selecciona una opción")
+                                .setItems(new CharSequence[]{"Eliminar", "Editar"}, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which) {
+                                            case 0: // Eliminar
+                                                // Eliminar el ítem de la lista
+
+                                                Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                                                break;
+                                            case 1: // Editar
+                                                // Editar el ítem, por ejemplo, abrir un nuevo activity o fragmento
+                                                Toast.makeText(agregar_producto_oc.this, "Editar producto", Toast.LENGTH_SHORT).show();
+                                                break;
+                                        }
+                                    }
+                                })
+                                .show();
+                        return true; // Indicate that the long click event was handled
+                    }
+                });
+
+
 
 
                 recycler.setAdapter(adapter123);
@@ -492,6 +520,35 @@ public class agregar_producto_oc extends AppCompatActivity {
 
                     }
                 });
+
+                adapter123.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(agregar_producto_oc.this);
+                        builder.setTitle("Selecciona una opción")
+                                .setItems(new CharSequence[]{"Eliminar", "Editar"}, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which) {
+                                            case 0: // Eliminar
+                                                // Eliminar el ítem de la lista
+
+                                                Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                                                break;
+                                            case 1: // Editar
+                                                // Editar el ítem, por ejemplo, abrir un nuevo activity o fragmento
+                                                Toast.makeText(agregar_producto_oc.this, "Editar producto", Toast.LENGTH_SHORT).show();
+                                                break;
+                                        }
+                                    }
+                                })
+                                .show();
+                        return true; // Indicate that the long click event was handled
+                    }
+                });
+
+
+
 
 
 

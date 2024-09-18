@@ -13,11 +13,14 @@ import com.example.khushi.clasesinfo.nuevoproducto_en_oc;
 
 import java.util.ArrayList;
 
-public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_oc.ViewHolderproducto_oc> implements View.OnClickListener {
+public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_oc.ViewHolderproducto_oc> implements View.OnClickListener,View.OnLongClickListener  {
 
     ArrayList<nuevoproducto_en_oc> listoperaciones_oc;
     private View.OnClickListener listener;
+    private View.OnLongClickListener longClickListener; // Long click listener
     private boolean useAlternativeLayout; // Booleano que controla qué layout usar
+
+
 
     public Adapter_producto_oc(ArrayList<nuevoproducto_en_oc>listoperaciones_oc, boolean useAlternativeLayout){
         this.listoperaciones_oc = listoperaciones_oc;
@@ -39,6 +42,7 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
 
         // Asignar el click listener
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return new Adapter_producto_oc.ViewHolderproducto_oc(view);
     }
 
@@ -71,6 +75,18 @@ public class Adapter_producto_oc extends RecyclerView.Adapter<Adapter_producto_o
             listener.onClick(v);
         }
 
+    }
+
+    // Método para asignar el long click listener
+    public void setOnLongClickListener(View.OnLongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
+    }
+    @Override
+    public boolean onLongClick(View v) {
+        if (longClickListener != null) {
+            return longClickListener.onLongClick(v);
+        }
+        return false;
     }
 
     public class ViewHolderproducto_oc extends RecyclerView.ViewHolder {
