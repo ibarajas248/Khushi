@@ -531,7 +531,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which) {
                                             case 0: // Eliminar
-                                                // Eliminar el ítem de la lista
+                                                // Eliminar el ítem de la lista/
 
                                                 Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
                                                 break;
