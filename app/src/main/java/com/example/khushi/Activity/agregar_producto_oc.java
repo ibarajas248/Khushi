@@ -44,6 +44,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.Adapter_producto_oc;
+import com.example.khushi.Fragments.FragmentModificar;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.nuevoProducto;
 import com.example.khushi.clasesinfo.nuevoproducto_en_oc;
@@ -87,6 +88,7 @@ public class agregar_producto_oc extends AppCompatActivity {
     ImageButton lista_productos_oc,botonCardView;
     ArrayList<String> nombresProductos;
     ArrayList<Integer> idsProductos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -363,7 +365,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                         id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
                         String ordenCompra=jsonObject.getString("ordenCompra");
                         String producto=jsonObject.getString("producto");
-                        int lotes =Integer.parseInt(jsonObject.getString("lotes"));
+                        float lotes =Float.parseFloat(jsonObject.getString("lotes"));
                         int cantidad_de_productos =Integer.parseInt(jsonObject.getString("cantidad_de_productos"));
 
                         listProductoOrdenCompra.add(new nuevoproducto_en_oc(id_oc,ordenCompra,id, id_producto,
@@ -417,8 +419,9 @@ public class agregar_producto_oc extends AppCompatActivity {
                                         switch (which) {
                                             case 0: // Eliminar
                                                 // Eliminar el ítem de la lista
+                                                eliminarProducto_en_OC("http://khushiconfecciones.com/app_khushi/eliminar_producto_oc.php");
 
-                                                Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+
                                                 break;
                                             case 1: // Editar
                                                 // Editar el ítem, por ejemplo, abrir un nuevo activity o fragmento
@@ -478,7 +481,7 @@ public class agregar_producto_oc extends AppCompatActivity {
                         id_producto =Integer.parseInt(jsonObject.getString("id_producto"));
                         String ordenCompra=jsonObject.getString("ordenCompra");
                         String producto=jsonObject.getString("producto");
-                        int lotes =Integer.parseInt(jsonObject.getString("lotes"));
+                        float lotes =Float.parseFloat(jsonObject.getString("lotes"));
                         int cantidad_de_productos =Integer.parseInt(jsonObject.getString("cantidad_de_productos"));
 
                         listProductoOrdenCompra.add(new nuevoproducto_en_oc(id_oc,ordenCompra,id, id_producto,
@@ -532,8 +535,9 @@ public class agregar_producto_oc extends AppCompatActivity {
                                         switch (which) {
                                             case 0: // Eliminar
                                                 // Eliminar el ítem de la lista/
+                                                eliminarProducto_en_OC("http://khushiconfecciones.com/app_khushi/eliminar_producto_oc.php");
 
-                                                Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 1: // Editar
                                                 // Editar el ítem, por ejemplo, abrir un nuevo activity o fragmento
@@ -720,6 +724,54 @@ public class agregar_producto_oc extends AppCompatActivity {
         // Mostrar el diálogo
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void eliminarProducto_en_OC (String URL){
+        // Crear una solicitud de cadena (StringRequest) con un método POST
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Este método se llama cuando la solicitud es exitosa
+                // response contiene la respuesta del servidor en formato de cadena
+
+                //limpiarFormulario();
+                listDatos.clear(); // Limpiar la lista existente
+                agregarlistaProductoOc("http://khushiconfecciones.com//app_khushi/buscar_operaciones_oc.php?id_oc="+idoc);
+                Toast.makeText(agregar_producto_oc.this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Este método se llama si hay un error en la solicitud
+                // error contiene detalles del error, como un mensaje de error
+
+                Toast.makeText(agregar_producto_oc.this, error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Este método se utiliza para definir los parámetros que se enviarán en la solicitud POST
+                // Debes especificar los parámetros que el servidor espera, como "codigo", "producto", "precio", "fabricante"
+
+
+
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("id", String.valueOf(idPtoductoOC));
+
+
+                return parametros;
+            }
+        };
+
+        // Agregar la solicitud a la cola de solicitudes de Volley para que se envíe al servidor
+        queue= Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+
     }
 
 
