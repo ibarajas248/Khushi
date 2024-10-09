@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp"
+    card_view:cardBackgroundColor="#D5D5D5"
+    app:ignore="NamespaceTypo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="11dp">
+        <TextView
+            android:id="@+id/Operacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Operacion"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:id="@+id/subparte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Frente"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="cantidad:"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/Cantidadnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:id="@+id/Lote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Lote:"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/Lotenum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="3"
+                android:textColor="#000000"
+                android:textSize="12sp"
+
+                />
+            <TextView
+                android:id="@+id/estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Estado: "
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/estado_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="En curso"
+                android:textColor="#000000"
+                android:textSize="12sp"
+
+                />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/Empleado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Empleado"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

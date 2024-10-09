@@ -125,8 +125,6 @@ public class operaciones_lotes extends AppCompatActivity  implements SearchView.
             ROL=(intent.getStringExtra("ROL"));
             idEmpleado=(intent.getStringExtra("idEmpleado"));
 
-
-
         }
 
         cantLote1 = (EditText) findViewById(R.id.cantidadSublotes1);

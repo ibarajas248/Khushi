@@ -24,6 +24,17 @@ public class Empleado_clase {
         this.nombre = nombre;
         this.apellidos = apellidos;
     }
+    public Empleado_clase(String id, String nombre, String apellidos,String correoElectronico) {
+        this.id = String.valueOf(id);
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correoElectronico = correoElectronico;
+    }
+
+    public Empleado_clase(String nombre, String apellidos) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
 
     public String getId() {
         return id;

@@ -23,6 +23,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.operaciones_lotes_cardview"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.empleados"
+            android:exported="false" />
+        <activity
             android:name=".Activity.codigo_activacion"
             android:exported="false" />
         <activity

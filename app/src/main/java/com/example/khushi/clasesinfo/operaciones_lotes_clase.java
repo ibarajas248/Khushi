@@ -67,6 +67,9 @@ public class operaciones_lotes_clase {
         this.habilitado=habilitado;
     }
 
+    public operaciones_lotes_clase(String operaciones) {
+        this.operaciones = operaciones;
+    }
 
 
     public String getHabilitado() {

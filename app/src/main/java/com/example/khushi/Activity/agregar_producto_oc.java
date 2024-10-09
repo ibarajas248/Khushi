@@ -513,6 +513,8 @@ public class agregar_producto_oc extends AppCompatActivity {
 
                             // Pasar el id a la siguiente actividad mediante Intent
                             Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes.class);
+                            //
+                            //Intent intent = new Intent(agregar_producto_oc.this, operaciones_lotes_cardview.class);
                             intent.putExtra("id", String.valueOf(idProductoOC));
                             intent.putExtra("id_producto", String.valueOf(id_producto));
                             intent.putExtra("ROL", String.valueOf(ROL));

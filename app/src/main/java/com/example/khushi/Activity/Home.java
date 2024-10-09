@@ -105,6 +105,17 @@ public class Home extends AppCompatActivity {
 
                     //Intent i =new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com"));
                     //startActivity(i);
+                }else if (listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Perfil"){
+                    Intent intent= new Intent(Home.this, empleados.class);
+
+                    startActivity(intent);
+                }
+                else if (listaMenu.get(recyclerView.getChildAdapterPosition(v)).getTitulo()=="Estadísticas"){
+
+
+
+                    //Intent i =new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com"));
+                    //startActivity(i);
                 }
 
 
