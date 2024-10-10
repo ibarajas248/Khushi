@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="#989898"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <SearchView
                     android:id="@+id/buscar"
@@ -77,8 +77,9 @@
                     android:layout_gravity="center"
                     android:background="@drawable/input_casilla_1"
                     android:iconifiedByDefault="false"
-
                     android:queryHint="Buscar..." />
+
+
             </LinearLayout>
 
 

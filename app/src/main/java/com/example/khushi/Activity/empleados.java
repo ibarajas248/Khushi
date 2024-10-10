@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +31,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class empleados extends AppCompatActivity {
+public class empleados extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private RecyclerView recyclerViewEmpleados;
     private Adapter_empleados adapterEmpleados;
     private ArrayList<Empleado_clase> listaEmpleados;
     private RequestQueue requestQueue;
+    SearchView searchView;
+    Spinner spinner;
+    private List<String> seleccionados;
 
 
 
@@ -45,6 +53,43 @@ public class empleados extends AppCompatActivity {
         // 1. Inicializar el RecyclerView
         recyclerViewEmpleados = findViewById(R.id.recyclerViewEmpleados);
         recyclerViewEmpleados.setLayoutManager(new LinearLayoutManager(this)); // Establecer el LayoutManager
+        searchView = findViewById(R.id.buscar);
+        searchView.setOnQueryTextListener(this);
+        spinner = findViewById(R.id.spinner3);
+        seleccionados = new ArrayList<>();
+
+        // Define las opciones del Spinner
+        String[] opciones = {"Seleccione una opción","Nombre", "Apellido", "Correo"};
+
+        // Crea un ArrayAdapter usando las opciones y un diseño de layout de spinner
+        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
+
+        // Especifica el layout que se utilizará cuando se despliegue la lista de opciones
+        adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Asigna el adaptador al Spinner
+        spinner.setAdapter(adapter_spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedOption = parent.getItemAtPosition(position).toString();
+
+                // Solo agregar al array auxiliar si no es la opción predeterminada
+                if (!selectedOption.equals("Seleccione una opción")) {
+                    seleccionados.add(selectedOption);
+                    Toast.makeText(empleados.this, "Array auxiliar: " + seleccionados.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Opcionalmente puedes manejar este caso
+
+            }
+        });
+
+
 
         // 2. Crear la lista de empleados (esto sería normalmente de una base de datos o API)
         listaEmpleados = new ArrayList<>();
@@ -123,5 +168,16 @@ public class empleados extends AppCompatActivity {
         });
 
         requestQueue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapterEmpleados.filtrado(newText);
+        return false;
     }
 }

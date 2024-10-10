@@ -10,16 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
+import com.example.khushi.clasesinfo.nuevoProducto;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Adapter_empleados extends RecyclerView.Adapter<Adapter_empleados.ViewHolderempleados> implements View.OnClickListener {
 
     ArrayList<Empleado_clase> listaEmpleados;
+    ArrayList<Empleado_clase> listaEmpleadosFiltrado;
     private View.OnClickListener listener;
 
     public Adapter_empleados (ArrayList<Empleado_clase>listaEmpleados){
         this.listaEmpleados=listaEmpleados;
+        this.listaEmpleadosFiltrado = new ArrayList<>(listaEmpleados); // Inicializa la lista filtrada
     }
 
     @Override
@@ -65,5 +70,20 @@ public class Adapter_empleados extends RecyclerView.Adapter<Adapter_empleados.Vi
             Apellidos= itemView.findViewById(R.id.Apellidos);
             correo= itemView.findViewById(R.id.Correo_Electronico);
         }
+    }
+
+    public void filtrado(String txtBuscar) {
+        int longitud = txtBuscar.length();
+        if (longitud == 0) {
+            listaEmpleados.clear();
+            listaEmpleados.addAll( listaEmpleadosFiltrado);
+        } else {
+            List<Empleado_clase> coleccion = listaEmpleados.stream().filter
+                    (i ->i.getApellidos().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+
+            listaEmpleados.clear();
+            listaEmpleados.addAll(coleccion);
+        }
+        notifyDataSetChanged();
     }
 }

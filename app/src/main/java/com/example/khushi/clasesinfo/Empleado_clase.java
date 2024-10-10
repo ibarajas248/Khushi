@@ -123,4 +123,6 @@ public class Empleado_clase {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
+
 }
