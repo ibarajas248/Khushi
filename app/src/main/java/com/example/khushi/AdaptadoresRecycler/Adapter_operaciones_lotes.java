@@ -170,6 +170,9 @@ public class Adapter_operaciones_lotes extends RecyclerView
                     instancia.agregarEmpleado(URL,Integer.parseInt(selectid),selectnombre, id_lotes_operacionesString);
                     holder.empleado.setText(String.valueOf(selectid));
 
+
+
+
                 }
 
 

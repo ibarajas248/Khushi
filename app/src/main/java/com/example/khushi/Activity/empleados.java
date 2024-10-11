@@ -6,9 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,6 +47,12 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
     SearchView searchView;
     Spinner spinner;
     private List<String> seleccionados;
+    EditText editTextSearch;
+
+    List<String> criterios; //array que contiene los filtros
+    TextView filtros;
+
+
 
 
 
@@ -56,8 +66,12 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         recyclerViewEmpleados.setLayoutManager(new LinearLayoutManager(this)); // Establecer el LayoutManager
         searchView = findViewById(R.id.buscar);
         searchView.setOnQueryTextListener(this);
+        editTextSearch = findViewById(R.id.edtBuscar);
         spinner = findViewById(R.id.spinner3);
         seleccionados = new ArrayList<>();
+        criterios = new ArrayList<>();//inicializo el array de
+        filtros= findViewById(R.id.tvfiltros);
+
 
         // Define las opciones del Spinner
         String[] opciones = {"Seleccione una opción","Nombre", "Apellido", "Correo"};
@@ -90,6 +104,26 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         requestQueue = Volley.newRequestQueue(this);
         obtenerEmpleados("http://khushiconfecciones.com//app_khushi/empleados_lista.php");
 
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No hacer nada aquí
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Aquí puedes implementar tu lógica de filtrado en tiempo real
+                //aplicarFiltrado(s.toString());
+                aplicarFiltrado();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // No hacer nada aquí
+            }
+        });
+
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -100,9 +134,13 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
                 // Solo agregar al array auxiliar si no es la opción predeterminada
                 if (!selectedOption.equals("Seleccione una opción")) {
                     //seleccionados.add(selectedOption);
-                    List<String> criterios = new ArrayList<>();
-                    criterios.add("Nombre");
-                    criterios.add("Apellido");
+                    List<String> criterios_dos = new ArrayList<>();
+                    criterios_dos.add("Nombre");
+                    criterios_dos.add("Apellido");
+
+                    criterios.add(selectedOption);
+                    Toast.makeText(empleados.this, selectedOption, Toast.LENGTH_SHORT).show();
+                    filtros.setText(selectedOption);
 
                     //Toast.makeText(empleados.this, "Array auxiliar: " + seleccionados.toString(), Toast.LENGTH_SHORT).show();
                     //adapterEmpleados.filtrado(query, selectedOption);
@@ -182,7 +220,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        aplicarFiltros(query);
+        //aplicarFiltros(query);
         return false;
     }
 
@@ -214,18 +252,19 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         adapterEmpleados.filtrado(filtrosSeleccionados);
     }
     private void aplicarFiltrado() {
-        String textoBuscar = searchView.getQuery().toString();
-        List<String> criterios = new ArrayList<>();
-
-
-            criterios.add("Nombre");
+        //String textoBuscar = searchView.getQuery().toString();
+        String textoBuscar = editTextSearch.getText().toString();
 
 
 
-            criterios.add("Apellido");
+            //criterios.add("Nombre");
 
 
-            criterios.add("Correo");
+
+            //.add("Apellido");
+
+
+            //criterios.add("Correo");
 
         adapterEmpleados.filtrado234(textoBuscar,criterios);
 
