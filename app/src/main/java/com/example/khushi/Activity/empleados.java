@@ -24,6 +24,7 @@ import com.example.khushi.AdaptadoresRecycler.AdapterDatos;
 import com.example.khushi.AdaptadoresRecycler.Adapter_empleados;
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
+import com.example.khushi.clasesinfo.Filtro;
 import com.example.khushi.clasesinfo.nuevoProducto;
 
 import org.json.JSONArray;
@@ -69,25 +70,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
         // Asigna el adaptador al Spinner
         spinner.setAdapter(adapter_spinner);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedOption = parent.getItemAtPosition(position).toString();
 
-                // Solo agregar al array auxiliar si no es la opción predeterminada
-                if (!selectedOption.equals("Seleccione una opción")) {
-                    seleccionados.add(selectedOption);
-                    Toast.makeText(empleados.this, "Array auxiliar: " + seleccionados.toString(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Opcionalmente puedes manejar este caso
-
-            }
-        });
 
 
 
@@ -106,6 +89,33 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         // Inicializar la cola de solicitudes Volley
         requestQueue = Volley.newRequestQueue(this);
         obtenerEmpleados("http://khushiconfecciones.com//app_khushi/empleados_lista.php");
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedOption = parent.getItemAtPosition(position).toString();
+                String query = searchView.getQuery().toString();
+
+                // Solo agregar al array auxiliar si no es la opción predeterminada
+                if (!selectedOption.equals("Seleccione una opción")) {
+                    //seleccionados.add(selectedOption);
+                    List<String> criterios = new ArrayList<>();
+                    criterios.add("Nombre");
+                    criterios.add("Apellido");
+
+                    //Toast.makeText(empleados.this, "Array auxiliar: " + seleccionados.toString(), Toast.LENGTH_SHORT).show();
+                    //adapterEmpleados.filtrado(query, selectedOption);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Opcionalmente puedes manejar este caso
+
+            }
+        });
 
 
     }
@@ -172,12 +182,55 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        aplicarFiltros(query);
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapterEmpleados.filtrado(newText);
+        //adapterEmpleados.filtrado(newText);
+        //aplicarFiltros(newText);
+        aplicarFiltrado();
         return false;
+
     }
+
+
+
+
+
+    private void aplicarFiltros(String query) {
+        List<Filtro> filtrosSeleccionados = new ArrayList<>();
+
+        // Si el texto ingresado no está vacío, creamos filtros para cada campo que se quiera buscar
+        if (!query.isEmpty()) {
+            // Asumiendo que quieres buscar por todos los campos: nombre, apellido y correo
+            filtrosSeleccionados.add(new Filtro("nombre", query));
+            filtrosSeleccionados.add(new Filtro("apellido", query));
+            filtrosSeleccionados.add(new Filtro("correo", query));
+        }
+
+        // Aplicar los filtros en el adaptador
+        adapterEmpleados.filtrado(filtrosSeleccionados);
+    }
+    private void aplicarFiltrado() {
+        String textoBuscar = searchView.getQuery().toString();
+        List<String> criterios = new ArrayList<>();
+
+
+            criterios.add("Nombre");
+
+
+
+            criterios.add("Apellido");
+
+
+            criterios.add("Correo");
+
+        adapterEmpleados.filtrado234(textoBuscar,criterios);
+
+
+    }
+
+
 }

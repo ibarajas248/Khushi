@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.khushi.R;
 import com.example.khushi.clasesinfo.Empleado_clase;
+import com.example.khushi.clasesinfo.Filtro;
 import com.example.khushi.clasesinfo.nuevoProducto;
 
 import java.util.ArrayList;
@@ -86,4 +87,135 @@ public class Adapter_empleados extends RecyclerView.Adapter<Adapter_empleados.Vi
         }
         notifyDataSetChanged();
     }
+
+
+    public void filtrado(List<Filtro> filtros) {
+        if (filtros.isEmpty()) {
+            // Si no hay filtros, restaurar la lista original
+            listaEmpleados.clear();
+            listaEmpleados.addAll(listaEmpleadosFiltrado);
+        } else {
+            // Filtrar según los criterios
+            List<Empleado_clase> coleccion = listaEmpleadosFiltrado.stream()
+                    .filter(empleado -> {
+                        boolean matches = true;  // Asumimos que coincide inicialmente
+                        for (Filtro filtro : filtros) {
+                            switch (filtro.getCampo().toLowerCase()) {  // Convertimos el campo a minúsculas
+                                case "apellido":
+                                    matches &= empleado.getApellidos().toLowerCase().contains(filtro.getValor().toLowerCase());
+                                    break;
+                                case "nombre":
+                                    matches &= empleado.getNombre().toLowerCase().contains(filtro.getValor().toLowerCase());
+                                    break;
+                                case "correo":
+                                    matches &= empleado.getCorreoElectronico().toLowerCase().contains(filtro.getValor().toLowerCase());
+                                    break;
+
+                                // Agrega más criterios según sea necesario
+                            }
+                        }
+                        return matches;  // Retorna si coincide con todos los filtros
+                    })
+                    .collect(Collectors.toList());
+
+            listaEmpleados.clear();
+            listaEmpleados.addAll(coleccion);
+        }
+        notifyDataSetChanged();
+    }
+    // Dentro de la clase Adapter_empleados
+    public void filtrado(String txtBuscar, String criterio) {
+        txtBuscar = txtBuscar.trim().toLowerCase(); // Eliminar espacios y convertir a minúsculas
+        List<Empleado_clase> coleccion = new ArrayList<>(listaEmpleadosFiltrado); // Copiar la lista original
+
+        if (txtBuscar.isEmpty()) {
+            listaEmpleados.clear();
+            listaEmpleados.addAll(listaEmpleadosFiltrado); // Muestra todos los empleados si no hay texto de búsqueda
+        } else {
+            listaEmpleados.clear(); // Limpiar la lista actual
+
+            for (Empleado_clase empleado : coleccion) {
+                boolean match = false; // Variable para verificar si hay coincidencia
+
+                // Filtrar según el criterio
+                switch (criterio) {
+                    case "Nombre":
+                        if (empleado.getNombre() != null) {
+                            match = empleado.getNombre().toLowerCase().contains(txtBuscar);
+                        }
+                        break;
+                    case "Apellido":
+                        if (empleado.getApellidos() != null) {
+                            match = empleado.getApellidos().toLowerCase().contains(txtBuscar);
+                        }
+                        break;
+                    case "Correo":
+                        if (empleado.getCorreoElectronico() != null) {
+                            match = empleado.getCorreoElectronico().toLowerCase().contains(txtBuscar);
+                        }
+                        break;
+                }
+
+                // Si hay coincidencia, agregar a la lista
+                if (match) {
+                    listaEmpleados.add(empleado);
+                }
+            }
+        }
+
+        notifyDataSetChanged(); // Notificar cambios en el adaptador
+    }
+    public void filtrado234(String txtBuscar, List<String> criterios) {
+        txtBuscar = txtBuscar.trim().toLowerCase(); // Eliminar espacios y convertir a minúsculas
+        List<Empleado_clase> coleccion = new ArrayList<>(listaEmpleadosFiltrado); // Copiar la lista original
+
+        if (txtBuscar.isEmpty()) {
+            listaEmpleados.clear();
+            listaEmpleados.addAll(listaEmpleadosFiltrado); // Muestra todos los empleados si no hay texto de búsqueda
+        } else {
+            listaEmpleados.clear(); // Limpiar la lista actual
+
+            for (Empleado_clase empleado : coleccion) {
+                boolean match = false; // Variable para verificar si hay coincidencia
+
+                // Filtrar según los criterios
+                for (String criterio : criterios) {
+                    switch (criterio) {
+                        case "Nombre":
+                            if (empleado.getNombre() != null && empleado.getNombre().toLowerCase().contains(txtBuscar)) {
+                                match = true; // Coincide con el criterio
+                            }
+                            break;
+                        case "Apellido":
+                            if (empleado.getApellidos() != null && empleado.getApellidos().toLowerCase().contains(txtBuscar)) {
+                                match = true; // Coincide con el criterio
+                            }
+                            break;
+                        case "Correo":
+                            if (empleado.getCorreoElectronico() != null && empleado.getCorreoElectronico().toLowerCase().contains(txtBuscar)) {
+                                match = true; // Coincide con el criterio
+                            }
+                            break;
+                    }
+                    // Si ya hay una coincidencia, no es necesario seguir revisando más criterios
+                    if (match) {
+                        break;
+                    }
+                }
+
+                // Si hay coincidencia, agregar a la lista
+                if (match) {
+                    listaEmpleados.add(empleado);
+                }
+            }
+        }
+
+        notifyDataSetChanged(); // Notificar cambios en el adaptador
+    }
+
+
+
+
+
+
 }
