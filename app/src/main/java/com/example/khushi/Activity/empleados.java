@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
+import androidx.appcompat.app.AlertDialog;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,6 +60,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +108,24 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         // Inicializar la cola de solicitudes Volley
         requestQueue = Volley.newRequestQueue(this);
         obtenerEmpleados("http://khushiconfecciones.com//app_khushi/empleados_lista.php");
+        editTextSearch.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Drawable drawableEnd = editTextSearch.getCompoundDrawables()[2]; // DrawableEnd es el tercero (índice 2)
+                    if (drawableEnd != null) {
+                        if (event.getRawX() >= (editTextSearch.getRight() - drawableEnd.getBounds().width())) {
+                            // Ejecuta la acción que desees
+                            mostrarFiltros();
+                            Toast.makeText(getApplicationContext(), "DrawableEnd presionado", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
 
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -237,20 +260,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
 
 
-    private void aplicarFiltros(String query) {
-        List<Filtro> filtrosSeleccionados = new ArrayList<>();
 
-        // Si el texto ingresado no está vacío, creamos filtros para cada campo que se quiera buscar
-        if (!query.isEmpty()) {
-            // Asumiendo que quieres buscar por todos los campos: nombre, apellido y correo
-            filtrosSeleccionados.add(new Filtro("nombre", query));
-            filtrosSeleccionados.add(new Filtro("apellido", query));
-            filtrosSeleccionados.add(new Filtro("correo", query));
-        }
-
-        // Aplicar los filtros en el adaptador
-        adapterEmpleados.filtrado(filtrosSeleccionados);
-    }
     private void aplicarFiltrado() {
         //String textoBuscar = searchView.getQuery().toString();
         String textoBuscar = editTextSearch.getText().toString();
@@ -270,6 +280,69 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
 
     }
+    public void mostrarFiltros() {
+        // Lista de filtros disponibles
+        final String[] filtros = {"Nombre", "Apellido", "Correo", "Filtro 4"};
+        // Array booleano para almacenar la selección de filtros
+        final boolean[] filtrosSeleccionados = new boolean[filtros.length];
+        // Lista para almacenar los filtros seleccionados
+        final List<String> filtrosAplicados = new ArrayList<>();
+
+        // Crear el AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Selecciona los filtros");
+
+        // Configurar la selección múltiple de checkboxes
+        builder.setMultiChoiceItems(filtros, filtrosSeleccionados, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // Agregar o quitar el filtro de la lista según la selección
+                if (isChecked) {
+                    filtrosAplicados.add(filtros[which]);
+                } else {
+                    filtrosAplicados.remove(filtros[which]);
+                }
+            }
+        });
+
+        // Botón "Aceptar" para procesar los filtros seleccionados
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Llamar al método que aplica los filtros seleccionados
+                aplicarFiltros(filtrosAplicados);
+            }
+        });
+
+        // Botón "Cancelar" para cerrar el diálogo sin aplicar cambios
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Cerrar el diálogo
+                dialog.dismiss();
+            }
+        });
+
+        // Mostrar el diálogo
+        builder.create().show();
+    }
+
+    // Método para aplicar los filtros seleccionados
+    private void aplicarFiltros(List<String> filtrosSeleccionados) {
+        // Aquí puedes procesar los filtros aplicados
+        if (!filtrosSeleccionados.isEmpty()) {
+            for (String filtro : filtrosSeleccionados) {
+                // Procesa cada filtro seleccionado, por ejemplo:
+                Toast.makeText(this, "Filtro aplicado: " + filtro, Toast.LENGTH_SHORT).show();
+                //aca agrego los filtros al buscardor
+            }
+        } else {
+            Toast.makeText(this, "No se seleccionó ningún filtro", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
 
 
 }

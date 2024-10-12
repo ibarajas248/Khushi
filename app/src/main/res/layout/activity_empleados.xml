@@ -23,11 +23,11 @@
             android:background="@drawable/input_casilla_1"
             android:ems="10"
             android:padding="8dp"
+            android:drawableEnd="@drawable/filtrarajustado"
             android:textSize="16sp"
             android:hint="hola"
             android:inputType="text"
             android:text=""
-
             />
 
 
@@ -37,7 +37,7 @@
             android:orientation="horizontal"
             android:layout_gravity="end|bottom"
             android:gravity="end"
-            android:paddingRight="8dp"
+            android:paddingRight="50dp"
 
 
             >
@@ -51,7 +51,36 @@
                 android:gravity="end"
                 android:paddingRight="8dp"
                 android:text="nombre"
-                android:textSize="11sp" />
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textSize="11sp"
+                />
+            <TextView
+                android:id="@+id/Apellidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/esquinas_curvas_amarillo_ocre"
+                android:gravity="end"
+                android:paddingRight="8dp"
+                android:text="Apellidos"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textSize="11sp"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/Correo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/esquinas_curvas_amarillo_ocre"
+                android:gravity="end"
+                android:paddingRight="8dp"
+                android:text="Correo"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textSize="11sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
