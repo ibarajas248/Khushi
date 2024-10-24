@@ -54,7 +54,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
     EditText editTextSearch;
 
     List<String> criterios; //array que contiene los filtros
-    TextView filtros;
+    TextView filtros, filtrosApellidos, filtrosCorreo;
 
 
 
@@ -76,6 +76,8 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
         seleccionados = new ArrayList<>();
         criterios = new ArrayList<>();//inicializo el array de
         filtros= findViewById(R.id.tvfiltros);
+        filtrosApellidos= findViewById(R.id.Apellidos);
+        filtrosCorreo= findViewById(R.id.Correo);
 
 
         // Define las opciones del Spinner
@@ -298,9 +300,16 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 // Agregar o quitar el filtro de la lista según la selección
                 if (isChecked) {
-                    filtrosAplicados.add(filtros[which]);
+                    //filtrosAplicados.add(filtros[which]);
+                    criterios.add(filtros[which]);
+
+
+
+
+
                 } else {
-                    filtrosAplicados.remove(filtros[which]);
+                    //filtrosAplicados.remove(filtros[which]);
+                    criterios.remove(filtros[which]);
                 }
             }
         });
@@ -310,7 +319,8 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Llamar al método que aplica los filtros seleccionados
-                aplicarFiltros(filtrosAplicados);
+                //aplicarFiltros(filtrosAplicados);
+                aplicarFiltros(criterios);
             }
         });
 
@@ -335,6 +345,27 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
                 // Procesa cada filtro seleccionado, por ejemplo:
                 Toast.makeText(this, "Filtro aplicado: " + filtro, Toast.LENGTH_SHORT).show();
                 //aca agrego los filtros al buscardor
+                if (filtro.equalsIgnoreCase("Nombre")) {
+                    // Acción cuando se encuentra "nombre"
+
+                    filtros.setVisibility(View.VISIBLE);
+
+
+                }
+                if (filtro.equalsIgnoreCase("Apellido")) {
+                    // Acción cuando se encuentra "nombre"
+
+                    filtrosApellidos.setVisibility(View.VISIBLE);
+
+                }
+                if (filtro.equalsIgnoreCase("Correo")) {
+                    // Acción cuando se encuentra "nombre"
+
+                    filtrosCorreo.setVisibility(View.VISIBLE);
+
+                }
+
+
             }
         } else {
             Toast.makeText(this, "No se seleccionó ningún filtro", Toast.LENGTH_SHORT).show();
