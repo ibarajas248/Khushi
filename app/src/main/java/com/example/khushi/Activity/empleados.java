@@ -120,7 +120,7 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
                         if (event.getRawX() >= (editTextSearch.getRight() - drawableEnd.getBounds().width())) {
                             // Ejecuta la acción que desees
                             mostrarFiltros();
-                            Toast.makeText(getApplicationContext(), "DrawableEnd presionado", Toast.LENGTH_SHORT).show();
+
                             return true;
                         }
                     }
@@ -140,6 +140,13 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
                 // Aquí puedes implementar tu lógica de filtrado en tiempo real
                 //aplicarFiltrado(s.toString());
                 aplicarFiltrado();
+
+
+                //adapterEmpleados.filtrado(s.toString());
+
+
+
+
             }
 
             @Override
@@ -251,9 +258,8 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        //adapterEmpleados.filtrado(newText);
-        //aplicarFiltros(newText);
-        aplicarFiltrado();
+        adapterEmpleados.filtrado(newText);
+        //aplicarFiltrado();
         return false;
 
     }
@@ -278,15 +284,32 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
 
             //criterios.add("Correo");
 
-        adapterEmpleados.filtrado234(textoBuscar,criterios);
+        //adapterEmpleados.filtrado234(textoBuscar,criterios);
+
+
+
+        if (criterios.isEmpty()) {
+            // Aquí puedes manejar la lógica cuando la lista está vacía
+            // Por ejemplo, filtrar o realizar una búsqueda con el texto ingresado
+            adapterEmpleados.filtrado(editTextSearch.getText().toString());
+        } else {
+            // Aquí puedes manejar la lógica cuando la lista NO está vacía
+            // Por ejemplo, aplicar un filtro diferente
+            adapterEmpleados.filtrado234(textoBuscar,criterios);
+        }
 
 
     }
     public void mostrarFiltros() {
         // Lista de filtros disponibles
-        final String[] filtros = {"Nombre", "Apellido", "Correo", "Filtro 4"};
+        final String[] filtros = {"Nombre", "Apellido", "Correo"};
         // Array booleano para almacenar la selección de filtros
         final boolean[] filtrosSeleccionados = new boolean[filtros.length];
+
+        // Actualizar el array de selección basado en los filtros seleccionados previamente
+        for (int i = 0; i < filtros.length; i++) {
+            filtrosSeleccionados[i] = criterios.contains(filtros[i]);
+        }
         // Lista para almacenar los filtros seleccionados
         final List<String> filtrosAplicados = new ArrayList<>();
 
@@ -301,7 +324,11 @@ public class empleados extends AppCompatActivity implements SearchView.OnQueryTe
                 // Agregar o quitar el filtro de la lista según la selección
                 if (isChecked) {
                     //filtrosAplicados.add(filtros[which]);
-                    criterios.add(filtros[which]);
+                    //criterios.add(filtros[which]);
+                    // Añadir el filtro seleccionado si no está ya en la lista
+                    if (!criterios.contains(filtros[which])) {
+                        criterios.add(filtros[which]);
+                    }
 
 
 

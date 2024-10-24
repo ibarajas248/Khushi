@@ -73,6 +73,8 @@ public class Adapter_empleados extends RecyclerView.Adapter<Adapter_empleados.Vi
         }
     }
 
+    //filtrado general
+
     public void filtrado(String txtBuscar) {
         int longitud = txtBuscar.length();
         if (longitud == 0) {
@@ -80,7 +82,11 @@ public class Adapter_empleados extends RecyclerView.Adapter<Adapter_empleados.Vi
             listaEmpleados.addAll( listaEmpleadosFiltrado);
         } else {
             List<Empleado_clase> coleccion = listaEmpleados.stream().filter
-                    (i ->i.getApellidos().toLowerCase().contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+                    (i ->
+                    i.getApellidos().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                    i.getNombre().toLowerCase().contains(txtBuscar.toLowerCase()) ||
+                    i.getCorreoElectronico().toLowerCase().contains(txtBuscar.toLowerCase())
+                    ).collect(Collectors.toList());
 
             listaEmpleados.clear();
             listaEmpleados.addAll(coleccion);
